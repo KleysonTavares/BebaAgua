@@ -1,0 +1,563 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 77;
+	objects = {
+
+/* Begin PBXContainerItemProxy section */
+		DF74CD792D99DCAA001CABD2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DF74CD602D99DCA8001CABD2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DF74CD672D99DCA8001CABD2;
+			remoteInfo = BebaAgua;
+		};
+		DF74CD832D99DCAA001CABD2 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DF74CD602D99DCA8001CABD2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DF74CD672D99DCA8001CABD2;
+			remoteInfo = BebaAgua;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		DF74CD682D99DCA8001CABD2 /* BebaAgua.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BebaAgua.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF74CD782D99DCAA001CABD2 /* BebaAguaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BebaAguaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DF74CD822D99DCAA001CABD2 /* BebaAguaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BebaAguaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		DF74CD6A2D99DCA8001CABD2 /* BebaAgua */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = BebaAgua;
+			sourceTree = "<group>";
+		};
+		DF74CD7B2D99DCAA001CABD2 /* BebaAguaTests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = BebaAguaTests;
+			sourceTree = "<group>";
+		};
+		DF74CD852D99DCAA001CABD2 /* BebaAguaUITests */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			path = BebaAguaUITests;
+			sourceTree = "<group>";
+		};
+/* End PBXFileSystemSynchronizedRootGroup section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		DF74CD652D99DCA8001CABD2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF74CD752D99DCAA001CABD2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF74CD7F2D99DCAA001CABD2 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		DF74CD5F2D99DCA8001CABD2 = {
+			isa = PBXGroup;
+			children = (
+				DF74CD6A2D99DCA8001CABD2 /* BebaAgua */,
+				DF74CD7B2D99DCAA001CABD2 /* BebaAguaTests */,
+				DF74CD852D99DCAA001CABD2 /* BebaAguaUITests */,
+				DF74CD692D99DCA8001CABD2 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		DF74CD692D99DCA8001CABD2 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				DF74CD682D99DCA8001CABD2 /* BebaAgua.app */,
+				DF74CD782D99DCAA001CABD2 /* BebaAguaTests.xctest */,
+				DF74CD822D99DCAA001CABD2 /* BebaAguaUITests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		DF74CD672D99DCA8001CABD2 /* BebaAgua */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DF74CD8C2D99DCAA001CABD2 /* Build configuration list for PBXNativeTarget "BebaAgua" */;
+			buildPhases = (
+				DF74CD642D99DCA8001CABD2 /* Sources */,
+				DF74CD652D99DCA8001CABD2 /* Frameworks */,
+				DF74CD662D99DCA8001CABD2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				DF74CD6A2D99DCA8001CABD2 /* BebaAgua */,
+			);
+			name = BebaAgua;
+			packageProductDependencies = (
+			);
+			productName = BebaAgua;
+			productReference = DF74CD682D99DCA8001CABD2 /* BebaAgua.app */;
+			productType = "com.apple.product-type.application";
+		};
+		DF74CD772D99DCAA001CABD2 /* BebaAguaTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DF74CD8F2D99DCAA001CABD2 /* Build configuration list for PBXNativeTarget "BebaAguaTests" */;
+			buildPhases = (
+				DF74CD742D99DCAA001CABD2 /* Sources */,
+				DF74CD752D99DCAA001CABD2 /* Frameworks */,
+				DF74CD762D99DCAA001CABD2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DF74CD7A2D99DCAA001CABD2 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				DF74CD7B2D99DCAA001CABD2 /* BebaAguaTests */,
+			);
+			name = BebaAguaTests;
+			packageProductDependencies = (
+			);
+			productName = BebaAguaTests;
+			productReference = DF74CD782D99DCAA001CABD2 /* BebaAguaTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		DF74CD812D99DCAA001CABD2 /* BebaAguaUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DF74CD922D99DCAA001CABD2 /* Build configuration list for PBXNativeTarget "BebaAguaUITests" */;
+			buildPhases = (
+				DF74CD7E2D99DCAA001CABD2 /* Sources */,
+				DF74CD7F2D99DCAA001CABD2 /* Frameworks */,
+				DF74CD802D99DCAA001CABD2 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				DF74CD842D99DCAA001CABD2 /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				DF74CD852D99DCAA001CABD2 /* BebaAguaUITests */,
+			);
+			name = BebaAguaUITests;
+			packageProductDependencies = (
+			);
+			productName = BebaAguaUITests;
+			productReference = DF74CD822D99DCAA001CABD2 /* BebaAguaUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		DF74CD602D99DCA8001CABD2 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				BuildIndependentTargetsInParallel = 1;
+				LastSwiftUpdateCheck = 1620;
+				LastUpgradeCheck = 1620;
+				TargetAttributes = {
+					DF74CD672D99DCA8001CABD2 = {
+						CreatedOnToolsVersion = 16.2;
+					};
+					DF74CD772D99DCAA001CABD2 = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = DF74CD672D99DCA8001CABD2;
+					};
+					DF74CD812D99DCAA001CABD2 = {
+						CreatedOnToolsVersion = 16.2;
+						TestTargetID = DF74CD672D99DCA8001CABD2;
+					};
+				};
+			};
+			buildConfigurationList = DF74CD632D99DCA8001CABD2 /* Build configuration list for PBXProject "BebaAgua" */;
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = DF74CD5F2D99DCA8001CABD2;
+			minimizedProjectReferenceProxies = 1;
+			preferredProjectObjectVersion = 77;
+			productRefGroup = DF74CD692D99DCA8001CABD2 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				DF74CD672D99DCA8001CABD2 /* BebaAgua */,
+				DF74CD772D99DCAA001CABD2 /* BebaAguaTests */,
+				DF74CD812D99DCAA001CABD2 /* BebaAguaUITests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		DF74CD662D99DCA8001CABD2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF74CD762D99DCAA001CABD2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF74CD802D99DCAA001CABD2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		DF74CD642D99DCA8001CABD2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF74CD742D99DCAA001CABD2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DF74CD7E2D99DCAA001CABD2 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		DF74CD7A2D99DCAA001CABD2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DF74CD672D99DCA8001CABD2 /* BebaAgua */;
+			targetProxy = DF74CD792D99DCAA001CABD2 /* PBXContainerItemProxy */;
+		};
+		DF74CD842D99DCAA001CABD2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DF74CD672D99DCA8001CABD2 /* BebaAgua */;
+			targetProxy = DF74CD832D99DCAA001CABD2 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin XCBuildConfiguration section */
+		DF74CD8A2D99DCAA001CABD2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		DF74CD8B2D99DCAA001CABD2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		DF74CD8D2D99DCAA001CABD2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"BebaAgua/Preview Content\"";
+				DEVELOPMENT_TEAM = 48VXLBS5Z4;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = DosSantos.BebaAgua;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DF74CD8E2D99DCAA001CABD2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_ASSET_PATHS = "\"BebaAgua/Preview Content\"";
+				DEVELOPMENT_TEAM = 48VXLBS5Z4;
+				ENABLE_PREVIEWS = YES;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
+				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
+				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = DosSantos.BebaAgua;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		DF74CD902D99DCAA001CABD2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 48VXLBS5Z4;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = DosSantos.BebaAguaTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BebaAgua.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/BebaAgua";
+			};
+			name = Debug;
+		};
+		DF74CD912D99DCAA001CABD2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 48VXLBS5Z4;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 18.2;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = DosSantos.BebaAguaTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BebaAgua.app/$(BUNDLE_EXECUTABLE_FOLDER_PATH)/BebaAgua";
+			};
+			name = Release;
+		};
+		DF74CD932D99DCAA001CABD2 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 48VXLBS5Z4;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = DosSantos.BebaAguaUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = BebaAgua;
+			};
+			name = Debug;
+		};
+		DF74CD942D99DCAA001CABD2 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 48VXLBS5Z4;
+				GENERATE_INFOPLIST_FILE = YES;
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = DosSantos.BebaAguaUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = BebaAgua;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		DF74CD632D99DCA8001CABD2 /* Build configuration list for PBXProject "BebaAgua" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DF74CD8A2D99DCAA001CABD2 /* Debug */,
+				DF74CD8B2D99DCAA001CABD2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DF74CD8C2D99DCAA001CABD2 /* Build configuration list for PBXNativeTarget "BebaAgua" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DF74CD8D2D99DCAA001CABD2 /* Debug */,
+				DF74CD8E2D99DCAA001CABD2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DF74CD8F2D99DCAA001CABD2 /* Build configuration list for PBXNativeTarget "BebaAguaTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DF74CD902D99DCAA001CABD2 /* Debug */,
+				DF74CD912D99DCAA001CABD2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DF74CD922D99DCAA001CABD2 /* Build configuration list for PBXNativeTarget "BebaAguaUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DF74CD932D99DCAA001CABD2 /* Debug */,
+				DF74CD942D99DCAA001CABD2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = DF74CD602D99DCA8001CABD2 /* Project object */;
+}
