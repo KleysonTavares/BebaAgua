@@ -8,10 +8,14 @@
 import SwiftUI
 
 @main
-struct BebaAguaApp: App {
+struct WaterTrackerApp: App {
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            if UserDefaults.standard.string(forKey: "gender") == nil {
+                OnboardingView()
+            } else {
+                ContentView()
+            }
         }
     }
 }

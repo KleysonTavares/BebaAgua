@@ -8,10 +8,81 @@
 import SwiftUI
 import UserNotifications
 
+struct OnboardingView: View {
+    @State private var selectedGender = "Masculino"
+    @State private var birthYear = 2000
+    @State private var weight = 70.0
+    @State private var dailyGoal = 2000.0
+    @State private var reminderInterval = 60.0
+    @State private var isOnboardingComplete = false
+    
+    var body: some View {
+        NavigationView {
+            Form {
+                Section(header: Text("Sexo")) {
+                    Picker("Sexo", selection: $selectedGender) {
+                        Text("Masculino").tag("Masculino")
+                        Text("Feminino").tag("Feminino")
+                    }
+                    .pickerStyle(SegmentedPickerStyle())
+                }
+                 
+                Section(header: Text("Ano de nascimento")) {
+                    HStack {
+                        Picker("Ano de Nascimento", selection: $birthYear) {
+                            ForEach(1900...2025, id: \ .self) { year in
+                                Text("\(year)").tag(year)
+                            }
+                        }
+                        .pickerStyle(WheelPickerStyle())
+                        .frame(height: 100)
+                    }
+                }
+                    
+                Section(header: Text("Peso")) {
+                    HStack {
+                        Picker("Peso", selection: $weight) {
+                            ForEach(1...200, id: \ .self) { value in
+                                Text("\(Int(value))").tag(Double(value))
+                            }
+                        }
+                        .pickerStyle(WheelPickerStyle())
+                        .frame(height: 100)
+                        Text("kg")
+                    }
+                }
+                
+                Section(header: Text("Meta diária")) {
+                    Slider(value: $dailyGoal, in: 500...5000, step: 100)
+                    Text("\(Int(dailyGoal)) ml")
+                }
+                
+                Section(header: Text("Intervalo das notificações")) {
+                    Slider(value: $reminderInterval, in: 15...180, step: 15)
+                    Text("\(Int(reminderInterval)) min")
+                }
+                
+                Button("Salvar e Continuar") {
+                    isOnboardingComplete = true
+                    UserDefaults.standard.set(selectedGender, forKey: "gender")
+                    UserDefaults.standard.set(birthYear, forKey: "birthYear")
+                    UserDefaults.standard.set(weight, forKey: "weight")
+                    UserDefaults.standard.set(dailyGoal, forKey: "dailyGoal")
+                    UserDefaults.standard.set(reminderInterval, forKey: "reminderInterval")
+                }
+            }
+            .navigationTitle("Configuração Inicial")
+            .fullScreenCover(isPresented: $isOnboardingComplete) {
+                ContentView()
+            }
+        }
+    }
+}
+
 struct ContentView: View {
     @State private var waterIntake: Double = 0.0
-    @State private var dailyGoal: Double = 2000 // Meta diária em ml
-    @State private var reminderInterval: Double = 60 // Intervalo em minutos
+    @State private var dailyGoal = UserDefaults.standard.double(forKey: "dailyGoal")
+    @State private var reminderInterval = UserDefaults.standard.double(forKey: "reminderInterval")
     
     var body: some View {
         NavigationView {
@@ -43,7 +114,7 @@ struct ContentView: View {
                         .padding(.horizontal)
                 }
                 
-                NavigationLink(destination: SettingsView(dailyGoal: $dailyGoal, reminderInterval: $reminderInterval)) {
+                NavigationLink(destination: SettingsView()) {
                     Text("Configurações")
                         .font(.title3)
                         .padding()
@@ -99,8 +170,8 @@ struct ContentView: View {
 }
 
 struct SettingsView: View {
-    @Binding var dailyGoal: Double
-    @Binding var reminderInterval: Double
+    @State private var dailyGoal = UserDefaults.standard.double(forKey: "dailyGoal")
+    @State private var reminderInterval = UserDefaults.standard.double(forKey: "reminderInterval")
     
     var body: some View {
         Form {
