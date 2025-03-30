@@ -49,7 +49,7 @@ struct OnboardingView: View {
                     HStack {
                         Picker("Peso", selection: $weight) {
                             ForEach(1...200, id: \ .self) { value in
-                                Text("\(Int(value)) kg").tag(Double(value))
+                                Text("\(Int(value))").tag(Double(value))
                             }
                         }
                         .pickerStyle(WheelPickerStyle())
