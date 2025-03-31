@@ -57,6 +57,7 @@ struct OnboardingView: View {
                                         }
                                         .pickerStyle(WheelPickerStyle())
                                         .frame(width: 120, height: 120)
+                                        .onChange(of: age) { _ in updateDailyGoal() } // Atualiza a meta diária
                                     }
                                     
                                     VStack {
@@ -72,6 +73,7 @@ struct OnboardingView: View {
                                         }
                                         .pickerStyle(WheelPickerStyle())
                                         .frame(width: 120, height: 120)
+                                        .onChange(of: weight) { _ in updateDailyGoal() } // Atualiza a meta diária
                                     }
                                 }
                                 Divider().colorInvert()
@@ -115,6 +117,26 @@ struct OnboardingView: View {
                     ContentView()
                 }
             }
+            .onAppear {
+                updateDailyGoal() // Atualiza a meta ao abrir a tela
+            }
+        }
+    /// Atualiza a meta diária de água com base na idade e no peso
+        private func updateDailyGoal() {
+            let mlPerKg: Double
+
+            switch age {
+            case 1...17:
+                mlPerKg = 40.0
+            case 18...55:
+                mlPerKg = 35.0
+            case 56...65:
+                mlPerKg = 30.0
+            default:
+                mlPerKg = 25.0
+            }
+
+            dailyGoal = weight * mlPerKg
         }
     }
 
