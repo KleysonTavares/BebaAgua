@@ -25,14 +25,11 @@ struct OnboardingView: View {
     var body: some View {
             NavigationView {
                 ZStack {
-                    Image("background")
-                        .resizable()
-                        .ignoresSafeArea()
                     VStack {
                         ScrollView {
-                            Text("Perfil").font(.title2).foregroundColor(.white)
+                            Text("Perfil").font(.title2)
                             VStack(spacing: 20) {
-                                Section(header: Text("Sexo").font(.headline).foregroundColor(.white)) {
+                                Section(header: Text("Sexo").font(.headline)) {
                                     Picker("Sexo", selection: $selectedGender) {
                                         Text("Masculino").tag("Masculino")
                                         Text("Feminino").tag("Feminino")
@@ -47,13 +44,11 @@ struct OnboardingView: View {
                                     VStack {
                                         Text("Idade")
                                             .font(.headline)
-                                            .foregroundColor(.white)
                                         
                                         Picker("Idade", selection: $age) {
                                             ForEach(1...100, id: \.self) { year in
                                                 Text("\(numberFormatter.string(from: NSNumber(value: year)) ?? "\(year)")").tag(year)
                                             }
-                                            .foregroundColor(.white)
                                         }
                                         .pickerStyle(WheelPickerStyle())
                                         .frame(width: 120, height: 120)
@@ -63,13 +58,11 @@ struct OnboardingView: View {
                                     VStack {
                                         Text("Peso (kg)")
                                             .font(.headline)
-                                            .foregroundColor(.white)
                                         
                                         Picker("Peso", selection: $weight) {
                                             ForEach(1...200, id: \.self) { value in
                                                 Text("\(Int(value))").tag(Double(value))
                                             }
-                                            .foregroundColor(.white)
                                         }
                                         .pickerStyle(WheelPickerStyle())
                                         .frame(width: 120, height: 120)
@@ -78,17 +71,16 @@ struct OnboardingView: View {
                                 }
                                 Divider().colorInvert()
                                 
-                                Section(header: Text("Meta diária").font(.headline).foregroundColor(.white)) {
+                                Section(header: Text("Meta diária").font(.headline)) {
                                     Slider(value: $dailyGoal, in: 500...5000, step: 100)
-                                    Text("\(Int(dailyGoal)) ml").foregroundColor(.white)
+                                    Text("\(Int(dailyGoal)) ml")
                                 }
                                 Divider().colorInvert()
                                 
-                                Section(header: Text("Intervalo das notificações").font(.headline).foregroundColor(.white)) {
+                                Section(header: Text("Intervalo das notificações").font(.headline)) {
                                     Slider(value: $reminderInterval, in: 15...180, step: 15)
-                                    Text("\(Int(reminderInterval)) min").foregroundColor(.white)
+                                    Text("\(Int(reminderInterval)) min")
                                 }
-                                Divider().colorInvert()
                             }
                             .padding()
                         }
@@ -107,7 +99,7 @@ struct OnboardingView: View {
                         .frame(maxWidth: .infinity)
                         .background(Color.blue)
                         .cornerRadius(20)
-                        .foregroundColor(.white)
+                        .foregroundColor(.white).bold()
                         .padding(.horizontal, 20)
                         .padding(.bottom, 20)
                     }
