@@ -12,7 +12,7 @@ struct WaterTrackerApp: App {
     var body: some Scene {
         WindowGroup {
             if UserDefaults.standard.string(forKey: "gender") == nil {
-                OnboardingView()
+                WelcomeView()
             } else {
                 ContentView()
             }
