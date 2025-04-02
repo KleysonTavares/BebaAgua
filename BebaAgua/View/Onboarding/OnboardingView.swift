@@ -112,6 +112,7 @@ struct OnboardingView: View {
             .onAppear {
                 updateDailyGoal() // Atualiza a meta ao abrir a tela
             }
+            .customBackButton()
         }
     /// Atualiza a meta diária de água com base na idade e no peso
         private func updateDailyGoal() {
