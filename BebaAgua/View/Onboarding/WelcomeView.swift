@@ -12,13 +12,13 @@ struct WelcomeView: View {
         NavigationView {
             VStack {
                 Spacer()
-                
+                    .background(Color.white)
                 VStack(alignment: .leading, spacing: 20) {
                     Text("Oi")
                         .font(.largeTitle)
                         .fontWeight(.bold)
                     
-                    Text("Para fornecer conselhos de hidratação personalizados, preciso obter algumas informações básicas.")
+                    Text("Para fornecer conselhos de hidratação personalizados, preciso de algumas informações básicas.")
                         .font(.title2)
                         .fontWeight(.bold)
                 }
@@ -28,13 +28,7 @@ struct WelcomeView: View {
                 
                 NavigationLink(destination: OnboardingView()) {
                     Text("Vamos começar")
-                        .fontWeight(.bold)
-                        .frame(maxWidth: .infinity)
-                        .padding()
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(20)
-                        .padding(.horizontal, 24)
+                        .customButton()
                 }
                 .padding(.bottom, 40)
             }
