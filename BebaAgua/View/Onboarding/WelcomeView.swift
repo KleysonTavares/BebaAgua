@@ -26,7 +26,7 @@ struct WelcomeView: View {
                 
                 Spacer()
                 
-                NavigationLink(destination: OnboardingView()) {
+                NavigationLink(destination: GenderSelectionView()) {
                     Text("Vamos começar")
                         .customButton()
                 }
