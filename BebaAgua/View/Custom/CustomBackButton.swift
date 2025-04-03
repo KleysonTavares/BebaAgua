@@ -12,15 +12,15 @@ struct CustomBackButton: ViewModifier {
 
     func body(content: Content) -> some View {
         content
-            .navigationBarBackButtonHidden(true)
-            .navigationBarItems(leading: Button(action: {
-                presentationMode.wrappedValue.dismiss()
-            }) {
-                HStack {
-                    Image(systemName: "chevron.left")
-                    Text("Voltar")
-                }
-            })
+            .padding()
+            .frame(width: 100)
+            .background(Color.blue.opacity(0.8))
+            .foregroundColor(.white)
+            .fontWeight(.bold)
+            .clipShape(RoundedRectangle(cornerRadius: 20))
+            .onTapGesture {
+                            presentationMode.wrappedValue.dismiss()
+                        }
     }
 }
 
