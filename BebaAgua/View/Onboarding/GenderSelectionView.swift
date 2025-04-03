@@ -8,7 +8,8 @@
 import SwiftUI
 
 struct GenderSelectionView: View {
-    @State private var selectedGender: Gender = .male // Masculino pré-selecionado
+    @State private var selectedGender: Gender = .male
+    @State private var navigateToNext = false
 
     enum Gender: String {
         case male = "Masculino"
@@ -16,11 +17,10 @@ struct GenderSelectionView: View {
     }
     
     var body: some View {
-        NavigationView {
             VStack {
                 // Barra de progresso (simulada)
                 HStack {
-                    genderStepView(icon: "person.2.fill", text: "Gênero", isSelected: true)
+                    genderStepView(icon: "person.2.fill", text: selectedGender.rawValue, isSelected: true)
                     genderStepView(icon: "scalemass", text: "Peso", isSelected: false)
                     genderStepView(icon: "alarm", text: "--", isSelected: false)
                     genderStepView(icon: "moon.zzz.fill", text: "--", isSelected: false)
@@ -30,31 +30,45 @@ struct GenderSelectionView: View {
                 Text("Seu Gênero")
                     .font(.title)
                     .fontWeight(.bold)
-                    .padding(.top, 40)
+                    .padding(.top, 60)
                 
                 HStack(spacing: 60) {
                     genderOption(imageName: "male", text: "Masculino", gender: .male)
                     genderOption(imageName: "female", text: "Feminino", gender: .female)
                 }
+                .padding(.top, 40)
+                
                 Spacer()
                     .padding(.top, 100)
                     .padding(.horizontal, 40)
                     .padding(.bottom, 20)
-
-                // Botão com navegação direta para OnboardingView
-                NavigationLink(destination: OnboardingView().onAppear(perform: saveGender)) {
-                    Text("Próximo")
-                        .customButton()
+                
+                Spacer()
+                
+                HStack {
+                    Text("Voltar")
+                        .customBackButton()
+                    
+                    Spacer()
+                    
+                    Button(action: saveGender) {
+                        Text("Próximo")
+                            .customNextButton()
+                    }
+                }
+                .padding(.horizontal, 40)
+                .padding(.bottom, 40)
+                
+                NavigationLink(destination: WeightSelectionView(), isActive: $navigateToNext) {
+                    EmptyView()
                 }
             }
-            .padding(.bottom, 40)
+            .navigationBarBackButtonHidden(true)
         }
-        .customBackButton()
-    }
     
-    // Função para salvar no UserDefaults e navegar
     func saveGender() {
         UserDefaults.standard.set(selectedGender.rawValue, forKey: "gender")
+        navigateToNext = true
     }
     
     // Componente para os passos do topo
