@@ -8,7 +8,7 @@
 import SwiftUI
 import UserNotifications
 
-struct ContentView: View {
+struct HomeView: View {
     @State private var waterIntake: Double = 0.0
     @State private var dailyGoal = UserDefaults.standard.double(forKey: "dailyGoal")
     @State private var reminderInterval = UserDefaults.standard.double(forKey: "reminderInterval")
@@ -100,6 +100,6 @@ struct ContentView: View {
 
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        ContentView()
+        HomeView()
     }
 }

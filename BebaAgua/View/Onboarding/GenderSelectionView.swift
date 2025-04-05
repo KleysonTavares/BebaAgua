@@ -20,10 +20,11 @@ struct GenderSelectionView: View {
             VStack {
                 // Barra de progresso (simulada)
                 HStack {
-                    genderStepView(icon: "person.2.fill", text: selectedGender.rawValue, isSelected: true)
-                    genderStepView(icon: "scalemass", text: "Peso", isSelected: false)
-                    genderStepView(icon: "alarm", text: "--", isSelected: false)
-                    genderStepView(icon: "moon.zzz.fill", text: "--", isSelected: false)
+                    progressStep(icon: "person.2.fill", text: selectedGender.rawValue, isSelected: true)
+                    progressStep(icon: "scalemass", text: "Peso", isSelected: false)
+                    progressStep(icon: "calendar.and.person", text: "idade", isSelected: false)
+                    progressStep(icon: "alarm", text: "--", isSelected: false)
+                    progressStep(icon: "moon.zzz.fill", text: "--", isSelected: false)
                 }
                 .padding(.top, 40)
                 
@@ -72,7 +73,7 @@ struct GenderSelectionView: View {
     }
     
     // Componente para os passos do topo
-    func genderStepView(icon: String, text: String, isSelected: Bool) -> some View {
+    func progressStep(icon: String, text: String, isSelected: Bool) -> some View {
         VStack {
             Image(systemName: icon)
                 .foregroundColor(isSelected ? .blue : .gray)
