@@ -7,41 +7,43 @@
 
 import SwiftUI
 
-struct WeightSelectionView: View {
-    @Environment(\.presentationMode) var presentationMode
+struct AgeSelectionView: View {
     @AppStorage("gender") var gender: String?
-    @State private var weight: Int = 70 // Peso inicial
+    @AppStorage("weight") var weight: Int?
+    @State private var age: Int = 18 // Idade inicial
     
     var body: some View {
         VStack {
             // Barra de progresso
             HStack {
                 progressStep(icon: "person.2.fill", text: gender ?? "Gênero", isSelected: true)
-                progressStep(icon: "scalemass", text: "\(weight) kg", isSelected: true)
+                progressStep(icon: "scalemass", text: "\(weight ?? 70) kg", isSelected: true)
+                progressStep(icon: "calendar", text: "\(age) anos", isSelected: true)
                 progressStep(icon: "alarm", text: "--", isSelected: false)
                 progressStep(icon: "moon.zzz.fill", text: "--", isSelected: false)
             }
             .padding(.top, 40)
             
-            Text("Seu Peso")
+            Text("Sua Idade")
                 .font(.title)
                 .fontWeight(.bold)
                 .padding(.top, 40)
             
             HStack(spacing: 30) {
-                Picker("Peso", selection: $weight) {
-                    ForEach(30...200, id: \ .self) { value in
+                Picker("Age", selection: $age) {
+                    ForEach(1...120, id: \ .self) { value in
                         Text("\(value)").tag(value)
                     }
                 }
                 .pickerStyle(WheelPickerStyle())
                 .frame(width: 200, height: 120)
                 
-                Text("KG")
+                Text("anos")
                     .font(.headline)
             }
             .padding(.top, 40)
-            
+            .padding(.trailing, -60)
+
             Spacer()
             
             HStack {
@@ -62,7 +64,7 @@ struct WeightSelectionView: View {
     }
     
     func saveAndContinue() {
-        UserDefaults.standard.set(weight, forKey: "weight")
+        UserDefaults.standard.set(age, forKey: "age")
     }
     
     func progressStep(icon: String, text: String, isSelected: Bool) -> some View {
@@ -80,9 +82,9 @@ struct WeightSelectionView: View {
     }
 }
 
-struct WeightSelectionView_Previews: PreviewProvider {
+struct AgeSelectionView_Previews: PreviewProvider {
     static var previews: some View {
-        WeightSelectionView()
+        AgeSelectionView()
     }
 }
 
