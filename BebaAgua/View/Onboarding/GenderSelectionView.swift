@@ -9,7 +9,7 @@ import SwiftUI
 
 struct GenderSelectionView: View {
     @State private var selectedGender: Gender = .male
-    @State private var navigateToNext = false
+    @Binding var path: NavigationPath
 
     enum Gender: String {
         case male = "Masculino"
@@ -47,12 +47,19 @@ struct GenderSelectionView: View {
                 Spacer()
                 
                 HStack {
-                    Text("Voltar")
-                        .customBackButton()
+                    Button(action: {
+                        path.removeLast()
+                    }) {
+                        Text("Voltar")
+                            .customBackButton()
+                    }
                     
                     Spacer()
                     
-                    Button(action: saveGender) {
+                    Button(action: {
+                        saveGender()
+                        path.append(RouteScreensEnum.weight)
+                    }) {
                         Text("Próximo")
                             .customNextButton()
                     }
@@ -60,8 +67,8 @@ struct GenderSelectionView: View {
                 .padding(.horizontal, 40)
                 .padding(.bottom, 40)
                 
-                NavigationLink(destination: WeightSelectionView(), isActive: $navigateToNext) {
-                    EmptyView()
+                .navigationDestination(for: RouteScreensEnum.self) { route in
+                    RouteScreen.destination(for: route, path: $path)
                 }
             }
             .navigationBarBackButtonHidden(true)
@@ -69,7 +76,6 @@ struct GenderSelectionView: View {
     
     func saveGender() {
         UserDefaults.standard.set(selectedGender.rawValue, forKey: "gender")
-        navigateToNext = true
     }
     
     // Componente para os passos do topo
@@ -109,6 +115,6 @@ struct GenderSelectionView: View {
 
 struct GenderSelectionView_Previews: PreviewProvider {
     static var previews: some View {
-        GenderSelectionView()
+        GenderSelectionView(path: .constant(NavigationPath()))
     }
 }

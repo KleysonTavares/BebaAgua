@@ -11,6 +11,7 @@ struct AgeSelectionView: View {
     @AppStorage("gender") var gender: String?
     @AppStorage("weight") var weight: Int?
     @State private var age: Int = 18 // Idade inicial
+    @Binding var path: NavigationPath
     
     var body: some View {
         VStack {
@@ -47,23 +48,34 @@ struct AgeSelectionView: View {
             Spacer()
             
             HStack {
+                Button(action: {
+                    path.removeLast()
+                }) {
                     Text("Voltar")
                         .customBackButton()
-
+                }
+                
                 Spacer()
                 
-                Button(action: saveAndContinue) {
+                Button(action: {
+                    saveAge()
+                    path.append(RouteScreensEnum.home)
+                }) {
                     Text("Próximo")
-                    .customNextButton()
+                        .customNextButton()
                 }
             }
             .padding(.horizontal, 40)
             .padding(.bottom, 40)
+            
+            .navigationDestination(for: RouteScreensEnum.self) { route in
+                RouteScreen.destination(for: route, path: $path)
+            }
         }
         .navigationBarBackButtonHidden(true)
     }
     
-    func saveAndContinue() {
+    func saveAge() {
         UserDefaults.standard.set(age, forKey: "age")
     }
     
@@ -84,7 +96,7 @@ struct AgeSelectionView: View {
 
 struct AgeSelectionView_Previews: PreviewProvider {
     static var previews: some View {
-        AgeSelectionView()
+        AgeSelectionView(path: .constant(NavigationPath()))
     }
 }
 

@@ -10,7 +10,7 @@ import SwiftUI
 struct WeightSelectionView: View {
     @AppStorage("gender") var gender: String?
     @State private var weight: Int = 70 // Peso inicial
-    @State private var navigateToNext = false
+    @Binding var path: NavigationPath
     
     var body: some View {
             VStack {
@@ -47,12 +47,19 @@ struct WeightSelectionView: View {
                 Spacer()
                 
                 HStack {
-                    Text("Voltar")
-                        .customBackButton()
+                    Button(action: {
+                        path.removeLast()
+                    }) {
+                        Text("Voltar")
+                            .customBackButton()
+                    }
                     
                     Spacer()
                     
-                    Button(action: saveWeight) {
+                    Button(action: {
+                        saveWeight()
+                        path.append(RouteScreensEnum.age)
+                    }) {
                         Text("Próximo")
                             .customNextButton()
                     }
@@ -60,8 +67,8 @@ struct WeightSelectionView: View {
                 .padding(.horizontal, 40)
                 .padding(.bottom, 40)
                 
-                NavigationLink(destination: AgeSelectionView(), isActive: $navigateToNext) {
-                    EmptyView()
+                .navigationDestination(for: RouteScreensEnum.self) { route in
+                    RouteScreen.destination(for: route, path: $path)
                 }
             }
             .navigationBarBackButtonHidden(true)
@@ -69,7 +76,6 @@ struct WeightSelectionView: View {
     
     func saveWeight() {
         UserDefaults.standard.set(weight, forKey: "weight")
-        navigateToNext = true
     }
     
     func progressStep(icon: String, text: String, isSelected: Bool) -> some View {
@@ -89,7 +95,7 @@ struct WeightSelectionView: View {
 
 struct WeightSelectionView_Previews: PreviewProvider {
     static var previews: some View {
-        WeightSelectionView()
+        WeightSelectionView(path: .constant(NavigationPath()))
     }
 }
 

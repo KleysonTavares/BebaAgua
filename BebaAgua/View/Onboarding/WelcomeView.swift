@@ -8,8 +8,10 @@
 import SwiftUI
 
 struct WelcomeView: View {
+    @State private var path = NavigationPath()
+
     var body: some View {
-        NavigationView {
+        NavigationStack(path: $path) {
             VStack {
                 Spacer()
                     .background(Color.white)
@@ -26,11 +28,15 @@ struct WelcomeView: View {
                 
                 Spacer()
                 
-                NavigationLink(destination: GenderSelectionView()) {
-                    Text("Vamos começar")
+                Button(action: { path.append(RouteScreensEnum.gender)}) {
+                    Text("Próximo")
                         .customButton()
                 }
                 .padding(.bottom, 40)
+
+                .navigationDestination(for: RouteScreensEnum.self) { route in
+                    RouteScreen.destination(for: route, path: $path)
+                }
             }
         }
     }
