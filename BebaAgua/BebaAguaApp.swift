@@ -14,7 +14,7 @@ struct WaterTrackerApp: App {
             if UserDefaults.standard.string(forKey: "dailyGoal") == nil {
                 WelcomeView()
             } else {
-                ContentView()
+                HomeView()
             }
         }
     }

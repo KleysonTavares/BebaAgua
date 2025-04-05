@@ -106,7 +106,7 @@ struct OnboardingView: View {
                     .ignoresSafeArea(.keyboard, edges: .bottom)
                 }
                 .fullScreenCover(isPresented: $isOnboardingComplete) {
-                    ContentView()
+                    HomeView()
                 }
             }
             .onAppear {
