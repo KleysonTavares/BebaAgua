@@ -5,4 +5,30 @@
 //  Created by Kleyson Tavares on 04/04/25.
 //
 
-import Foundation
+import SwiftUI
+
+enum RouteScreensEnum: Hashable {
+    case welcome
+    case gender
+    case weight
+    case age
+    case home
+}
+
+struct RouteScreen {
+    @ViewBuilder
+    static func destination(for route: RouteScreensEnum, path: Binding<NavigationPath>) -> some View {
+        switch route {
+        case .welcome:
+            WelcomeView()
+        case .gender:
+            GenderSelectionView(path: path)
+        case .weight:
+            WeightSelectionView(path: path)
+        case .age:
+            AgeSelectionView(path: path)
+        case .home:
+            HomeView()
+        }
+    }
+}
