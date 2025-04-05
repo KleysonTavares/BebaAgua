@@ -59,7 +59,7 @@ struct AgeSelectionView: View {
                 
                 Button(action: {
                     saveAge()
-                    path.append(RouteScreensEnum.home)
+                    path.append(RouteScreensEnum.wakeUp)
                 }) {
                     Text("Próximo")
                         .customNextButton()

@@ -27,7 +27,7 @@ struct WakeUpSelectionView: View {
             }
             .padding(.top, 40)
             
-            Text("Horario Acordar")
+            Text("Horário Acordar")
                 .font(.title)
                 .fontWeight(.bold)
                 .padding(.top, 40)
@@ -55,7 +55,7 @@ struct WakeUpSelectionView: View {
                 
                 Button(action: {
                     saveWakeUpTime()
-                    path.append(RouteScreensEnum.home)
+                    path.append(RouteScreensEnum.bedTime)
                 }) {
                     Text("Próximo")
                         .customNextButton()
