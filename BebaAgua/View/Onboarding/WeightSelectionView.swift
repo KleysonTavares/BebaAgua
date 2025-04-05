@@ -8,61 +8,68 @@
 import SwiftUI
 
 struct WeightSelectionView: View {
-    @Environment(\.presentationMode) var presentationMode
     @AppStorage("gender") var gender: String?
     @State private var weight: Int = 70 // Peso inicial
+    @State private var navigateToNext = false
     
     var body: some View {
-        VStack {
-            // Barra de progresso
-            HStack {
-                progressStep(icon: "person.2.fill", text: gender ?? "Gênero", isSelected: true)
-                progressStep(icon: "scalemass", text: "\(weight) kg", isSelected: true)
-                progressStep(icon: "alarm", text: "--", isSelected: false)
-                progressStep(icon: "moon.zzz.fill", text: "--", isSelected: false)
-            }
-            .padding(.top, 40)
-            
-            Text("Seu Peso")
-                .font(.title)
-                .fontWeight(.bold)
-                .padding(.top, 40)
-            
-            HStack(spacing: 30) {
-                Picker("Peso", selection: $weight) {
-                    ForEach(30...200, id: \ .self) { value in
-                        Text("\(value)").tag(value)
-                    }
+            VStack {
+                // Barra de progresso
+                HStack {
+                    progressStep(icon: "person.2.fill", text: gender ?? "Gênero", isSelected: true)
+                    progressStep(icon: "scalemass", text: "\(weight) kg", isSelected: true)
+                    progressStep(icon: "calendar.and.person", text: "idade", isSelected: false)
+                    progressStep(icon: "alarm", text: "--", isSelected: false)
+                    progressStep(icon: "moon.zzz.fill", text: "--", isSelected: false)
                 }
-                .pickerStyle(WheelPickerStyle())
-                .frame(width: 200, height: 120)
+                .padding(.top, 40)
                 
-                Text("KG")
-                    .font(.headline)
-            }
-            .padding(.top, 40)
-            
-            Spacer()
-            
-            HStack {
-                    Text("Voltar")
-                        .customBackButton()
-
+                Text("Seu Peso")
+                    .font(.title)
+                    .fontWeight(.bold)
+                    .padding(.top, 40)
+                
+                HStack(spacing: 30) {
+                    Picker("Peso", selection: $weight) {
+                        ForEach(30...200, id: \ .self) { value in
+                            Text("\(value)").tag(value)
+                        }
+                    }
+                    .pickerStyle(WheelPickerStyle())
+                    .frame(width: 200, height: 120)
+                    
+                    Text("kg")
+                        .font(.headline)
+                }
+                .padding(.top, 40)
+                .padding(.trailing, -60)
+                
                 Spacer()
                 
-                Button(action: saveAndContinue) {
-                    Text("Próximo")
-                    .customNextButton()
+                HStack {
+                    Text("Voltar")
+                        .customBackButton()
+                    
+                    Spacer()
+                    
+                    Button(action: saveWeight) {
+                        Text("Próximo")
+                            .customNextButton()
+                    }
+                }
+                .padding(.horizontal, 40)
+                .padding(.bottom, 40)
+                
+                NavigationLink(destination: AgeSelectionView(), isActive: $navigateToNext) {
+                    EmptyView()
                 }
             }
-            .padding(.horizontal, 40)
-            .padding(.bottom, 40)
+            .navigationBarBackButtonHidden(true)
         }
-        .navigationBarBackButtonHidden(true)
-    }
     
-    func saveAndContinue() {
+    func saveWeight() {
         UserDefaults.standard.set(weight, forKey: "weight")
+        navigateToNext = true
     }
     
     func progressStep(icon: String, text: String, isSelected: Bool) -> some View {
