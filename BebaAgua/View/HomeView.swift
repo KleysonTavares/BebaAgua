@@ -10,8 +10,8 @@ import UserNotifications
 
 struct HomeView: View {
     @State private var waterIntake: Double = 0.0
-    @State private var dailyGoal = UserDefaults.standard.double(forKey: "dailyGoal")
-    @State private var reminderInterval = UserDefaults.standard.double(forKey: "reminderInterval")
+    @State private var dailyGoal = max(UserDefaults.standard.double(forKey: "dailyGoal"), 2000)
+    @State private var reminderInterval = max(UserDefaults.standard.double(forKey: "reminderInterval"), 60)
     
     var body: some View {
         NavigationView {
@@ -82,15 +82,18 @@ struct HomeView: View {
     }
     
     func scheduleWaterReminder() {
+        let center = UNUserNotificationCenter.current()
+        center.removePendingNotificationRequests(withIdentifiers: ["waterReminder"])
+
         let content = UNMutableNotificationContent()
         content.title = "Hora de beber água!"
         content.body = "Lembre-se de se manter hidratado!"
         content.sound = .default
-        
+
         let trigger = UNTimeIntervalNotificationTrigger(timeInterval: reminderInterval * 60, repeats: true)
         let request = UNNotificationRequest(identifier: "waterReminder", content: content, trigger: trigger)
-        
-        UNUserNotificationCenter.current().add(request) { error in
+
+        center.add(request) { error in
             if let error = error {
                 print("Erro ao agendar notificação: \(error)")
             }
