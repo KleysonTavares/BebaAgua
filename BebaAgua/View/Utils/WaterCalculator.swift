@@ -9,20 +9,20 @@ import Foundation
 
 class WaterCalculator {
     /// Calcula a meta diária de ingestão de água com base na idade e no peso.
-    static func calculateDailyGoal(age: Int, weight: Double) -> Double {
-        let mlPerKg: Double
-        
+    static func calculateDailyGoal(age: Int, weight: Int) -> Double {
+        let mlPerKg: Int
+
         switch age {
         case 1...17:
-            mlPerKg = 40.0
+            mlPerKg = 40
         case 18...55:
-            mlPerKg = 35.0
+            mlPerKg = 35
         case 56...65:
-            mlPerKg = 30.0
+            mlPerKg = 30
         default:
-            mlPerKg = 25.0
+            mlPerKg = 25
         }
-        
-        return weight * mlPerKg
+
+        return Double(weight * mlPerKg)
     }
 }
