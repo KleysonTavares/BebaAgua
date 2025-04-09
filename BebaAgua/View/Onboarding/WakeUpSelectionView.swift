@@ -8,9 +8,9 @@
 import SwiftUI
 
 struct WakeUpSelectionView: View {
-    @AppStorage("gender") var gender: String?
-    @AppStorage("weight") var weight: Int?
-    @AppStorage("age") var age: Int?
+    @AppStorage("gender") var gender: Gender = .male
+    @AppStorage("weight") var weight: Int = 70
+    @AppStorage("age") var age: Int = 18
     @State private var wakeUpTime = Calendar.current.date(from: DateComponents(hour: 7, minute: 0)) ?? Date()
 
     @Binding var path: NavigationPath
@@ -19,9 +19,9 @@ struct WakeUpSelectionView: View {
         VStack {
             // Barra de progresso
             HStack {
-                progressStep(icon: "person.2.fill", text: gender ?? "Gênero", isSelected: true)
-                progressStep(icon: "scalemass", text: "\(weight ?? 70) kg", isSelected: true)
-                progressStep(icon: "calendar", text: "\(age ?? 18) anos", isSelected: true)
+                progressStep(icon: "person.2.fill", text: gender.rawValue, isSelected: true)
+                progressStep(icon: "scalemass", text: "\(weight) kg", isSelected: true)
+                progressStep(icon: "calendar", text: "\(age) anos", isSelected: true)
                 progressStep(icon: "alarm", text: "\(formattedTime)", isSelected: true)
                 progressStep(icon: "moon.zzz.fill", text: "--", isSelected: false)
             }

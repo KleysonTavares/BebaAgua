@@ -10,11 +10,6 @@ import SwiftUI
 struct GenderSelectionView: View {
     @State private var selectedGender: Gender = .male
     @Binding var path: NavigationPath
-
-    enum Gender: String {
-        case male = "Masculino"
-        case female = "Feminino"
-    }
     
     var body: some View {
             VStack {

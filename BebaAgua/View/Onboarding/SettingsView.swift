@@ -8,11 +8,14 @@
 import SwiftUI
 
 struct SettingsView: View {
-    @State private var gender = UserDefaults.standard.double(forKey: "gender")
-    @State private var age = UserDefaults.standard.integer(forKey: "age")
-    @State private var weight = UserDefaults.standard.double(forKey: "weight")
-    @State private var dailyGoal = UserDefaults.standard.double(forKey: "dailyGoal")
-    @State private var reminderInterval = UserDefaults.standard.double(forKey: "reminderInterval")
+    @AppStorage("gender") var gender: Gender = .male
+    @AppStorage("age") var age: Int = 18
+    @AppStorage("weight") var weight: Int = 70
+    @AppStorage("dailyGoal") var dailyGoal: Double = 2000
+    @AppStorage("reminderInterval") var reminderInterval: Double = 60
+    @AppStorage("wakeUpTime") var wakeUpTime: String = "07:00"
+    @AppStorage("bedTime") var bedTime: String = "22:00"
+    
     @State private var isOnboardingComplete = false
     
     let numberFormatter: NumberFormatter = {

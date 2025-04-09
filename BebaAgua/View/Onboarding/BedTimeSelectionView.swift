@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct BedTimeSelectionView: View {
-    @AppStorage("gender") var gender: String?
-    @AppStorage("weight") var weight: Int?
-    @AppStorage("age") var age: Int?
-    @AppStorage("wakeUpTime") var wakeUpTime: String?
+    @AppStorage("gender") var gender: Gender = .male
+    @AppStorage("weight") var weight: Int = 70
+    @AppStorage("age") var age: Int = 18
+    @AppStorage("wakeUpTime") var wakeUpTime: String = "07:00"
     @State private var bedTime = Calendar.current.date(from: DateComponents(hour: 22, minute: 0)) ?? Date()
 
     @Binding var path: NavigationPath
@@ -20,10 +20,10 @@ struct BedTimeSelectionView: View {
         VStack {
             // Barra de progresso
             HStack {
-                progressStep(icon: "person.2.fill", text: gender ?? "Gênero", isSelected: true)
-                progressStep(icon: "scalemass", text: "\(weight ?? 70) kg", isSelected: true)
-                progressStep(icon: "calendar", text: "\(age ?? 18) anos", isSelected: true)
-                progressStep(icon: "alarm", text: "\(wakeUpTime ?? "07:00")", isSelected: true)
+                progressStep(icon: "person.2.fill", text: gender.rawValue, isSelected: true)
+                progressStep(icon: "scalemass", text: "\(weight) kg", isSelected: true)
+                progressStep(icon: "calendar", text: "\(age) anos", isSelected: true)
+                progressStep(icon: "alarm", text: "\(wakeUpTime)", isSelected: true)
                 progressStep(icon: "moon.zzz.fill", text: formattedTime, isSelected: true)
             }
             .padding(.top, 40)
@@ -80,6 +80,9 @@ struct BedTimeSelectionView: View {
     
     func saveBedTime() {
         UserDefaults.standard.set(formattedTime, forKey: "bedTime")
+        UserDefaults.standard.set(WaterCalculator.calculateDailyGoal(age: age, weight: weight), forKey: "dailyGoal")
+        UserDefaults.standard.set(60, forKey: "reminderInterval")
+
     }
     
     func progressStep(icon: String, text: String, isSelected: Bool) -> some View {

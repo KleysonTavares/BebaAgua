@@ -8,17 +8,17 @@
 import SwiftUI
 
 struct AgeSelectionView: View {
-    @AppStorage("gender") var gender: String?
-    @AppStorage("weight") var weight: Int?
-    @State private var age: Int = 18 // Idade inicial
+    @AppStorage("gender") var gender: Gender = .male
+    @AppStorage("weight") var weight: Int = 70
+    @State private var age: Int = 18
     @Binding var path: NavigationPath
     
     var body: some View {
         VStack {
             // Barra de progresso
             HStack {
-                progressStep(icon: "person.2.fill", text: gender ?? "Gênero", isSelected: true)
-                progressStep(icon: "scalemass", text: "\(weight ?? 70) kg", isSelected: true)
+                progressStep(icon: "person.2.fill", text: gender.rawValue, isSelected: true)
+                progressStep(icon: "scalemass", text: "\(weight) kg", isSelected: true)
                 progressStep(icon: "calendar", text: "\(age) anos", isSelected: true)
                 progressStep(icon: "alarm", text: "--", isSelected: false)
                 progressStep(icon: "moon.zzz.fill", text: "--", isSelected: false)
