@@ -15,6 +15,7 @@ enum RouteScreensEnum: Hashable {
     case wakeUp
     case bedTime
     case home
+    case settings
 }
 
 struct RouteScreen {
@@ -35,6 +36,8 @@ struct RouteScreen {
             BedTimeSelectionView(path: path)
         case .home:
             HomeView()
+        case .settings:
+            SettingsView()
         }
     }
 }
