@@ -7,12 +7,12 @@
 
 import SwiftUI
 
-struct OnboardingView: View {
-    @State private var selectedGender = "Masculino"
-    @State private var age = 18
-    @State private var weight = 70.0
-    @State private var dailyGoal = 2000.0
-    @State private var reminderInterval = 60.0
+struct SettingsView: View {
+    @State private var gender = UserDefaults.standard.double(forKey: "gender")
+    @State private var age = UserDefaults.standard.integer(forKey: "age")
+    @State private var weight = UserDefaults.standard.double(forKey: "weight")
+    @State private var dailyGoal = UserDefaults.standard.double(forKey: "dailyGoal")
+    @State private var reminderInterval = UserDefaults.standard.double(forKey: "reminderInterval")
     @State private var isOnboardingComplete = false
     
     let numberFormatter: NumberFormatter = {
@@ -29,8 +29,8 @@ struct OnboardingView: View {
                         ScrollView {
                             Text("Perfil").font(.title2)
                             VStack(spacing: 20) {
-                                Section(header: Text("Sexo").font(.headline)) {
-                                    Picker("Sexo", selection: $selectedGender) {
+                                Section(header: Text("Gênero").font(.headline)) {
+                                    Picker("Genero", selection: $gender) {
                                         Text("Masculino").tag("Masculino")
                                         Text("Feminino").tag("Feminino")
                                     }
@@ -93,7 +93,7 @@ struct OnboardingView: View {
                         
                         Button("Salvar e Continuar") {
                             isOnboardingComplete = true
-                            UserDefaults.standard.set(selectedGender, forKey: "gender")
+                            UserDefaults.standard.set(gender, forKey: "gender")
                             UserDefaults.standard.set(age, forKey: "age")
                             UserDefaults.standard.set(weight, forKey: "weight")
                             UserDefaults.standard.set(dailyGoal, forKey: "dailyGoal")
@@ -122,6 +122,6 @@ struct OnboardingView: View {
 
     struct OnboardingView_Previews: PreviewProvider {
         static var previews: some View {
-            OnboardingView()
+            SettingsView()
         }
     }
