@@ -9,12 +9,13 @@ import SwiftUI
 import UserNotifications
 
 struct HomeView: View {
+    @State private var path = NavigationPath()
     @State private var waterIntake: Double = 0.0
-    @State private var dailyGoal = max(UserDefaults.standard.double(forKey: "dailyGoal"), 2000)
-    @State private var reminderInterval = max(UserDefaults.standard.double(forKey: "reminderInterval"), 60)
-    
+    @AppStorage("dailyGoal") var dailyGoal: Double = 2000
+    @AppStorage("reminderInterval") var reminderInterval: Double = 60
+
     var body: some View {
-        NavigationView {
+        NavigationStack(path: $path) {
             VStack {
                 Spacer()
                 
@@ -34,33 +35,24 @@ struct HomeView: View {
                     addWater(amount: 250)
                 }) {
                     Text("+250 ml")
-                        .font(.title2)
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(Color.blue)
-                        .foregroundColor(.white)
-                        .cornerRadius(10)
-                        .padding(.horizontal)
+                        .customButton()
                 }
                 
-                NavigationLink(destination: SettingsView()) {
-                    Text("Configurações")
-                        .font(.title3)
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(Color.gray.opacity(0.2))
-                        .cornerRadius(10)
-                        .padding(.horizontal)
+                Button(action: { path.append(RouteScreensEnum.settings)}) {
+                    Text("Configurar")
+                        .customButton()
                 }
-                
+                .navigationDestination(for: RouteScreensEnum.self) { route in
+                    RouteScreen.destination(for: route, path: $path)
+                }
                 Spacer()
             }
-            .navigationTitle("Lembrete de Água")
             .onAppear {
                 requestNotificationPermission()
                 scheduleWaterReminder()
             }
         }
+        .navigationBarBackButtonHidden(true)
     }
     
     func addWater(amount: Double) {

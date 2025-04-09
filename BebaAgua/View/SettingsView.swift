@@ -102,13 +102,8 @@ struct SettingsView: View {
                             UserDefaults.standard.set(dailyGoal, forKey: "dailyGoal")
                             UserDefaults.standard.set(reminderInterval, forKey: "reminderInterval")
                         }
-                        .padding()
-                        .frame(maxWidth: .infinity)
-                        .background(Color.blue)
-                        .cornerRadius(20)
-                        .foregroundColor(.white).bold()
-                        .padding(.horizontal, 20)
-                        .padding(.bottom, 20)
+                        .customButton()
+                        Spacer()
                     }
                     .ignoresSafeArea(.keyboard, edges: .bottom)
                 }
