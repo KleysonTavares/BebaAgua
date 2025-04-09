@@ -56,7 +56,7 @@ struct BedTimeSelectionView: View {
                 
                 Button(action: {
                     saveBedTime()
-                    path.append(RouteScreensEnum.home)
+                    MainTabView()
                 }) {
                     Text("Próximo")
                         .customNextButton()
@@ -64,10 +64,6 @@ struct BedTimeSelectionView: View {
             }
             .padding(.horizontal, 40)
             .padding(.bottom, 40)
-            
-            .navigationDestination(for: RouteScreensEnum.self) { route in
-                RouteScreen.destination(for: route, path: $path)
-            }
         }
         .navigationBarBackButtonHidden(true)
     }
@@ -82,7 +78,7 @@ struct BedTimeSelectionView: View {
         UserDefaults.standard.set(formattedTime, forKey: "bedTime")
         UserDefaults.standard.set(WaterCalculator.calculateDailyGoal(age: age, weight: weight), forKey: "dailyGoal")
         UserDefaults.standard.set(60, forKey: "reminderInterval")
-
+        UserDefaults.standard.set(true, forKey: "completedOnboarding")
     }
     
     func progressStep(icon: String, text: String, isSelected: Bool) -> some View {

@@ -9,12 +9,16 @@ import SwiftUI
 
 @main
 struct WaterTrackerApp: App {
+    @AppStorage("completedOnboarding") var completedOnboarding: Bool = false
+
     var body: some Scene {
         WindowGroup {
-            if UserDefaults.standard.string(forKey: "dailyGoal") == nil {
-                WelcomeView()
+            if completedOnboarding {
+                MainTabView()
             } else {
-                HomeView()
+                NavigationStack {
+                    WelcomeView()
+                }
             }
         }
     }

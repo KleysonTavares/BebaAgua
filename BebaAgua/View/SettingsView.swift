@@ -114,7 +114,6 @@ struct SettingsView: View {
             .onAppear { // atualiza ao abrir a tela
                 dailyGoal = WaterCalculator.calculateDailyGoal(age: age, weight: weight)
             }
-//            .customButton()
         }
     }
 

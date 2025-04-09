@@ -9,13 +9,11 @@ import SwiftUI
 import UserNotifications
 
 struct HomeView: View {
-    @State private var path = NavigationPath()
     @State private var waterIntake: Double = 0.0
     @AppStorage("dailyGoal") var dailyGoal: Double = 2000
     @AppStorage("reminderInterval") var reminderInterval: Double = 60
 
     var body: some View {
-        NavigationStack(path: $path) {
             VStack {
                 Spacer()
                 
@@ -37,21 +35,12 @@ struct HomeView: View {
                     Text("+250 ml")
                         .customButton()
                 }
-                
-                Button(action: { path.append(RouteScreensEnum.settings)}) {
-                    Text("Configurar")
-                        .customButton()
-                }
-                .navigationDestination(for: RouteScreensEnum.self) { route in
-                    RouteScreen.destination(for: route, path: $path)
-                }
                 Spacer()
             }
             .onAppear {
                 requestNotificationPermission()
                 scheduleWaterReminder()
             }
-        }
         .navigationBarBackButtonHidden(true)
     }
     
