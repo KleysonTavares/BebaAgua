@@ -13,7 +13,7 @@ struct SettingsView: View {
     @AppStorage("weight") var weight: Int = 70
     @AppStorage("dailyGoal") var dailyGoal: Double = 2000
     @AppStorage("reminderInterval") var reminderInterval: Double = 60
-    @AppStorage("wakeUpTime") var wakeUpTime: String = "07:00"
+    @AppStorage("wakeUpTime") var wakeUpTime: String = "06:00"
     @AppStorage("bedTime") var bedTime: String = "22:00"
     
     @State private var isOnboardingComplete = false

@@ -11,7 +11,7 @@ struct BedTimeSelectionView: View {
     @AppStorage("gender") var gender: Gender = .male
     @AppStorage("weight") var weight: Int = 70
     @AppStorage("age") var age: Int = 18
-    @AppStorage("wakeUpTime") var wakeUpTime: String = "07:00"
+    @AppStorage("wakeUpTime") var wakeUpTime: String = "06:00"
     @State private var bedTime = Calendar.current.date(from: DateComponents(hour: 22, minute: 0)) ?? Date()
 
     @Binding var path: NavigationPath
