@@ -18,11 +18,12 @@ struct HomeView: View {
             VStack {
                 Spacer()
                 
-                Text("Seu Consumo Diário")
+                Text("Consumo Diário")
                     .font(.title)
                     .padding()
-                
-                UltraRealisticWaterProgressView(progress: waterIntake / dailyGoal)
+                    Spacer()
+
+                WaterProgressView(progress: waterIntake / dailyGoal)
                     .frame(width: 200, height: 200)
                     .padding()
                 
@@ -73,9 +74,6 @@ struct HomeView: View {
     func addWater(amount: Double) {
         withAnimation {
             waterIntake += amount
-            if waterIntake > dailyGoal {
-                waterIntake = dailyGoal
-            }
         }
     }
     
