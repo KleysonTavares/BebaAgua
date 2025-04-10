@@ -9,8 +9,9 @@ import SwiftUI
 import UserNotifications
 
 struct HomeView: View {
-    @State private var waterIntake: Double = 0.0
-    @State private var quickDrinkAmount: Double = 200
+    @AppStorage("lastResetDate") var lastResetDate: String = ""
+    @AppStorage("waterIntake") var waterIntake: Double = 0.0
+    @AppStorage("drinkAmount") var drinkAmount: Double = 200
     @AppStorage("dailyGoal") var dailyGoal: Double = 2000
     @AppStorage("reminderInterval") var reminderInterval: Double = 60
 
@@ -18,7 +19,7 @@ struct HomeView: View {
             VStack {
                 Spacer()
                 
-                Text("Consumo Diário")
+                Text("Progresso hoje")
                     .font(.title)
                     .padding()
                     Spacer()
@@ -37,10 +38,10 @@ struct HomeView: View {
                         Text("tamanho copo")
                             .font(.headline)
                         
-                        Slider(value: $quickDrinkAmount, in: 100...500, step: 50)
+                        Slider(value: $drinkAmount, in: 100...500, step: 50)
                             .accentColor(.cyan)
                         
-                        Text("\(Int(quickDrinkAmount)) ml")
+                        Text("\(Int(drinkAmount)) ml")
                             .foregroundColor(.cyan)
                             .font(.subheadline)
                     }
@@ -53,7 +54,7 @@ struct HomeView: View {
                     
                
                     Button(action: {      // Button with image
-                        addWater(amount: quickDrinkAmount)
+                        addWater(amount: drinkAmount)
                     }) {
                         Image("addWater")
                             .resizable()
@@ -65,6 +66,7 @@ struct HomeView: View {
                 .padding()
             }
             .onAppear {
+                checkAndResetDailyIntake()
                 requestNotificationPermission()
                 scheduleWaterReminder()
             }
@@ -102,6 +104,18 @@ struct HomeView: View {
             if let error = error {
                 print("Erro ao agendar notificação: \(error)")
             }
+        }
+    }
+
+    func checkAndResetDailyIntake() {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MM-yyyy"
+
+        let today = dateFormatter.string(from: Date())
+
+        if lastResetDate != today {
+            waterIntake = 0
+            lastResetDate = today
         }
     }
 }
