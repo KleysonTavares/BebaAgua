@@ -10,6 +10,7 @@ import UserNotifications
 
 struct HomeView: View {
     @State private var waterIntake: Double = 0.0
+    @State private var quickDrinkAmount: Double = 200
     @AppStorage("dailyGoal") var dailyGoal: Double = 2000
     @AppStorage("reminderInterval") var reminderInterval: Double = 60
 
@@ -21,21 +22,46 @@ struct HomeView: View {
                     .font(.title)
                     .padding()
                 
-                CircularProgressView(progress: waterIntake / dailyGoal)
+                UltraRealisticWaterProgressView(progress: waterIntake / dailyGoal)
                     .frame(width: 200, height: 200)
                     .padding()
                 
-                Text("\(Int(waterIntake)) ml de \(Int(dailyGoal)) ml")
+                Text("\(Int(waterIntake)) / \(Int(dailyGoal)) ml")
                     .font(.headline)
                     .padding()
-                
-                Button(action: {
-                    addWater(amount: 250)
-                }) {
-                    Text("+250 ml")
-                        .customButton()
-                }
                 Spacer()
+                
+                HStack(spacing: 20) {
+                    VStack(alignment: .center, spacing: 0) {     // Slider + Label
+                        Text("tamanho copo")
+                            .font(.headline)
+                        
+                        Slider(value: $quickDrinkAmount, in: 100...500, step: 50)
+                            .accentColor(.cyan)
+                        
+                        Text("\(Int(quickDrinkAmount)) ml")
+                            .foregroundColor(.cyan)
+                            .font(.subheadline)
+                    }
+                    .padding()
+                    .frame(width: 250, height: 80)
+                    .background(
+                        RoundedRectangle(cornerRadius: 16)
+                            .stroke(Color.blue.opacity(0.3), lineWidth: 1)
+                    )
+                    
+               
+                    Button(action: {      // Button with image
+                        addWater(amount: quickDrinkAmount)
+                    }) {
+                        Image("addWater")
+                            .resizable()
+                            .aspectRatio(contentMode: .fit)
+                            .frame(width: 70, height: 80)
+                            .cornerRadius(20)
+                    }
+                }
+                .padding()
             }
             .onAppear {
                 requestNotificationPermission()
