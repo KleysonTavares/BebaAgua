@@ -23,6 +23,11 @@ struct CircularProgressView: View {
                 .foregroundColor(Color.blue)
                 .rotationEffect(Angle(degrees: -90))
                 .animation(.easeOut, value: progress)
+            
+            Text("\(Int(progress * 100))%") // Texto central
+                .font(.title)
+                .bold()
+                .foregroundColor(Color.cyan)
         }
     }
 }
