@@ -65,7 +65,7 @@ struct BedTimeSelectionView: View {
             .padding(.horizontal, 40)
             .padding(.bottom, 40)
         }
-        .navigationBarBackButtonHidden(true)
+        .standardScreenStyle()
     }
     
     var formattedTime: String {

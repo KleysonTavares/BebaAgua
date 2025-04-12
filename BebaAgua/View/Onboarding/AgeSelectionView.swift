@@ -72,7 +72,7 @@ struct AgeSelectionView: View {
                 RouteScreen.destination(for: route, path: $path)
             }
         }
-        .navigationBarBackButtonHidden(true)
+        .standardScreenStyle()
     }
     
     func saveAge() {

@@ -70,7 +70,7 @@ struct HomeView: View {
                 requestNotificationPermission()
                 scheduleWaterReminder()
             }
-        .navigationBarBackButtonHidden(true)
+            .standardScreenStyle()
     }
     
     func addWater(amount: Double) {

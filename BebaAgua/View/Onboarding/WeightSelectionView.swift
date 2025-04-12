@@ -71,7 +71,7 @@ struct WeightSelectionView: View {
                     RouteScreen.destination(for: route, path: $path)
                 }
             }
-            .navigationBarBackButtonHidden(true)
+            .standardScreenStyle()
         }
     
     func saveWeight() {

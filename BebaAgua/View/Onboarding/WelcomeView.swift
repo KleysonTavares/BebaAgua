@@ -39,6 +39,7 @@ struct WelcomeView: View {
                 }
             }
         }
+        .standardScreenStyle()
     }
 }
 
