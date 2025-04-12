@@ -31,9 +31,9 @@ struct SettingsView: View {
                 Text("Perfil").font(.title2)
                 VStack(spacing: 20) {
                     Section(header: Text("Gênero").font(.headline)) {
-                        Picker("Genero", selection: $gender) {
-                            Text("Masculino").tag("Masculino")
-                            Text("Feminino").tag("Feminino")
+                        Picker("Gênero", selection: $gender) {
+                            Text("Masculino").tag(Gender.male)
+                            Text("Feminino").tag(Gender.female)
                         }
                         .pickerStyle(SegmentedPickerStyle())
                         .padding()
@@ -94,7 +94,7 @@ struct SettingsView: View {
             
             Button("Salvar") {
                 isOnboardingComplete = true
-                UserDefaults.standard.set(gender, forKey: "gender")
+                UserDefaults.standard.set(gender.rawValue, forKey: "gender")
                 UserDefaults.standard.set(age, forKey: "age")
                 UserDefaults.standard.set(weight, forKey: "weight")
                 UserDefaults.standard.set(dailyGoal, forKey: "dailyGoal")
@@ -106,8 +106,21 @@ struct SettingsView: View {
         .ignoresSafeArea(.keyboard, edges: .bottom)
         .onAppear { // atualiza ao abrir a tela
             dailyGoal = WaterCalculator.calculateDailyGoal(age: age, weight: weight)
+            configureSegmentedPicker()
         }
         .standardScreenStyle()
+    }
+    
+    func configureSegmentedPicker() {
+        UISegmentedControl.appearance().selectedSegmentTintColor = .white
+        UISegmentedControl.appearance().setTitleTextAttributes(
+            [.foregroundColor: UIColor.systemBlue],
+            for: .selected
+        )
+        UISegmentedControl.appearance().setTitleTextAttributes(
+            [.foregroundColor: UIColor.white],
+            for: .normal
+        )
     }
 }
 
