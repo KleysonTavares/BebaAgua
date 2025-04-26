@@ -13,6 +13,8 @@ struct HomeView: View {
     @AppStorage("waterIntake") var waterIntake: Double = 0.0
     @AppStorage("drinkAmount") var drinkAmount: Double = 200
     @AppStorage("dailyGoal") var dailyGoal: Double = 2000
+    @AppStorage("wakeUpTime") var wakeUpTime: String = "06:00"
+    @AppStorage("bedTime") var bedTime: String = "22:00"
     @AppStorage("reminderInterval") var reminderInterval: Double = 60
 
     var body: some View {
@@ -48,8 +50,6 @@ struct HomeView: View {
                         RoundedRectangle(cornerRadius: 16)
                             .stroke(Color.blue.opacity(0.3), lineWidth: 1)
                     )
-                    
-               
                     Button(action: {      // Button with image
                         addWater(amount: drinkAmount)
                     }) {
@@ -61,11 +61,12 @@ struct HomeView: View {
                     }
                 }
                 .padding()
+                Spacer()
             }
             .onAppear {
                 checkAndResetDailyIntake()
-                requestNotificationPermission()
-                scheduleWaterReminder()
+                NotificationManager.shared.requestNotificationPermission()
+                NotificationManager.shared.scheduleDailyNotifications(wakeUpTime: wakeUpTime, bedTime: bedTime, interval: reminderInterval)
             }
             .standardScreenStyle()
     }
@@ -73,34 +74,6 @@ struct HomeView: View {
     func addWater(amount: Double) {
         withAnimation {
             waterIntake += amount
-        }
-    }
-    
-    func requestNotificationPermission() {
-        let center = UNUserNotificationCenter.current()
-        center.requestAuthorization(options: [.alert, .sound]) { granted, error in
-            if let error = error {
-                print("Erro ao solicitar permissão de notificação: \(error)")
-            }
-        }
-    }
-    
-    func scheduleWaterReminder() {
-        let center = UNUserNotificationCenter.current()
-        center.removePendingNotificationRequests(withIdentifiers: ["waterReminder"])
-
-        let content = UNMutableNotificationContent()
-        content.title = "Hora de beber água!"
-        content.body = "Lembre-se de se manter hidratado!"
-        content.sound = .default
-
-        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: reminderInterval * 60, repeats: true)
-        let request = UNNotificationRequest(identifier: "waterReminder", content: content, trigger: trigger)
-
-        center.add(request) { error in
-            if let error = error {
-                print("Erro ao agendar notificação: \(error)")
-            }
         }
     }
 

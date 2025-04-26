@@ -99,6 +99,7 @@ struct SettingsView: View {
                 UserDefaults.standard.set(weight, forKey: "weight")
                 UserDefaults.standard.set(dailyGoal, forKey: "dailyGoal")
                 UserDefaults.standard.set(reminderInterval, forKey: "reminderInterval")
+                NotificationManager.shared.scheduleDailyNotifications(wakeUpTime: wakeUpTime, bedTime: bedTime, interval: reminderInterval)
             }
             .customButton()
             Spacer()
