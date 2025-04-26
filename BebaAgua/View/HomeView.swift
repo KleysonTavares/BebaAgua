@@ -19,10 +19,7 @@ struct HomeView: View {
             VStack {
                 Spacer()
                 
-                Text("Progresso hoje")
-                    .font(.title)
-                    .padding()
-                    Spacer()
+                MotivationalMessageView(progress: waterIntake / dailyGoal)
 
                 WaterProgressView(progress: waterIntake / dailyGoal)
                     .frame(width: 200, height: 200)
