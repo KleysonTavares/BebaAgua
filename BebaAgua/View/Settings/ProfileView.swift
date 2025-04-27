@@ -8,6 +8,8 @@
 import SwiftUI
 
 struct ProfileView: View {
+    @Environment(\.dismiss) var dismiss  // Adiciona isso no início da View
+
     @AppStorage("gender") var gender: Gender = .male
     @AppStorage("age") var age: Int = 18
     @AppStorage("weight") var weight: Int = 70
@@ -28,7 +30,6 @@ struct ProfileView: View {
     var body: some View {
         VStack {
             ScrollView {
-                Text("Perfil").font(.title2)
                 VStack(spacing: 20) {
                     Section(header: Text("Gênero").font(.headline)) {
                         Picker("Gênero", selection: $gender) {
@@ -100,6 +101,7 @@ struct ProfileView: View {
                 UserDefaults.standard.set(dailyGoal, forKey: "dailyGoal")
                 UserDefaults.standard.set(reminderInterval, forKey: "reminderInterval")
                 NotificationManager.shared.scheduleDailyNotifications(wakeUpTime: wakeUpTime, bedTime: bedTime, interval: reminderInterval)
+                dismiss()
             }
             .customButton()
             Spacer()

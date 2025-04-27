@@ -9,7 +9,7 @@ import SwiftUI
 
 struct SettingsView: View {
     @AppStorage("gender") var gender: String = "Male"
-    @AppStorage("age") var age: Int = 1990
+    @AppStorage("age") var age: Int = 18
     @AppStorage("weight") var weight: Int = 70
     @AppStorage("dailyGoal") var goal: Int = 2000
     
@@ -28,10 +28,15 @@ struct SettingsView: View {
 
     var profileSection: some View {
         Section(header: sectionHeader("PERFIL")) {
-            settingsRow(icon: "person.fill", iconColor: .pink, title: "Gênero", value: gender)
-            settingsRow(icon: "calendar", iconColor: .green, title: "Idade", value: "\(age)")
-            settingsRow(icon: "scalemass", iconColor: .red, title: "Peso", value: "\(weight) kg")
-            settingsRow(icon: "target", iconColor: .purple, title: "Meta", value: "\(goal) ml")
+            NavigationLink(destination: ProfileView()) {
+                VStack(alignment: .leading, spacing: 8) {
+                    settingsRow(icon: "person.fill", iconColor: .pink, title: "Gênero", value: gender)
+                    settingsRow(icon: "calendar", iconColor: .green, title: "Idade", value: "\(age)")
+                    settingsRow(icon: "scalemass", iconColor: .red, title: "Peso", value: "\(weight) kg")
+                    settingsRow(icon: "target", iconColor: .purple, title: "Meta", value: "\(goal) ml")
+                }
+                .padding(.vertical, 8)
+            }
         }
     }
 
