@@ -15,7 +15,7 @@ struct MainTabView: View {
                     Label("Diário", systemImage: "drop")
                 }
 
-            SettingsView()
+            ProfileView()
                 .tabItem {
                     Label("Configurar", systemImage: "gearshape")
                 }
