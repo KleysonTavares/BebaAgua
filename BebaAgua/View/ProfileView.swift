@@ -1,5 +1,5 @@
 //
-//  OnboardingView.swift
+//  Profile.swift
 //  BebaAgua
 //
 //  Created by Kleyson Tavares on 30/03/25.
@@ -7,7 +7,7 @@
 
 import SwiftUI
 
-struct SettingsView: View {
+struct ProfileView: View {
     @AppStorage("gender") var gender: Gender = .male
     @AppStorage("age") var age: Int = 18
     @AppStorage("weight") var weight: Int = 70
@@ -127,6 +127,6 @@ struct SettingsView: View {
 
     struct OnboardingView_Previews: PreviewProvider {
         static var previews: some View {
-            SettingsView()
+            ProfileView()
         }
     }
