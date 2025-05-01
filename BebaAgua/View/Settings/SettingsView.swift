@@ -11,6 +11,7 @@ import MessageUI
 struct SettingsView: View {
     @State private var showMailView = false
     @State private var showMailError = false
+    @State private var isShareSheetPresented = false
 
     @AppStorage("gender") var gender: String = "Male"
     @AppStorage("age") var age: Int = 18
@@ -55,14 +56,8 @@ struct SettingsView: View {
     var developerSection: some View {
         Section(header: sectionHeader("DESENVOLVEDOR")) {
             feedbackButton()
-
             rateAppButton()
-            
-            Button(action: {
-                // Share App
-            }) {
-                settingsNavigationRow(icon: "square.and.arrow.up", iconColor: .purple, title: "Compartilhar app")
-            }
+            shareAppButton()
         }
     }
     
@@ -141,6 +136,17 @@ struct SettingsView: View {
             }
         }) {
             settingsNavigationRow(icon: "star.fill", iconColor: .yellow, title: "Avaliar app")
+        }
+    }
+
+    func shareAppButton() -> some View {
+        Button(action: {
+            isShareSheetPresented = true
+        }) {
+            settingsNavigationRow(icon: "square.and.arrow.up", iconColor: .purple, title: "Compartilhar app")
+        }
+        .sheet(isPresented: $isShareSheetPresented) {
+            ActivityView(activityItems: ["Estou usando o aplicativo Beba Agua. Recomendo que você baixe em: https://apps.apple.com/app/id1478980974"])
         }
     }
 }
