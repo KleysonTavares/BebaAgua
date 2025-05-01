@@ -56,11 +56,7 @@ struct SettingsView: View {
         Section(header: sectionHeader("DESENVOLVEDOR")) {
             feedbackButton()
 
-            Button(action: {
-                // Rate App
-            }) {
-                settingsNavigationRow(icon: "star.fill", iconColor: .yellow, title: "Avaliar app")
-            }
+            rateAppButton()
             
             Button(action: {
                 // Share App
@@ -135,6 +131,16 @@ struct SettingsView: View {
         }
         .alert("O envio de e-mail não está disponível neste dispositivo.", isPresented: $showMailError) {
             Button("OK", role: .cancel) { }
+        }
+    }
+
+    func rateAppButton() -> some View {
+        Button(action: {
+            if let url = URL(string: "itms-apps://itunes.apple.com/app/id1478980974?action=write-review") {
+                UIApplication.shared.open(url)
+            }
+        }) {
+            settingsNavigationRow(icon: "star.fill", iconColor: .yellow, title: "Avaliar app")
         }
     }
 }
