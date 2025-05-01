@@ -6,8 +6,12 @@
 //
 
 import SwiftUI
+import MessageUI
 
 struct SettingsView: View {
+    @State private var showMailView = false
+    @State private var showMailError = false
+
     @AppStorage("gender") var gender: String = "Male"
     @AppStorage("age") var age: Int = 18
     @AppStorage("weight") var weight: Int = 70
@@ -50,12 +54,8 @@ struct SettingsView: View {
     
     var developerSection: some View {
         Section(header: sectionHeader("DESENVOLVEDOR")) {
-            Button(action: {
-                // Feedback
-            }) {
-                settingsNavigationRow(icon: "bubble.left.fill", iconColor: .blue, title: "Feedback")
-            }
-            
+            feedbackButton()
+
             Button(action: {
                 // Rate App
             }) {
@@ -114,6 +114,28 @@ struct SettingsView: View {
         Text(title)
             .font(.headline)
             .foregroundColor(.cyan)
+    }
+
+    func feedbackButton() -> some View {
+        Button(action: {
+            if MFMailComposeViewController.canSendMail() {
+                showMailView = true
+            } else {
+                showMailError = true
+            }
+        }) {
+            settingsNavigationRow(icon: "bubble.left.fill", iconColor: .blue, title: "Feedback")
+        }
+        .sheet(isPresented: $showMailView) {
+            MailView(
+                recipient: "kleyson.tavares@icloud.com",
+                subject: "Beba Agua Feedback",
+                body: ""
+            )
+        }
+        .alert("O envio de e-mail não está disponível neste dispositivo.", isPresented: $showMailError) {
+            Button("OK", role: .cancel) { }
+        }
     }
 }
 
