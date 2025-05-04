@@ -48,7 +48,7 @@ struct SettingsView: View {
     var advanceSection: some View {
         Section(header: sectionHeader("AVANÇADO")) {
             NavigationLink(destination: HealthAppIntegrationView()) {
-                settingsNavigationRow(icon: "heart.fill", iconColor: .pink, title: "App saúde")
+                settingsNavigationRow(icon: "heart.fill", iconColor: .pink, title: "App saúde", isIconButton: false)
             }
         }
     }
@@ -81,7 +81,7 @@ struct SettingsView: View {
         .padding(.vertical, 8)
     }
     
-    func settingsNavigationRow(icon: String, iconColor: Color, title: String) -> some View {
+    func settingsNavigationRow(icon: String, iconColor: Color, title: String, isIconButton: Bool) -> some View {
         HStack {
             Image(systemName: icon)
                 .foregroundColor(iconColor)
@@ -93,10 +93,12 @@ struct SettingsView: View {
                 .foregroundColor(.primary)
             
             Spacer()
-            
-            Image(systemName: "chevron.right")
-                .foregroundColor(.gray)
-                .font(.system(size: 14))
+
+            if isIconButton {
+                Image(systemName: "chevron.right")
+                    .foregroundColor(.gray)
+                    .font(.system(size: 14))
+            }
         }
         .padding(.vertical, 8)
     }
@@ -115,7 +117,7 @@ struct SettingsView: View {
                 showMailError = true
             }
         }) {
-            settingsNavigationRow(icon: "bubble.left.fill", iconColor: .blue, title: "Feedback")
+            settingsNavigationRow(icon: "bubble.left.fill", iconColor: .blue, title: "Feedback", isIconButton: true)
         }
         .sheet(isPresented: $showMailView) {
             MailView(
@@ -135,7 +137,7 @@ struct SettingsView: View {
                 UIApplication.shared.open(url)
             }
         }) {
-            settingsNavigationRow(icon: "star.fill", iconColor: .yellow, title: "Avaliar app")
+            settingsNavigationRow(icon: "star.fill", iconColor: .yellow, title: "Avaliar app", isIconButton: true)
         }
     }
 
@@ -143,7 +145,7 @@ struct SettingsView: View {
         Button(action: {
             isShareSheetPresented = true
         }) {
-            settingsNavigationRow(icon: "square.and.arrow.up", iconColor: .purple, title: "Compartilhar app")
+            settingsNavigationRow(icon: "square.and.arrow.up", iconColor: .purple, title: "Compartilhar app", isIconButton: true)
         }
         .sheet(isPresented: $isShareSheetPresented) {
             ActivityView(activityItems: ["Estou usando o aplicativo Beba Agua. Recomendo que você baixe em: https://apps.apple.com/app/id1478980974"])
