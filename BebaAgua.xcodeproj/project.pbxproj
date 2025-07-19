@@ -29,9 +29,22 @@
 		DF74CD822D99DCAA001CABD2 /* BebaAguaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BebaAguaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		DF4242D62DF90D5600015E36 /* Exceptions for "BebaAgua" folder in "BebaAgua" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = DF74CD672D99DCA8001CABD2 /* BebaAgua */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		DF74CD6A2D99DCA8001CABD2 /* BebaAgua */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				DF4242D62DF90D5600015E36 /* Exceptions for "BebaAgua" folder in "BebaAgua" target */,
+			);
 			path = BebaAgua;
 			sourceTree = "<group>";
 		};
@@ -393,13 +406,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = BebaAgua/BebaAgua.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"BebaAgua/Preview Content\"";
 				DEVELOPMENT_TEAM = 48VXLBS5Z4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = BebaAgua/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
+				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "permitir que BebaAgua salve consumo de água no Health";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "permitir que BebaAgua atualize consumo de água no Health";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
@@ -423,13 +440,17 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = BebaAgua/BebaAgua.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"BebaAgua/Preview Content\"";
 				DEVELOPMENT_TEAM = 48VXLBS5Z4;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = BebaAgua/Info.plist;
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
+				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "permitir que BebaAgua salve consumo de água no Health";
+				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "permitir que BebaAgua atualize consumo de água no Health";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
