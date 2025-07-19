@@ -47,7 +47,7 @@ struct SettingsView: View {
 
     var advanceSection: some View {
         Section(header: sectionHeader("AVANÇADO")) {
-            NavigationLink(destination: HealthAppIntegrationView()) {
+            NavigationLink(destination: HealthAppView()) {
                 settingsNavigationRow(icon: "heart.fill", iconColor: .pink, title: "App saúde", isIconButton: false)
             }
         }
@@ -150,25 +150,6 @@ struct SettingsView: View {
         .sheet(isPresented: $isShareSheetPresented) {
             ActivityView(activityItems: ["Estou usando o aplicativo Beba Agua. Recomendo que você baixe em: https://apps.apple.com/app/id1478980974"])
         }
-    }
-}
-
-// Telas fictícias pra navegação
-struct AchievementView: View {
-    var body: some View {
-        Text("Achievements")
-            .foregroundColor(.white)
-            .background(Color.black)
-            .edgesIgnoringSafeArea(.all)
-    }
-}
-
-struct HealthAppIntegrationView: View {
-    var body: some View {
-        Text("Health App Integration")
-            .foregroundColor(.white)
-            .background(Color.black)
-            .edgesIgnoringSafeArea(.all)
     }
 }
 
