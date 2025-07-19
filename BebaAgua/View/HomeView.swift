@@ -16,6 +16,8 @@ struct HomeView: View {
     @AppStorage("wakeUpTime") var wakeUpTime: String = "06:00"
     @AppStorage("bedTime") var bedTime: String = "22:00"
     @AppStorage("reminderInterval") var reminderInterval: Double = 60
+    @State private var showingAuthAlert = false
+    @StateObject private var healthKitManager = HealthKitManager()
 
     var body: some View {
             VStack {
@@ -63,10 +65,14 @@ struct HomeView: View {
                 .padding()
                 Spacer()
             }
+            .alert("Aviso", isPresented: $healthKitManager.showAlert) {
+                Button("OK", role: .cancel) { }
+            } message: { Text(healthKitManager.alertMessage) }
             .onAppear {
                 checkAndResetDailyIntake()
                 NotificationManager.shared.requestNotificationPermission()
                 NotificationManager.shared.scheduleDailyNotifications(wakeUpTime: wakeUpTime, bedTime: bedTime, interval: reminderInterval)
+                healthKitManager.requestAuthorization()
             }
             .standardScreenStyle()
     }
@@ -75,6 +81,7 @@ struct HomeView: View {
         withAnimation {
             waterIntake += amount
         }
+            healthKitManager.saveWaterConsumption(amount: amount)
     }
 
     func checkAndResetDailyIntake() {
