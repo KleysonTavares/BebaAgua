@@ -1,0 +1,160 @@
+//
+//  SettingsView.swift
+//  BebaAgua
+//
+//  Created by Kleyson Tavares on 26/04/25.
+//
+
+import SwiftUI
+import MessageUI
+
+struct SettingsView: View {
+    @State private var showMailView = false
+    @State private var showMailError = false
+    @State private var isShareSheetPresented = false
+
+    @AppStorage("gender") var gender: String = "Male"
+    @AppStorage("age") var age: Int = 18
+    @AppStorage("weight") var weight: Int = 70
+    @AppStorage("dailyGoal") var goal: Int = 2000
+    
+    var body: some View {
+        NavigationView {
+            ZStack {
+                List {
+                    profileSection
+                    advanceSection
+                    developerSection
+                }
+                .listStyle(InsetGroupedListStyle())
+            }
+        }
+    }
+
+    var profileSection: some View {
+        Section(header: sectionHeader("PERFIL")) {
+            NavigationLink(destination: ProfileView()) {
+                VStack(alignment: .leading, spacing: 8) {
+                    settingsRow(icon: "person.fill", iconColor: .pink, title: "Gênero", value: gender)
+                    settingsRow(icon: "calendar", iconColor: .green, title: "Idade", value: "\(age)")
+                    settingsRow(icon: "scalemass", iconColor: .red, title: "Peso", value: "\(weight) kg")
+                    settingsRow(icon: "target", iconColor: .purple, title: "Meta", value: "\(goal) ml")
+                }
+                .padding(.vertical, 8)
+            }
+        }
+    }
+
+    var advanceSection: some View {
+        Section(header: sectionHeader("AVANÇADO")) {
+            NavigationLink(destination: HealthAppView()) {
+                settingsNavigationRow(icon: "heart.fill", iconColor: .pink, title: "App saúde", isIconButton: false)
+            }
+        }
+    }
+    
+    var developerSection: some View {
+        Section(header: sectionHeader("DESENVOLVEDOR")) {
+            feedbackButton()
+            rateAppButton()
+            shareAppButton()
+        }
+    }
+    
+    func settingsRow(icon: String, iconColor: Color, title: String, value: String) -> some View {
+        HStack {
+            Image(systemName: icon)
+                .foregroundColor(iconColor)
+                .frame(width: 30, height: 30)
+                .background(iconColor.opacity(0.2))
+                .clipShape(Circle())
+            
+            Text(title)
+                .foregroundColor(.primary)
+            
+            Spacer()
+            
+            Text(value)
+                .foregroundColor(.gray)
+                .font(.system(size: 16, weight: .light))
+        }
+        .padding(.vertical, 8)
+    }
+    
+    func settingsNavigationRow(icon: String, iconColor: Color, title: String, isIconButton: Bool) -> some View {
+        HStack {
+            Image(systemName: icon)
+                .foregroundColor(iconColor)
+                .frame(width: 30, height: 30)
+                .background(iconColor.opacity(0.2))
+                .clipShape(Circle())
+            
+            Text(title)
+                .foregroundColor(.primary)
+            
+            Spacer()
+
+            if isIconButton {
+                Image(systemName: "chevron.right")
+                    .foregroundColor(.gray)
+                    .font(.system(size: 14))
+            }
+        }
+        .padding(.vertical, 8)
+    }
+    
+    func sectionHeader(_ title: String) -> some View {
+        Text(title)
+            .font(.headline)
+            .foregroundColor(.cyan)
+    }
+
+    func feedbackButton() -> some View {
+        Button(action: {
+            if MFMailComposeViewController.canSendMail() {
+                showMailView = true
+            } else {
+                showMailError = true
+            }
+        }) {
+            settingsNavigationRow(icon: "bubble.left.fill", iconColor: .blue, title: "Feedback", isIconButton: true)
+        }
+        .sheet(isPresented: $showMailView) {
+            MailView(
+                recipient: "kleyson.tavares@icloud.com",
+                subject: "Beba Agua Feedback",
+                body: ""
+            )
+        }
+        .alert("O envio de e-mail não está disponível neste dispositivo.", isPresented: $showMailError) {
+            Button("OK", role: .cancel) { }
+        }
+    }
+
+    func rateAppButton() -> some View {
+        Button(action: {
+            if let url = URL(string: "itms-apps://itunes.apple.com/app/id1478980974?action=write-review") {
+                UIApplication.shared.open(url)
+            }
+        }) {
+            settingsNavigationRow(icon: "star.fill", iconColor: .yellow, title: "Avaliar app", isIconButton: true)
+        }
+    }
+
+    func shareAppButton() -> some View {
+        Button(action: {
+            isShareSheetPresented = true
+        }) {
+            settingsNavigationRow(icon: "square.and.arrow.up", iconColor: .purple, title: "Compartilhar app", isIconButton: true)
+        }
+        .sheet(isPresented: $isShareSheetPresented) {
+            ActivityView(activityItems: ["Estou usando o aplicativo Beba Agua. Recomendo que você baixe em: https://apps.apple.com/app/id1478980974"])
+        }
+    }
+}
+
+struct SettingsView_Previews: PreviewProvider {
+    static var previews: some View {
+        SettingsView()
+    }
+}

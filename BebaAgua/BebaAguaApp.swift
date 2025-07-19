@@ -9,12 +9,16 @@ import SwiftUI
 
 @main
 struct WaterTrackerApp: App {
+    @AppStorage("completedOnboarding") var completedOnboarding: Bool = false
+
     var body: some Scene {
         WindowGroup {
-            if UserDefaults.standard.string(forKey: "gender") == nil {
-                OnboardingView()
+            if completedOnboarding {
+                MainTabView()
             } else {
-                ContentView()
+                NavigationStack {
+                    WelcomeView()
+                }
             }
         }
     }
