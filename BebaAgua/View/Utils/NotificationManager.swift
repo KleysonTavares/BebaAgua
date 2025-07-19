@@ -57,10 +57,11 @@ class NotificationManager {
         
         // Calcular notificações no período
         let totalMinutes = calendar.dateComponents([.minute], from: wakeUpDate, to: bedTimeDate).minute ?? 0
-        let numberOfNotifications = totalMinutes / Int(interval)
-        
+        let numberOfNotifications = Int(Double(totalMinutes) / interval)
+
         for i in 0..<numberOfNotifications {
-            if let triggerDate = calendar.date(byAdding: .minute, value: Int(interval) * i, to: startDate),
+            let minutesToAdd = Int(interval * Double(i))
+            if let triggerDate = calendar.date(byAdding: .minute, value: minutesToAdd, to: startDate),
                isWithinNotificationPeriod(wakeUpTime: wakeUpTime, bedTime: bedTime, for: triggerDate) {
                 
                 let trigger = UNCalendarNotificationTrigger(
@@ -84,7 +85,7 @@ class NotificationManager {
     }
     
     func removeAllWaterReminders() {
-        UNUserNotificationCenter.current().removePendingNotificationRequests(withIdentifiers: ["waterReminder"])
+        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
     }
     
     // MARK: - Funções Auxiliares
