@@ -16,8 +16,9 @@ struct HealthAppView: View {
     var body: some View {
             VStack {
                 Spacer()
-
-                Text("Conecte-se ao aplicativo Saúde para que você possa salvar seu consumo de água")
+                
+                let message =  isWaterEnabled ? "Parabéns, voce já conectou o acesso ao HealthKit" : "Conecte-se ao aplicativo Saúde para que você possa salvar seu consumo de água"
+                Text(message)
                     .foregroundColor(.primary)
                     .multilineTextAlignment(.center)
                     .padding()
@@ -38,11 +39,7 @@ struct HealthAppView: View {
                             }
                         }
                         .onChange(of: healthKitManager.authStatus) { status in
-                            if status == .sharingAuthorized {
-                                isWaterEnabled = true
-                            } else {
-                                isWaterEnabled = false
-                            }
+                            isWaterEnabled = (status == .sharingAuthorized)
                         }
                         .padding(.trailing)
                 }
