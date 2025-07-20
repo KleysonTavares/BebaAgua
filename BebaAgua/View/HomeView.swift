@@ -72,7 +72,9 @@ struct HomeView: View {
                 checkAndResetDailyIntake()
                 NotificationManager.shared.requestNotificationPermission()
                 NotificationManager.shared.scheduleDailyNotifications(wakeUpTime: wakeUpTime, bedTime: bedTime, interval: reminderInterval)
-                healthKitManager.requestAuthorization()
+                healthKitManager.requestAuthorization { HKAuthorizationStatus in
+                    //empty implementation
+                }
             }
             .standardScreenStyle()
     }

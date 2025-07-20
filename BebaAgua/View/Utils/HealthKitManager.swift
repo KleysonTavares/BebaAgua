@@ -15,14 +15,16 @@ class HealthKitManager: ObservableObject {
     @Published var showAlert = false
     @Published var authStatus: HKAuthorizationStatus = .notDetermined
     
-    func requestAuthorization() {
+    func requestAuthorization(completion: @escaping (HKAuthorizationStatus) -> Void) {
         guard HKHealthStore.isHealthDataAvailable() else {
             setAlert(message: "HealthKit não está disponível neste dispositivo")
+            completion(.notDetermined)
             return
         }
         
         guard let waterType = HKObjectType.quantityType(forIdentifier: .dietaryWater) else {
             setAlert(message: "Tipo de dado de água não disponível no HealthKit")
+            completion(.notDetermined)
             return
         }
         
@@ -30,18 +32,15 @@ class HealthKitManager: ObservableObject {
             DispatchQueue.main.async {
                 if let error = error {
                     self.setAlert(message: "Erro na autorização: \(error.localizedDescription)")
+                    completion(.notDetermined)
                     return
                 }
-                if success {
-                    self.checkAuthorizationStatus()
-                } else {
-                    self.setAlert(message: "Autorização negada pelo usuário")
-                }
+                self.checkAuthorizationStatus()
+                completion(self.authStatus)
             }
         }
     }
     
-    // Salvar consumo de água
     func saveWaterConsumption(amount: Double) {
         let quantity = HKQuantity(unit: HKUnit.literUnit(with: .milli), doubleValue: amount)
         let sample = HKQuantitySample(type: waterType, quantity: quantity, start: Date(), end: Date())
@@ -59,12 +58,12 @@ class HealthKitManager: ObservableObject {
         }
     }
 
-    private func setAlert(message: String) {
+    func setAlert(message: String) {
         self.alertMessage = message
         self.showAlert = true
     }
 
-    internal func checkAuthorizationStatus() {
+    func checkAuthorizationStatus() {
         guard let waterType = HKObjectType.quantityType(forIdentifier: .dietaryWater) else {
             authStatus = .notDetermined
             return
