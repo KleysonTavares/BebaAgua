@@ -41,11 +41,10 @@ O app suporta os seguintes idiomas:
 - 🇪🇸 Espanhol
 
 
-<div align="center">  [Kleyson Tavares] </div>
-
-👨🏻‍💻 Feito com ❤️ e ☕ por:
+👨🏻‍💻 Feito com  ❤️  e  ☕  por:
 	•	Kleyson dos Santos Tavares
 	•	Contato: kleyson.tavares@icloud.com
+
 
 📄 Licença
 
