@@ -13,18 +13,12 @@ struct HealthAppView: View {
     @State private var isWaterEnabled: Bool = false
     @State private var showHealthPermissionAlert = false
     @Environment(\.dismiss) var dismiss
-    let messagePermission = """
-    1. Abra o app Saúde.
-    2. Toque em Compartilhar.
-    3. Toque em Apps.
-    4. Selecione BebaAgua.
-    """
 
     var body: some View {
         VStack {
             Spacer()
             
-            let message = isWaterEnabled ? "Parabéns, você já permitiu o acesso ao HealthKit" : "Conecte-se ao aplicativo Saúde para que você possa salvar seu consumo de água"
+            let message = isWaterEnabled ? LocalizedStringKey("messageAllowed") : LocalizedStringKey("messageNotAllowed")
             Text(message)
                 .foregroundColor(.primary)
                 .multilineTextAlignment(.center)
@@ -32,7 +26,7 @@ struct HealthAppView: View {
             Spacer()
 
             HStack {
-                Text("Water")
+                Text(LocalizedStringKey("healthApp"))
                     .foregroundColor(.white)
                     .padding(.leading)
 
@@ -57,7 +51,7 @@ struct HealthAppView: View {
                     .padding(.trailing)
             }
             .customButton()
-            .navigationBarTitle("Health app", displayMode: .inline)
+            .navigationBarTitle(LocalizedStringKey("healthApp"), displayMode: .inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {
@@ -75,23 +69,23 @@ struct HealthAppView: View {
             isWaterEnabled = healthKitManager.authStatus == .sharingAuthorized
         }
         .alert(isPresented: $healthKitManager.showAlert) {
-            Alert(title: Text("Atenção"), message: Text(healthKitManager.alertMessage), dismissButton: .default(Text("OK")))
+            Alert(title: Text(LocalizedStringKey("attention")), message: Text(healthKitManager.alertMessage), dismissButton: .default(Text("OK")))
         }
         .alert(isPresented: $showHealthPermissionAlert) {
             Alert(
-                title: Text("Permissão necessária"),
-                message: Text(messagePermission),
+                title: Text(LocalizedStringKey("permissionRequired")),
+                message: Text(LocalizedStringKey("messagePermission")),
                 primaryButton: .default(Text("OK"), action: {
                     openHealthAppSettings()
                 }),
-                secondaryButton: .cancel(Text("Cancelar"))
+                secondaryButton: .cancel(Text(LocalizedStringKey("cancel")))
             )
         }
     }
     
     private func openHealthAppSettings() {
         guard let url = URL(string: "x-apple-health://") else {
-            healthKitManager.setAlert(message: "Não foi possível abrir o aplicativo Saúde")
+            healthKitManager.setAlert(message: "\(LocalizedStringKey("messageUnableHealth"))")
             isWaterEnabled = false
             return
         }

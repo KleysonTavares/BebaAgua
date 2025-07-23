@@ -18,19 +18,19 @@ struct WeightSelectionView: View {
                 HStack {
                     progressStep(icon: "person.2.fill", text: gender.rawValue, isSelected: true)
                     progressStep(icon: "scalemass", text: "\(weight) kg", isSelected: true)
-                    progressStep(icon: "calendar.and.person", text: "idade", isSelected: false)
+                    progressStep(icon: "calendar.and.person", text: "age", isSelected: false)
                     progressStep(icon: "alarm", text: "--", isSelected: false)
                     progressStep(icon: "moon.zzz.fill", text: "--", isSelected: false)
                 }
                 .padding(.top, 40)
                 
-                Text("Seu Peso")
+                Text(LocalizedStringKey("yourWeight"))
                     .font(.title)
                     .fontWeight(.bold)
                     .padding(.top, 40)
                 
                 HStack(spacing: 30) {
-                    Picker("Peso", selection: $weight) {
+                    Picker(LocalizedStringKey("weight"), selection: $weight) {
                         ForEach(30...200, id: \ .self) { value in
                             Text("\(value)").tag(value)
                         }
@@ -50,7 +50,7 @@ struct WeightSelectionView: View {
                     Button(action: {
                         path.removeLast()
                     }) {
-                        Text("Voltar")
+                        Text(LocalizedStringKey("back"))
                             .customBackButton()
                     }
                     
@@ -60,7 +60,7 @@ struct WeightSelectionView: View {
                         saveWeight()
                         path.append(RouteScreensEnum.age)
                     }) {
-                        Text("Próximo")
+                        Text(LocalizedStringKey("next"))
                             .customNextButton()
                     }
                 }
@@ -86,7 +86,7 @@ struct WeightSelectionView: View {
                 .background(isSelected ? Color.blue.opacity(0.2) : Color.gray.opacity(0.2))
                 .clipShape(RoundedRectangle(cornerRadius: 10))
             
-            Text(text)
+            Text(LocalizedStringKey(text))
                 .font(.caption)
                 .foregroundColor(isSelected ? .blue : .gray)
         }

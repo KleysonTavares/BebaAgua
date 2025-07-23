@@ -32,13 +32,13 @@ struct SettingsView: View {
     }
 
     var profileSection: some View {
-        Section(header: sectionHeader("PERFIL")) {
+        Section(header: sectionHeader("profile")) {
             NavigationLink(destination: ProfileView()) {
                 VStack(alignment: .leading, spacing: 8) {
-                    settingsRow(icon: "person.fill", iconColor: .pink, title: "Gênero", value: gender)
-                    settingsRow(icon: "calendar", iconColor: .green, title: "Idade", value: "\(age)")
-                    settingsRow(icon: "scalemass", iconColor: .red, title: "Peso", value: "\(weight) kg")
-                    settingsRow(icon: "target", iconColor: .purple, title: "Meta", value: "\(goal) ml")
+                    settingsRow(icon: "person.fill", iconColor: .pink, title: "gender", value: gender)
+                    settingsRow(icon: "calendar", iconColor: .green, title: "age", value: "\(age)")
+                    settingsRow(icon: "scalemass", iconColor: .red, title: "weight", value: "\(weight) kg")
+                    settingsRow(icon: "target", iconColor: .purple, title: "goal", value: "\(goal) ml")
                 }
                 .padding(.vertical, 8)
             }
@@ -46,15 +46,15 @@ struct SettingsView: View {
     }
 
     var advanceSection: some View {
-        Section(header: sectionHeader("AVANÇADO")) {
+        Section(header: sectionHeader("advanced")) {
             NavigationLink(destination: HealthAppView()) {
-                settingsNavigationRow(icon: "heart.fill", iconColor: .pink, title: "App saúde", isIconButton: false)
+                settingsNavigationRow(icon: "heart.fill", iconColor: .pink, title: "healthApp", isIconButton: false)
             }
         }
     }
     
     var developerSection: some View {
-        Section(header: sectionHeader("DESENVOLVEDOR")) {
+        Section(header: sectionHeader("developer")) {
             feedbackButton()
             rateAppButton()
             shareAppButton()
@@ -69,7 +69,7 @@ struct SettingsView: View {
                 .background(iconColor.opacity(0.2))
                 .clipShape(Circle())
             
-            Text(title)
+            Text(LocalizedStringKey(title))
                 .foregroundColor(.primary)
             
             Spacer()
@@ -89,7 +89,7 @@ struct SettingsView: View {
                 .background(iconColor.opacity(0.2))
                 .clipShape(Circle())
             
-            Text(title)
+            Text(LocalizedStringKey(title))
                 .foregroundColor(.primary)
             
             Spacer()
@@ -104,7 +104,7 @@ struct SettingsView: View {
     }
     
     func sectionHeader(_ title: String) -> some View {
-        Text(title)
+        Text(LocalizedStringKey(title))
             .font(.headline)
             .foregroundColor(.cyan)
     }
@@ -117,7 +117,7 @@ struct SettingsView: View {
                 showMailError = true
             }
         }) {
-            settingsNavigationRow(icon: "bubble.left.fill", iconColor: .blue, title: "Feedback", isIconButton: true)
+            settingsNavigationRow(icon: "bubble.left.fill", iconColor: .blue, title: "feedback", isIconButton: true)
         }
         .sheet(isPresented: $showMailView) {
             MailView(
@@ -126,7 +126,7 @@ struct SettingsView: View {
                 body: ""
             )
         }
-        .alert("O envio de e-mail não está disponível neste dispositivo.", isPresented: $showMailError) {
+        .alert(LocalizedStringKey("emailNotAvailable"), isPresented: $showMailError) {
             Button("OK", role: .cancel) { }
         }
     }
@@ -137,7 +137,7 @@ struct SettingsView: View {
                 UIApplication.shared.open(url)
             }
         }) {
-            settingsNavigationRow(icon: "star.fill", iconColor: .yellow, title: "Avaliar app", isIconButton: true)
+            settingsNavigationRow(icon: "star.fill", iconColor: .yellow, title: "rateApp", isIconButton: true)
         }
     }
 
@@ -145,10 +145,12 @@ struct SettingsView: View {
         Button(action: {
             isShareSheetPresented = true
         }) {
-            settingsNavigationRow(icon: "square.and.arrow.up", iconColor: .purple, title: "Compartilhar app", isIconButton: true)
+            settingsNavigationRow(icon: "square.and.arrow.up", iconColor: .purple, title: "shareApp", isIconButton: true)
         }
         .sheet(isPresented: $isShareSheetPresented) {
-            ActivityView(activityItems: ["Estou usando o aplicativo Beba Agua. Recomendo que você baixe em: https://apps.apple.com/app/id1478980974"])
+            let messageShare = NSLocalizedString("messageShare", comment: "")
+            let fullMessage = "\(messageShare) https://apps.apple.com/app/id1478980974"
+            ActivityView(activityItems: [fullMessage])
         }
     }
 }

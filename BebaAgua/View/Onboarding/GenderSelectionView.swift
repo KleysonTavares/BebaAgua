@@ -16,21 +16,21 @@ struct GenderSelectionView: View {
                 // Barra de progresso (simulada)
                 HStack {
                     progressStep(icon: "person.2.fill", text: selectedGender.rawValue, isSelected: true)
-                    progressStep(icon: "scalemass", text: "Peso", isSelected: false)
-                    progressStep(icon: "calendar.and.person", text: "idade", isSelected: false)
+                    progressStep(icon: "scalemass", text: "weight", isSelected: false)
+                    progressStep(icon: "calendar.and.person", text: "age", isSelected: false)
                     progressStep(icon: "alarm", text: "--", isSelected: false)
                     progressStep(icon: "moon.zzz.fill", text: "--", isSelected: false)
                 }
                 .padding(.top, 40)
                 
-                Text("Seu Gênero")
+                Text(LocalizedStringKey("yourGender"))
                     .font(.title)
                     .fontWeight(.bold)
                     .padding(.top, 60)
                 
                 HStack(spacing: 60) {
-                    genderOption(imageName: "male", text: "Masculino", gender: .male)
-                    genderOption(imageName: "female", text: "Feminino", gender: .female)
+                    genderOption(imageName: "male", text: "male", gender: .male)
+                    genderOption(imageName: "female", text: "female", gender: .female)
                 }
                 .padding(.top, 40)
                 
@@ -45,7 +45,7 @@ struct GenderSelectionView: View {
                     Button(action: {
                         path.removeLast()
                     }) {
-                        Text("Voltar")
+                        Text(LocalizedStringKey("back"))
                             .customBackButton()
                     }
                     
@@ -55,7 +55,7 @@ struct GenderSelectionView: View {
                         saveGender()
                         path.append(RouteScreensEnum.weight)
                     }) {
-                        Text("Próximo")
+                        Text(LocalizedStringKey("next"))
                             .customNextButton()
                     }
                 }
@@ -82,7 +82,7 @@ struct GenderSelectionView: View {
                 .background(isSelected ? Color.blue.opacity(0.2) : Color.gray.opacity(0.2))
                 .clipShape(RoundedRectangle(cornerRadius: 10))
             
-            Text(text)
+            Text(LocalizedStringKey(text))
                 .font(.caption)
                 .foregroundColor(isSelected ? .blue : .gray)
         }
@@ -98,7 +98,7 @@ struct GenderSelectionView: View {
                 .clipShape(Circle())
                 .overlay(Circle().stroke(selectedGender == gender ? Color.blue : Color.gray, lineWidth: 4))
             
-            Text(text)
+            Text(LocalizedStringKey(text))
                 .fontWeight(.bold)
                 .foregroundColor(selectedGender == gender ? .blue : .gray)
         }

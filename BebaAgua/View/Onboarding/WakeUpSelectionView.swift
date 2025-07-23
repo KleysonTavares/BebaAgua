@@ -21,20 +21,20 @@ struct WakeUpSelectionView: View {
             HStack {
                 progressStep(icon: "person.2.fill", text: gender.rawValue, isSelected: true)
                 progressStep(icon: "scalemass", text: "\(weight) kg", isSelected: true)
-                progressStep(icon: "calendar", text: "\(age) anos", isSelected: true)
+                progressStep(icon: "calendar", text: "\(age)", isSelected: true)
                 progressStep(icon: "alarm", text: "\(formattedTime)", isSelected: true)
                 progressStep(icon: "moon.zzz.fill", text: "--", isSelected: false)
             }
             .padding(.top, 40)
             
-            Text("Horário Acordar")
+            Text(LocalizedStringKey("wakeUpTime"))
                 .font(.title)
                 .fontWeight(.bold)
                 .padding(.top, 40)
 
             Spacer()
 
-            DatePicker("WakeUpTime", selection: $wakeUpTime, displayedComponents: .hourAndMinute)
+            DatePicker(LocalizedStringKey("wakeUpTime"), selection: $wakeUpTime, displayedComponents: .hourAndMinute)
                            .datePickerStyle(WheelDatePickerStyle())
                            .labelsHidden()
                            .frame(width: 200, height: 100)
@@ -47,7 +47,7 @@ struct WakeUpSelectionView: View {
                 Button(action: {
                     path.removeLast()
                 }) {
-                    Text("Voltar")
+                    Text(LocalizedStringKey("back"))
                         .customBackButton()
                 }
                 
@@ -57,7 +57,7 @@ struct WakeUpSelectionView: View {
                     saveWakeUpTime()
                     path.append(RouteScreensEnum.bedTime)
                 }) {
-                    Text("Próximo")
+                    Text(LocalizedStringKey("next"))
                         .customNextButton()
                 }
             }

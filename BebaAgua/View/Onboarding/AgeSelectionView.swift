@@ -19,19 +19,19 @@ struct AgeSelectionView: View {
             HStack {
                 progressStep(icon: "person.2.fill", text: gender.rawValue, isSelected: true)
                 progressStep(icon: "scalemass", text: "\(weight) kg", isSelected: true)
-                progressStep(icon: "calendar", text: "\(age) anos", isSelected: true)
+                progressStep(icon: "calendar", text: "\(age)", isSelected: true)
                 progressStep(icon: "alarm", text: "--", isSelected: false)
                 progressStep(icon: "moon.zzz.fill", text: "--", isSelected: false)
             }
             .padding(.top, 40)
             
-            Text("Sua Idade")
+            Text(LocalizedStringKey("yourAge"))
                 .font(.title)
                 .fontWeight(.bold)
                 .padding(.top, 40)
             
             HStack(spacing: 30) {
-                Picker("Age", selection: $age) {
+                Picker(LocalizedStringKey("age"), selection: $age) {
                     ForEach(1...120, id: \ .self) { value in
                         Text("\(value)").tag(value)
                     }
@@ -39,7 +39,7 @@ struct AgeSelectionView: View {
                 .pickerStyle(WheelPickerStyle())
                 .frame(width: 200, height: 120)
                 
-                Text("anos")
+                Text(LocalizedStringKey("years"))
                     .font(.headline)
             }
             .padding(.top, 40)
@@ -51,7 +51,7 @@ struct AgeSelectionView: View {
                 Button(action: {
                     path.removeLast()
                 }) {
-                    Text("Voltar")
+                    Text(LocalizedStringKey("back"))
                         .customBackButton()
                 }
                 
@@ -61,7 +61,7 @@ struct AgeSelectionView: View {
                     saveAge()
                     path.append(RouteScreensEnum.wakeUp)
                 }) {
-                    Text("Próximo")
+                    Text(LocalizedStringKey("next"))
                         .customNextButton()
                 }
             }

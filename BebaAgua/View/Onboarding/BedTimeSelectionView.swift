@@ -22,13 +22,13 @@ struct BedTimeSelectionView: View {
             HStack {
                 progressStep(icon: "person.2.fill", text: gender.rawValue, isSelected: true)
                 progressStep(icon: "scalemass", text: "\(weight) kg", isSelected: true)
-                progressStep(icon: "calendar", text: "\(age) anos", isSelected: true)
+                progressStep(icon: "calendar", text: "\(age)", isSelected: true)
                 progressStep(icon: "alarm", text: "\(wakeUpTime)", isSelected: true)
                 progressStep(icon: "moon.zzz.fill", text: formattedTime, isSelected: true)
             }
             .padding(.top, 40)
             
-            Text("Horário Dormir")
+            Text(LocalizedStringKey("bedTime"))
                 .font(.title)
                 .fontWeight(.bold)
                 .padding(.top, 40)
@@ -48,7 +48,7 @@ struct BedTimeSelectionView: View {
                 Button(action: {
                     path.removeLast()
                 }) {
-                    Text("Voltar")
+                    Text(LocalizedStringKey("back"))
                         .customBackButton()
                 }
                 
@@ -58,7 +58,7 @@ struct BedTimeSelectionView: View {
                     saveBedTime()
                     MainTabView()
                 }) {
-                    Text("Próximo")
+                    Text(LocalizedStringKey("next"))
                         .customNextButton()
                 }
             }

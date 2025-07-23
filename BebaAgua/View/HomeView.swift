@@ -36,7 +36,7 @@ struct HomeView: View {
                 
                 HStack(spacing: 20) {
                     VStack(alignment: .center, spacing: 0) {     // Slider + Label
-                        Text("tamanho copo")
+                        Text(LocalizedStringKey("cupSize"))
                             .font(.headline)
                         
                         Slider(value: $drinkAmount, in: 100...500, step: 50)
@@ -65,7 +65,7 @@ struct HomeView: View {
                 .padding()
                 Spacer()
             }
-            .alert("Aviso", isPresented: $healthKitManager.showAlert) {
+            .alert(LocalizedStringKey("notice"), isPresented: $healthKitManager.showAlert) {
                 Button("OK", role: .cancel) { }
             } message: { Text(healthKitManager.alertMessage) }
             .onAppear {

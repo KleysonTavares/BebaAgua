@@ -16,11 +16,11 @@ struct WelcomeView: View {
                 Spacer()
                     .background(Color.white)
                 VStack(alignment: .leading, spacing: 20) {
-                    Text("Oi")
+                    Text(LocalizedStringKey("hello"))
                         .font(.largeTitle)
                         .fontWeight(.bold)
                     
-                    Text("Para fornecer conselhos de hidratação personalizados, preciso de algumas informações básicas.")
+                    Text(LocalizedStringKey("welcomeViewText"))
                         .font(.title2)
                         .fontWeight(.bold)
                 }
@@ -29,7 +29,7 @@ struct WelcomeView: View {
                 Spacer()
                 
                 Button(action: { path.append(RouteScreensEnum.gender)}) {
-                    Text("Próximo")
+                    Text(LocalizedStringKey("next"))
                         .customButton()
                 }
                 .padding(.bottom, 40)

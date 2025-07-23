@@ -30,10 +30,10 @@ struct ProfileView: View {
             VStack {
                 ScrollView {
                     VStack(spacing: 20) {
-                        Section(header: Text("Gênero").font(.headline)) {
-                            Picker("Gênero", selection: $gender) {
-                                Text("Masculino").tag(Gender.male)
-                                Text("Feminino").tag(Gender.female)
+                        Section(header: Text(LocalizedStringKey("gender")).font(.headline)) {
+                            Picker(LocalizedStringKey("gender"), selection: $gender) {
+                                Text(LocalizedStringKey("male")).tag(Gender.male)
+                                Text(LocalizedStringKey("female")).tag(Gender.female)
                             }
                             .pickerStyle(SegmentedPickerStyle())
                             .padding()
@@ -43,10 +43,10 @@ struct ProfileView: View {
                         
                         HStack(spacing: 80) {
                             VStack {
-                                Text("Idade")
+                                Text(LocalizedStringKey("age"))
                                     .font(.headline)
                                 
-                                Picker("Idade", selection: $age) {
+                                Picker(LocalizedStringKey("age"), selection: $age) {
                                     ForEach(1...100, id: \.self) { year in
                                         Text("\(numberFormatter.string(from: NSNumber(value: year)) ?? "\(year)")").tag(year)
                                     }
@@ -59,10 +59,10 @@ struct ProfileView: View {
                             }
                             
                             VStack {
-                                Text("Peso (kg)")
+                                Text(LocalizedStringKey("weightKg"))
                                     .font(.headline)
                                 
-                                Picker("Peso", selection: $weight) {
+                                Picker(LocalizedStringKey("weight"), selection: $weight) {
                                     ForEach(1...200, id: \.self) { value in
                                         Text("\(Int(value))").tag(Double(value))
                                     }
@@ -76,13 +76,13 @@ struct ProfileView: View {
                         }
                         Divider().colorInvert()
                         
-                        Section(header: Text("Meta diária").font(.headline)) {
+                        Section(header: Text(LocalizedStringKey("dailyGoal")).font(.headline)) {
                             Slider(value: $dailyGoal, in: 500...5000, step: 100)
                             Text("\(Int(dailyGoal)) ml")
                         }
                         Divider().colorInvert()
                         
-                        Section(header: Text("Intervalo das notificações").font(.headline)) {
+                        Section(header: Text(LocalizedStringKey("notificationInterval")).font(.headline)) {
                             Slider(value: $reminderInterval, in: 15...180, step: 15)
                             Text("\(Int(reminderInterval)) min")
                         }
@@ -92,7 +92,7 @@ struct ProfileView: View {
                 
                 Spacer()
                 
-                Button("Salvar") {
+                Button(LocalizedStringKey("save")) {
                     UserDefaults.standard.set(gender.rawValue, forKey: "gender")
                     UserDefaults.standard.set(age, forKey: "age")
                     UserDefaults.standard.set(weight, forKey: "weight")
@@ -110,7 +110,7 @@ struct ProfileView: View {
                 configureSegmentedPicker()
             }
             .standardScreenStyle()
-            .navigationBarTitle("Editar Perfil", displayMode: .inline)
+            .navigationBarTitle(LocalizedStringKey("editProfile"), displayMode: .inline)
             .toolbar {
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button(action: {

@@ -12,12 +12,12 @@ struct MainTabView: View {
         TabView {
             HomeView()
                 .tabItem {
-                    Label("Diário", systemImage: "drop")
+                    Label(LocalizedStringKey("daily"), systemImage: "drop")
                 }
 
             SettingsView()
                 .tabItem {
-                    Label("Configurar", systemImage: "gearshape")
+                    Label(LocalizedStringKey("settings"), systemImage: "gearshape")
                 }
         }
     }
