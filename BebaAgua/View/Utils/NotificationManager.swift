@@ -18,7 +18,7 @@ class NotificationManager {
         let center = UNUserNotificationCenter.current()
         center.requestAuthorization(options: [.alert, .sound]) { granted, error in
             if let error = error {
-                print("Erro ao solicitar permissão de notificação: \(error)")
+                print("\(LocalizedStringKey("errorNotificationPermission")) \(error)")
                 completion?(false)
                 return
             }
@@ -50,9 +50,12 @@ class NotificationManager {
         }
         
         // Conteúdo da notificação
+        let notificationTitle = NSLocalizedString("notificationTitle", comment: "")
+        let notificationBody = NSLocalizedString("notificationBody", comment: "")
+
         let content = UNMutableNotificationContent()
-        content.title = "Hora de beber água!"
-        content.body = "Lembre-se de se manter hidratado!"
+        content.title = notificationTitle
+        content.body = notificationBody
         content.sound = .default
         
         // Calcular notificações no período
@@ -77,7 +80,7 @@ class NotificationManager {
                 
                 UNUserNotificationCenter.current().add(request) { error in
                     if let error = error {
-                        print("Erro ao agendar notificação \(i): \(error)")
+                        print("\(LocalizedStringKey("ErrorNotificationScheduling")) \(i): \(error)")
                     }
                 }
             }

@@ -6,6 +6,7 @@
 //
 
 import HealthKit
+import SwiftUI
 
 class HealthKitManager: ObservableObject {
     private let healthStore = HKHealthStore()
@@ -17,13 +18,13 @@ class HealthKitManager: ObservableObject {
     
     func requestAuthorization(completion: @escaping (HKAuthorizationStatus) -> Void) {
         guard HKHealthStore.isHealthDataAvailable() else {
-            setAlert(message: "HealthKit não está disponível neste dispositivo")
+            setAlert(message: "\(LocalizedStringKey("healthUnavailable"))")
             completion(.notDetermined)
             return
         }
         
         guard let waterType = HKObjectType.quantityType(forIdentifier: .dietaryWater) else {
-            setAlert(message: "Tipo de dado de água não disponível no HealthKit")
+            setAlert(message: "\(LocalizedStringKey("healthWaterUnavailable"))")
             completion(.notDetermined)
             return
         }
@@ -31,7 +32,7 @@ class HealthKitManager: ObservableObject {
         healthStore.requestAuthorization(toShare: [waterType], read: nil) { success, error in
             DispatchQueue.main.async {
                 if let error = error {
-                    self.setAlert(message: "Erro na autorização: \(error.localizedDescription)")
+                    self.setAlert(message: "\(LocalizedStringKey("healthErrorAuthorization")) \(error.localizedDescription)")
                     completion(.notDetermined)
                     return
                 }
@@ -51,8 +52,12 @@ class HealthKitManager: ObservableObject {
         
         healthStore.save(sample) { success, error in
             DispatchQueue.main.async {
+                let healthErrorSave = NSLocalizedString("healthErrorSave", comment: "")
+                let healthErrorUnknown = NSLocalizedString("healthErrorUnknown", comment: "")
+                let fullMessage = "\(healthErrorSave) \(error?.localizedDescription ?? healthErrorUnknown)"
+
                 if !success {
-                    self.setAlert(message: "Erro ao salvar no app saúde: \(error?.localizedDescription ?? "Erro desconhecido")")
+                    self.setAlert(message: fullMessage)
                 }
             }
         }
