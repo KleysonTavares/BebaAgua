@@ -7,6 +7,7 @@
 
 import SwiftUI
 import UserNotifications
+import WidgetKit
 
 struct HomeView: View {
     @AppStorage("lastResetDate") var lastResetDate: String = ""
@@ -77,6 +78,7 @@ struct HomeView: View {
                 NotificationManager.shared.requestNotificationPermission()
                 NotificationManager.shared.scheduleDailyNotifications(wakeUpTime: wakeUpTime, bedTime: bedTime, interval: reminderInterval)
                 healthKitManager.requestAuthorization { _ in }
+                syncWithAppGroup()
             }
             .onReceive(adViewModel.$isAdReady) { isReady in
                 if isReady && !premiumManager.isPremiumUser && !adShown {
@@ -96,6 +98,7 @@ struct HomeView: View {
     func addWater(amount: Double) {
         withAnimation {
             waterIntake += amount
+            syncWithAppGroup()
         }
             healthKitManager.saveWaterConsumption(amount: amount)
     }
@@ -111,10 +114,19 @@ struct HomeView: View {
             lastResetDate = today
         }
     }
-}
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        HomeView()
+    func syncWithAppGroup() {
+        if let sharedDefaults = UserDefaults(suiteName: "group.com.kleysontavares.bebaagua") {
+            sharedDefaults.set(waterIntake, forKey: "waterIntake")
+            sharedDefaults.set(dailyGoal, forKey: "dailyGoal")
+            sharedDefaults.synchronize()
+        }
+        WidgetCenter.shared.reloadAllTimelines()
     }
 }
+
+//struct ContentView_Previews: PreviewProvider {
+//    static var previews: some View {
+//        HomeView()
+//    }
+//}

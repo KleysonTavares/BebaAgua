@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		DFC1FAAD2E31AA7A0083A70C /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = DFC1FAAC2E31AA7A0083A70C /* GoogleMobileAds */; };
+		DFC1FBD22E32BFF20083A70C /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFC1FBD12E32BFF20083A70C /* WidgetKit.framework */; };
+		DFC1FBD42E32BFF20083A70C /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFC1FBD32E32BFF20083A70C /* SwiftUI.framework */; };
+		DFC1FBE52E32BFF40083A70C /* WaterWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DFC1FBCF2E32BFF20083A70C /* WaterWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -25,12 +28,37 @@
 			remoteGlobalIDString = DF74CD672D99DCA8001CABD2;
 			remoteInfo = BebaAgua;
 		};
+		DFC1FBE32E32BFF40083A70C /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = DF74CD602D99DCA8001CABD2 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = DFC1FBCE2E32BFF20083A70C;
+			remoteInfo = WaterWidgetExtension;
+		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		DFC1FBE62E32BFF40083A70C /* Embed Foundation Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+				DFC1FBE52E32BFF40083A70C /* WaterWidgetExtension.appex in Embed Foundation Extensions */,
+			);
+			name = "Embed Foundation Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		DF74CD682D99DCA8001CABD2 /* BebaAgua.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BebaAgua.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF74CD782D99DCAA001CABD2 /* BebaAguaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BebaAguaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF74CD822D99DCAA001CABD2 /* BebaAguaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BebaAguaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		DFC1FBCF2E32BFF20083A70C /* WaterWidgetExtension.appex */ = {isa = PBXFileReference; explicitFileType = "wrapper.app-extension"; includeInIndex = 0; path = WaterWidgetExtension.appex; sourceTree = BUILT_PRODUCTS_DIR; };
+		DFC1FBD12E32BFF20083A70C /* WidgetKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = WidgetKit.framework; path = System/Library/Frameworks/WidgetKit.framework; sourceTree = SDKROOT; };
+		DFC1FBD32E32BFF20083A70C /* SwiftUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SwiftUI.framework; path = System/Library/Frameworks/SwiftUI.framework; sourceTree = SDKROOT; };
+		DFC1FBEB2E32C6CD0083A70C /* WaterWidgetExtension.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = WaterWidgetExtension.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
@@ -40,6 +68,13 @@
 				Info.plist,
 			);
 			target = DF74CD672D99DCA8001CABD2 /* BebaAgua */;
+		};
+		DFC1FBEA2E32BFF40083A70C /* Exceptions for "WaterWidget" folder in "WaterWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = DFC1FBCE2E32BFF20083A70C /* WaterWidgetExtension */;
 		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
@@ -60,6 +95,14 @@
 		DF74CD852D99DCAA001CABD2 /* BebaAguaUITests */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
 			path = BebaAguaUITests;
+			sourceTree = "<group>";
+		};
+		DFC1FBD52E32BFF20083A70C /* WaterWidget */ = {
+			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				DFC1FBEA2E32BFF40083A70C /* Exceptions for "WaterWidget" folder in "WaterWidgetExtension" target */,
+			);
+			path = WaterWidget;
 			sourceTree = "<group>";
 		};
 /* End PBXFileSystemSynchronizedRootGroup section */
@@ -87,15 +130,27 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DFC1FBCC2E32BFF20083A70C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DFC1FBD42E32BFF20083A70C /* SwiftUI.framework in Frameworks */,
+				DFC1FBD22E32BFF20083A70C /* WidgetKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
 		DF74CD5F2D99DCA8001CABD2 = {
 			isa = PBXGroup;
 			children = (
+				DFC1FBEB2E32C6CD0083A70C /* WaterWidgetExtension.entitlements */,
 				DF74CD6A2D99DCA8001CABD2 /* BebaAgua */,
 				DF74CD7B2D99DCAA001CABD2 /* BebaAguaTests */,
 				DF74CD852D99DCAA001CABD2 /* BebaAguaUITests */,
+				DFC1FBD52E32BFF20083A70C /* WaterWidget */,
+				DFC1FBD02E32BFF20083A70C /* Frameworks */,
 				DF74CD692D99DCA8001CABD2 /* Products */,
 			);
 			sourceTree = "<group>";
@@ -106,8 +161,18 @@
 				DF74CD682D99DCA8001CABD2 /* BebaAgua.app */,
 				DF74CD782D99DCAA001CABD2 /* BebaAguaTests.xctest */,
 				DF74CD822D99DCAA001CABD2 /* BebaAguaUITests.xctest */,
+				DFC1FBCF2E32BFF20083A70C /* WaterWidgetExtension.appex */,
 			);
 			name = Products;
+			sourceTree = "<group>";
+		};
+		DFC1FBD02E32BFF20083A70C /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DFC1FBD12E32BFF20083A70C /* WidgetKit.framework */,
+				DFC1FBD32E32BFF20083A70C /* SwiftUI.framework */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -120,10 +185,12 @@
 				DF74CD642D99DCA8001CABD2 /* Sources */,
 				DF74CD652D99DCA8001CABD2 /* Frameworks */,
 				DF74CD662D99DCA8001CABD2 /* Resources */,
+				DFC1FBE62E32BFF40083A70C /* Embed Foundation Extensions */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				DFC1FBE42E32BFF40083A70C /* PBXTargetDependency */,
 			);
 			fileSystemSynchronizedGroups = (
 				DF74CD6A2D99DCA8001CABD2 /* BebaAgua */,
@@ -182,6 +249,28 @@
 			productReference = DF74CD822D99DCAA001CABD2 /* BebaAguaUITests.xctest */;
 			productType = "com.apple.product-type.bundle.ui-testing";
 		};
+		DFC1FBCE2E32BFF20083A70C /* WaterWidgetExtension */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = DFC1FBE92E32BFF40083A70C /* Build configuration list for PBXNativeTarget "WaterWidgetExtension" */;
+			buildPhases = (
+				DFC1FBCB2E32BFF20083A70C /* Sources */,
+				DFC1FBCC2E32BFF20083A70C /* Frameworks */,
+				DFC1FBCD2E32BFF20083A70C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			fileSystemSynchronizedGroups = (
+				DFC1FBD52E32BFF20083A70C /* WaterWidget */,
+			);
+			name = WaterWidgetExtension;
+			packageProductDependencies = (
+			);
+			productName = WaterWidgetExtension;
+			productReference = DFC1FBCF2E32BFF20083A70C /* WaterWidgetExtension.appex */;
+			productType = "com.apple.product-type.app-extension";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -189,7 +278,7 @@
 			isa = PBXProject;
 			attributes = {
 				BuildIndependentTargetsInParallel = 1;
-				LastSwiftUpdateCheck = 1620;
+				LastSwiftUpdateCheck = 1640;
 				LastUpgradeCheck = 1620;
 				TargetAttributes = {
 					DF74CD672D99DCA8001CABD2 = {
@@ -202,6 +291,9 @@
 					DF74CD812D99DCAA001CABD2 = {
 						CreatedOnToolsVersion = 16.2;
 						TestTargetID = DF74CD672D99DCA8001CABD2;
+					};
+					DFC1FBCE2E32BFF20083A70C = {
+						CreatedOnToolsVersion = 16.4;
 					};
 				};
 			};
@@ -227,6 +319,7 @@
 				DF74CD672D99DCA8001CABD2 /* BebaAgua */,
 				DF74CD772D99DCAA001CABD2 /* BebaAguaTests */,
 				DF74CD812D99DCAA001CABD2 /* BebaAguaUITests */,
+				DFC1FBCE2E32BFF20083A70C /* WaterWidgetExtension */,
 			);
 		};
 /* End PBXProject section */
@@ -247,6 +340,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		DF74CD802D99DCAA001CABD2 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		DFC1FBCD2E32BFF20083A70C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -277,6 +377,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		DFC1FBCB2E32BFF20083A70C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -289,6 +396,11 @@
 			isa = PBXTargetDependency;
 			target = DF74CD672D99DCA8001CABD2 /* BebaAgua */;
 			targetProxy = DF74CD832D99DCAA001CABD2 /* PBXContainerItemProxy */;
+		};
+		DFC1FBE42E32BFF40083A70C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = DFC1FBCE2E32BFF20083A70C /* WaterWidgetExtension */;
+			targetProxy = DFC1FBE32E32BFF40083A70C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -554,6 +666,64 @@
 			};
 			name = Release;
 		};
+		DFC1FBE72E32BFF40083A70C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = WaterWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 48VXLBS5Z4;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WaterWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = WaterWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = DosSantos.BebaAgua.WaterWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		DFC1FBE82E32BFF40083A70C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
+				CODE_SIGN_ENTITLEMENTS = WaterWidgetExtension.entitlements;
+				CODE_SIGN_STYLE = Automatic;
+				CURRENT_PROJECT_VERSION = 1;
+				DEVELOPMENT_TEAM = 48VXLBS5Z4;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = WaterWidget/Info.plist;
+				INFOPLIST_KEY_CFBundleDisplayName = WaterWidget;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "";
+				IPHONEOS_DEPLOYMENT_TARGET = 18.5;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@executable_path/../../Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				PRODUCT_BUNDLE_IDENTIFIER = DosSantos.BebaAgua.WaterWidget;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -589,6 +759,15 @@
 			buildConfigurations = (
 				DF74CD932D99DCAA001CABD2 /* Debug */,
 				DF74CD942D99DCAA001CABD2 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		DFC1FBE92E32BFF40083A70C /* Build configuration list for PBXNativeTarget "WaterWidgetExtension" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				DFC1FBE72E32BFF40083A70C /* Debug */,
+				DFC1FBE82E32BFF40083A70C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
