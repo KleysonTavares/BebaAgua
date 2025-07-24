@@ -69,13 +69,6 @@
 			);
 			target = DF74CD672D99DCA8001CABD2 /* BebaAgua */;
 		};
-		DFC1FBEA2E32BFF40083A70C /* Exceptions for "WaterWidget" folder in "WaterWidgetExtension" target */ = {
-			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
-			membershipExceptions = (
-				Info.plist,
-			);
-			target = DFC1FBCE2E32BFF20083A70C /* WaterWidgetExtension */;
-		};
 /* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
 
 /* Begin PBXFileSystemSynchronizedRootGroup section */
@@ -99,9 +92,6 @@
 		};
 		DFC1FBD52E32BFF20083A70C /* WaterWidget */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
-			exceptions = (
-				DFC1FBEA2E32BFF40083A70C /* Exceptions for "WaterWidget" folder in "WaterWidgetExtension" target */,
-			);
 			path = WaterWidget;
 			sourceTree = "<group>";
 		};
