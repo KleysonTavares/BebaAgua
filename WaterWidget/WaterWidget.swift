@@ -41,10 +41,13 @@ struct WaterProvider: TimelineProvider {
 struct WaterWidgetEntryView: View {
     @Environment(\.widgetFamily) var family
     var entry: WaterProvider.Entry
+    let dailyGoal = NSLocalizedString("dailyGoal", bundle: .main, comment: "")
+    let consumed = NSLocalizedString("consumed", bundle: .main, comment: "")
     var progress: Double {
         guard entry.dailyGoal > 0 else { return 0 }
         return min(entry.waterIntake / entry.dailyGoal, 1.0)
     }
+    
 
     var body: some View {
             switch family {
@@ -91,14 +94,14 @@ struct WaterWidgetEntryView: View {
             HStack {
                 smallView
                 VStack(alignment: .leading, spacing: 4) {
-                    Text("Meta diária:")
+                    Text(LocalizedStringKey(dailyGoal))
                         .font(.caption)
                         .foregroundColor(.secondary)
 
                     Text("\(Int(entry.dailyGoal)) ml")
                         .font(.headline)
 
-                    Text("Consumido:")
+                    Text(LocalizedStringKey(consumed))
                         .font(.caption)
                         .foregroundColor(.secondary)
 
@@ -115,13 +118,15 @@ struct WaterWidgetEntryView: View {
 @main
 struct WaterWidget: Widget {
     let kind: String = "WaterWidget"
+    let waterProgress = NSLocalizedString("waterProgress", bundle: .main, comment: "")
+    let description = NSLocalizedString("description", bundle: .main, comment: "")
 
     var body: some WidgetConfiguration {
         StaticConfiguration(kind: kind, provider: WaterProvider()) { entry in
             WaterWidgetEntryView(entry: entry)
         }
-        .configurationDisplayName("Progresso de Água")
-        .description("Veja seu progresso e beba água com um toque.")
+        .configurationDisplayName(LocalizedStringKey(waterProgress))
+        .description(LocalizedStringKey(description))
         .supportedFamilies([.systemSmall, .systemMedium])
     }
 }
