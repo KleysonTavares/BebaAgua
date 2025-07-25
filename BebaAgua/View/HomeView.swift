@@ -99,6 +99,7 @@ struct HomeView: View {
         withAnimation {
             waterIntake += amount
             syncWithAppGroup()
+            SoundManager.shared.playSound(named: "drink")
         }
             healthKitManager.saveWaterConsumption(amount: amount)
     }
