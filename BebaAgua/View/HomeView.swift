@@ -45,7 +45,10 @@ struct HomeView: View {
                         
                         Slider(value: $drinkAmount, in: 100...500, step: 50)
                             .accentColor(.cyan)
-                        
+                            .onChange(of: drinkAmount) { _ in
+                                   SoundManager.shared.playSound(named: "water")
+                               }
+
                         Text("\(Int(drinkAmount)) ml")
                             .foregroundColor(.cyan)
                             .font(.subheadline)
