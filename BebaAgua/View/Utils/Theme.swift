@@ -10,12 +10,11 @@ import SwiftUI
 struct Theme: ViewModifier {
     func body(content: Content) -> some View {
         ZStack {
-                   Color.white
+            Color(.systemBackground)
                        .ignoresSafeArea() // Cobre toda a tela, inclusive as bordas
                    content
                }
                .navigationBarBackButtonHidden(true)
-               .preferredColorScheme(.light)
            }
        }
 

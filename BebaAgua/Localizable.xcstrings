@@ -331,32 +331,6 @@
         }
       }
     },
-    "ErrorNotificationScheduling" : {
-
-    },
-    "ErrorNotificationScheduling " : {
-      "extractionState" : "manual",
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Error scheduling notification"
-          }
-        },
-        "es-419" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Notificación de error de programación"
-          }
-        },
-        "pt-BR" : {
-          "stringUnit" : {
-            "state" : "translated",
-            "value" : "Erro ao agendar notificação"
-          }
-        }
-      }
-    },
     "feedback" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -512,7 +486,7 @@
         },
         "pt-BR" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Erro ao salvar no app saúde:"
           }
         }
@@ -960,19 +934,180 @@
         "en" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Remember to stay hydrated!"
+            "value" : "A break to take care of yourself"
           }
         },
         "es-419" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "¡Recuerda mantenerse hidratado!"
+            "value" : "Un descanso para cuidarte"
           }
         },
         "pt-BR" : {
           "stringUnit" : {
             "state" : "translated",
-            "value" : "Lembre-se de se manter hidratado!"
+            "value" : "Uma pausa para cuidar de você"
+          }
+        }
+      }
+    },
+    "notificationBody1" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Your body thanks you ❤️"
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Tu cuerpo te lo agradece ❤️"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Seu corpo agradece ❤️"
+          }
+        }
+      }
+    },
+    "notificationBody2" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Time to hydrate 💧"
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hora de hidratarse 💧"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hora de se hidratar 💧"
+          }
+        }
+      }
+    },
+    "notificationBody3" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "A dose of health, right now!"
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¡Una dosis de salud, ahora mismo!"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Uma dose de saúde agora mesmo!"
+          }
+        }
+      }
+    },
+    "notificationBody4" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Drink water and shine ✨"
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Bebe agua y brilla ✨"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Beba água e brilhe ✨"
+          }
+        }
+      }
+    },
+    "notificationBody5" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hydration is life!"
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¡La hidratación es vida!"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Hidratação é vida!"
+          }
+        }
+      }
+    },
+    "notificationBody6" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Water: the secret to energy 💪"
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Agua: el secreto de la energía 💪"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Água: o segredo da energia 💪"
+          }
+        }
+      }
+    },
+    "notificationBody7" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Let's take a sip? 🚰"
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "¿Tomamos un sorbo? 🚰"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Vamos dar um gole? 🚰"
           }
         }
       }

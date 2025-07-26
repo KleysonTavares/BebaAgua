@@ -48,10 +48,20 @@ class NotificationManager {
         if startDate < now {
             startDate = calendar.date(byAdding: .day, value: 1, to: startDate) ?? startDate
         }
-        
+
+        let motivationalMessagesKeys = [
+            "notificationBody1",
+            "notificationBody2",
+            "notificationBody3",
+            "notificationBody4",
+            "notificationBody5",
+            "notificationBody6",
+            "notificationBody7"
+        ]
+
         // Conteúdo da notificação
         let notificationTitle = NSLocalizedString("notificationTitle", comment: "")
-        let notificationBody = NSLocalizedString("notificationBody", comment: "")
+        let notificationBody = NSLocalizedString(motivationalMessagesKeys.randomElement() ?? "notificationBody", comment: "")
 
         let content = UNMutableNotificationContent()
         content.title = notificationTitle
@@ -80,7 +90,7 @@ class NotificationManager {
                 
                 UNUserNotificationCenter.current().add(request) { error in
                     if let error = error {
-                        print("\(LocalizedStringKey("ErrorNotificationScheduling")) \(i): \(error)")
+                        print("\(i): \(error)")
                     }
                 }
             }
