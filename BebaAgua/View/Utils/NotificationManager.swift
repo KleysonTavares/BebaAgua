@@ -56,7 +56,7 @@ class NotificationManager {
         let content = UNMutableNotificationContent()
         content.title = notificationTitle
         content.body = notificationBody
-        content.sound = .default
+        content.sound = UNNotificationSound(named: UNNotificationSoundName("water.caf"))
         
         // Calcular notificações no período
         let totalMinutes = calendar.dateComponents([.minute], from: wakeUpDate, to: bedTimeDate).minute ?? 0
