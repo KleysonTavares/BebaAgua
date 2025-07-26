@@ -38,6 +38,8 @@ struct HomeView: View {
                     .padding()
                 Spacer()
                 
+                WeeklyChartView(data: getLast7DaysIntake())
+                
                 HStack(spacing: 20) {
                     VStack(alignment: .center, spacing: 0) {     // Slider + Label
                         Text(LocalizedStringKey("cupSize"))
@@ -99,6 +101,7 @@ struct HomeView: View {
         withAnimation {
             waterIntake += amount
             syncWithAppGroup()
+            saveDailyIntake(amount)
         }
             healthKitManager.saveWaterConsumption(amount: amount)
     }
@@ -122,6 +125,33 @@ struct HomeView: View {
             sharedDefaults.synchronize()
         }
         WidgetCenter.shared.reloadAllTimelines()
+    }
+    
+    func saveDailyIntake(_ amount: Double) {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd/MM"
+        let key = "intake_\(formatter.string(from: Date()))"
+
+        let currentAmount = UserDefaults.standard.double(forKey: key)
+        UserDefaults.standard.set(currentAmount + amount, forKey: key)
+    }
+
+    func getLast7DaysIntake() -> [WaterIntakeDay] {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "dd/MM"
+
+        let calendar = Calendar.current
+        var result: [WaterIntakeDay] = []
+
+        let defaults = UserDefaults.standard
+        for i in 0..<7 {
+            if let date = calendar.date(byAdding: .day, value: -i, to: Date()) {
+                let dateKey = formatter.string(from: date)
+                let amount = defaults.double(forKey: "intake_\(dateKey)")
+                result.append(WaterIntakeDay(dateString: dateKey, amount: amount))
+            }
+        }
+        return result.reversed()
     }
 }
 
