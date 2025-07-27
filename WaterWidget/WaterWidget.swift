@@ -45,7 +45,7 @@ struct WaterWidgetEntryView: View {
     let consumed = NSLocalizedString("consumed", bundle: .main, comment: "")
     var progress: Double {
         guard entry.dailyGoal > 0 else { return 0 }
-        return min(entry.waterIntake / entry.dailyGoal, 1.0)
+        return min(entry.waterIntake / entry.dailyGoal, 9.0)
     }
     
 
