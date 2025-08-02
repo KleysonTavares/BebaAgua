@@ -14,7 +14,7 @@ struct ProfileView: View {
     @AppStorage("age") var age: Int = 18
     @AppStorage("weight") var weight: Int = 70
     @AppStorage("dailyGoal") var dailyGoal: Double = 2000
-    @AppStorage("reminderInterval") var reminderInterval: Double = 60
+    @AppStorage("reminderInterval") var reminderInterval: Double = 120
     @AppStorage("wakeUpTime") var wakeUpTime: String = "06:00"
     @AppStorage("bedTime") var bedTime: String = "22:00"
 
@@ -91,15 +91,18 @@ struct ProfileView: View {
                 }
                 
                 Spacer()
-                
-                Button(LocalizedStringKey("save")) {
+
+                Button(action: {
                     UserDefaults.standard.set(gender.rawValue, forKey: "gender")
                     UserDefaults.standard.set(age, forKey: "age")
                     UserDefaults.standard.set(weight, forKey: "weight")
                     UserDefaults.standard.set(dailyGoal, forKey: "dailyGoal")
                     UserDefaults.standard.set(reminderInterval, forKey: "reminderInterval")
-                    NotificationManager.shared.scheduleDailyNotifications(wakeUpTime: wakeUpTime, bedTime: bedTime, interval: reminderInterval)
+                    NotificationManager.shared.evaluateSmartReminder()
                     dismiss()
+                }) {
+                    Text(LocalizedStringKey("save"))
+                        .frame(maxWidth: .infinity)
                 }
                 .customButton()
                 Spacer()
