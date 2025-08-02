@@ -77,7 +77,7 @@ struct BedTimeSelectionView: View {
     func saveBedTime() {
         UserDefaults.standard.set(formattedTime, forKey: "bedTime")
         UserDefaults.standard.set(WaterCalculator.calculateDailyGoal(age: age, weight: weight), forKey: "dailyGoal")
-        UserDefaults.standard.set(60, forKey: "reminderInterval")
+        UserDefaults.standard.set(120, forKey: "reminderInterval")
         UserDefaults.standard.set(true, forKey: "completedOnboarding")
     }
     
