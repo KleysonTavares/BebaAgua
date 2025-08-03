@@ -26,6 +26,19 @@ class ReminderManager {
         }
     }
 
+    func configureBackgroundTasks() {
+        BGTaskScheduler.shared.register(
+            forTaskWithIdentifier: "com.kleysontavares.bebaagua.refresh",
+            using: nil
+        ) { task in
+            guard let task = task as? BGAppRefreshTask else {
+                task.setTaskCompleted(success: false)
+                return
+            }
+            self.handleAppRefresh(task: task)
+        }
+    }
+
     // Lógica da tarefa
     func handleAppRefresh(task: BGAppRefreshTask) {
         scheduleAppRefresh() // Reagenda após execução
