@@ -23,11 +23,11 @@ class WeatherManager: ObservableObject {
     @Published var temperature: Double?
     @Published var humidity: Int?
 
-    private let apiKey = "1d8455a911fc41eeaed00606250508"
+    private let weatherapiKey: String = Bundle.main.infoDictionary?["API_KEY"] as? String ?? ""
 
     func fetchWeather(city: String) async throws -> WeatherAPIResponse {
         let cityQuery = city.addingPercentEncoding(withAllowedCharacters: .urlQueryAllowed) ?? city
-        let urlString = "https://api.weatherapi.com/v1/current.json?key=\(apiKey)&q=\(cityQuery)&lang=pt"
+        let urlString = "https://api.weatherapi.com/v1/current.json?key=\(weatherapiKey)&q=\(cityQuery)&lang=pt"
 
         guard let url = URL(string: urlString) else {
             throw URLError(.badURL)

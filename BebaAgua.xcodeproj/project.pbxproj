@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DF5187502E47FCEC00129466 /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = DF51874F2E47FCEC00129466 /* Secrets.xcconfig */; };
 		DFC1FAAD2E31AA7A0083A70C /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = DFC1FAAC2E31AA7A0083A70C /* GoogleMobileAds */; };
 		DFC1FBD22E32BFF20083A70C /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFC1FBD12E32BFF20083A70C /* WidgetKit.framework */; };
 		DFC1FBD42E32BFF20083A70C /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFC1FBD32E32BFF20083A70C /* SwiftUI.framework */; };
@@ -52,6 +53,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		DF51874F2E47FCEC00129466 /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		DF74CD682D99DCA8001CABD2 /* BebaAgua.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BebaAgua.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF74CD782D99DCAA001CABD2 /* BebaAguaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BebaAguaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF74CD822D99DCAA001CABD2 /* BebaAguaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BebaAguaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -145,6 +147,7 @@
 		DF74CD5F2D99DCA8001CABD2 = {
 			isa = PBXGroup;
 			children = (
+				DF51874F2E47FCEC00129466 /* Secrets.xcconfig */,
 				DFC1FBEB2E32C6CD0083A70C /* WaterWidgetExtension.entitlements */,
 				DF74CD6A2D99DCA8001CABD2 /* BebaAgua */,
 				DF74CD7B2D99DCAA001CABD2 /* BebaAguaTests */,
@@ -329,6 +332,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF5187502E47FCEC00129466 /* Secrets.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -528,6 +532,7 @@
 		};
 		DF74CD8D2D99DCAA001CABD2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DF51874F2E47FCEC00129466 /* Secrets.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -562,6 +567,7 @@
 		};
 		DF74CD8E2D99DCAA001CABD2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DF51874F2E47FCEC00129466 /* Secrets.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -596,6 +602,7 @@
 		};
 		DF74CD902D99DCAA001CABD2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DF51874F2E47FCEC00129466 /* Secrets.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -615,6 +622,7 @@
 		};
 		DF74CD912D99DCAA001CABD2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DF51874F2E47FCEC00129466 /* Secrets.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				CODE_SIGN_STYLE = Automatic;
@@ -634,6 +642,7 @@
 		};
 		DF74CD932D99DCAA001CABD2 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DF51874F2E47FCEC00129466 /* Secrets.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -651,6 +660,7 @@
 		};
 		DF74CD942D99DCAA001CABD2 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DF51874F2E47FCEC00129466 /* Secrets.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
@@ -668,6 +678,7 @@
 		};
 		DFC1FBE72E32BFF40083A70C /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DF51874F2E47FCEC00129466 /* Secrets.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
@@ -697,6 +708,7 @@
 		};
 		DFC1FBE82E32BFF40083A70C /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = DF51874F2E47FCEC00129466 /* Secrets.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				ASSETCATALOG_COMPILER_WIDGET_BACKGROUND_COLOR_NAME = WidgetBackground;
