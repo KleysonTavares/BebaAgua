@@ -30,14 +30,14 @@ struct HomeView: View {
     var body: some View {
             VStack {
                 Spacer()
-                
-                MotivationalMessageView(progress: waterIntake / adjustedGoal)
+                let goal = adjustedGoal > dailyGoal ? adjustedGoal : dailyGoal
+                MotivationalMessageView(progress: waterIntake / goal)
 
-                WaterProgressView(progress: waterIntake / adjustedGoal)
+                WaterProgressView(progress: waterIntake / goal)
                     .frame(width: 200, height: 200)
                     .padding()
                 
-                Text("\(Int(waterIntake)) / \(Int(adjustedGoal)) ml")
+                Text("\(Int(waterIntake)) / \(Int(goal)) ml")
                     .font(.headline)
                     .padding()
                 Spacer()
@@ -120,6 +120,7 @@ struct HomeView: View {
         if lastResetDate != today {
             waterIntake = 0
             lastResetDate = today
+            adjustedGoal = 0
         }
     }
 
@@ -127,6 +128,7 @@ struct HomeView: View {
         if let sharedDefaults = UserDefaults(suiteName: "group.com.kleysontavares.bebaagua") {
             sharedDefaults.set(waterIntake, forKey: "waterIntake")
             sharedDefaults.set(dailyGoal, forKey: "dailyGoal")
+            sharedDefaults.set(adjustedGoal, forKey: "adjustedGoal")
             sharedDefaults.synchronize()
         }
         WidgetCenter.shared.reloadAllTimelines()
