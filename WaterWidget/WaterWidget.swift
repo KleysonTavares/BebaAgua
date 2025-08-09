@@ -12,12 +12,14 @@ struct WaterEntry: TimelineEntry {
     let date: Date
     let waterIntake: Double
     let dailyGoal: Double
+    let adjustedGoal: Double
 
     init(date: Date) {
         self.date = date
         let sharedDefaults = UserDefaults(suiteName: "group.com.kleysontavares.bebaagua")
         self.waterIntake = sharedDefaults?.double(forKey: "waterIntake") ?? 0
         self.dailyGoal = sharedDefaults?.double(forKey: "dailyGoal") ?? 2000
+        self.adjustedGoal = sharedDefaults?.double(forKey: "adjustedGoal") ?? 2000
     }
 }
 
@@ -43,11 +45,13 @@ struct WaterWidgetEntryView: View {
     var entry: WaterProvider.Entry
     let dailyGoal = NSLocalizedString("dailyGoal", bundle: .main, comment: "")
     let consumed = NSLocalizedString("consumed", bundle: .main, comment: "")
-    var progress: Double {
-        guard entry.dailyGoal > 0 else { return 0 }
-        return min(entry.waterIntake / entry.dailyGoal, 9.0)
+    var goal: Double {
+        entry.adjustedGoal > entry.dailyGoal ? entry.adjustedGoal : entry.dailyGoal
     }
-    
+    var progress: Double {
+        guard goal > 0 else { return 0 }
+        return min(entry.waterIntake / goal, 9.0)
+    }
 
     var body: some View {
             switch family {
@@ -70,7 +74,7 @@ struct WaterWidgetEntryView: View {
                     .foregroundColor(.cyan)
 
                 Circle()
-                    .trim(from: 0.0, to: min(entry.waterIntake / entry.dailyGoal, 1.0))
+                    .trim(from: 0.0, to: min(entry.waterIntake / goal, 1.0))
                     .stroke(style: StrokeStyle(lineWidth: 10, lineCap: .round))
                     .foregroundColor(.blue)
                     .rotationEffect(.degrees(-90))
@@ -82,7 +86,7 @@ struct WaterWidgetEntryView: View {
             .frame(width: 70, height: 70)
 
             // Quantidade
-            Text("\(Int(entry.waterIntake)) / \(Int(entry.dailyGoal))ml")
+            Text("\(Int(entry.waterIntake)) / \(Int(goal))ml")
                 .font(.caption2)
                 .foregroundColor(.secondary)
         }
@@ -98,7 +102,7 @@ struct WaterWidgetEntryView: View {
                         .font(.caption)
                         .foregroundColor(.secondary)
 
-                    Text("\(Int(entry.dailyGoal)) ml")
+                    Text("\(Int(goal)) ml")
                         .font(.headline)
 
                     Text(LocalizedStringKey(consumed))
