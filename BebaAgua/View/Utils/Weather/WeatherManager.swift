@@ -18,7 +18,7 @@ struct Current: Codable {
 }
 
 class WeatherManager: ObservableObject {
-    @AppStorage("dailyGoal") var baseGoal: Double = 2000
+    @AppStorage("dailyGoal") var dailyGoal: Double = 2000
     @AppStorage("adjustedGoal") var adjustedGoal: Double = 2000
     @Published var temperature: Double?
     @Published var humidity: Int?
@@ -41,7 +41,7 @@ class WeatherManager: ObservableObject {
     func adjustedGoalStorage(city: String) async {
         do {
             let weather = try await fetchWeather(city: city)
-            var goal = baseGoal
+            var goal = dailyGoal
             
             if weather.current.temp_c >= 30 {
                 goal *= 1.15
