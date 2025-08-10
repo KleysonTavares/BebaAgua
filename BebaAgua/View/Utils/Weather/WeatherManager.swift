@@ -53,8 +53,11 @@ class WeatherManager: ObservableObject {
                 goal *= 1.05
             }
 
+            let finalGoal = goal
             await MainActor.run {
-                adjustedGoal = goal
+                if finalGoal > adjustedGoal {
+                    adjustedGoal = finalGoal
+                }
             }
         } catch {
             print("Erro ao buscar dados do clima: \(error.localizedDescription)")
