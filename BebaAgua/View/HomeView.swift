@@ -14,6 +14,7 @@ struct HomeView: View {
     @AppStorage("waterIntake") var waterIntake: Double = 0.0
     @AppStorage("drinkAmount") var drinkAmount: Double = 200
     @AppStorage("dailyGoal") var dailyGoal: Double = 2000
+    @AppStorage("adjustedGoal") var adjustedGoal: Double = 2000
     @AppStorage("wakeUpTime") var wakeUpTime: String = "06:00"
     @AppStorage("bedTime") var bedTime: String = "22:00"
     @AppStorage("reminderInterval") var reminderInterval: Double = 120
@@ -21,20 +22,21 @@ struct HomeView: View {
     @StateObject private var healthKitManager = HealthKitManager()
     @StateObject private var premiumManager = PremiumManager()
     @StateObject private var adViewModel = AdInterstitialViewModel()
+    @StateObject private var weatherManager = WeatherManager()
     @State private var adShown = false
     private let reminderManager = ReminderManager.shared
 
     var body: some View {
             VStack {
                 Spacer()
-                
-                MotivationalMessageView(progress: waterIntake / dailyGoal)
+                let goal = adjustedGoal > dailyGoal ? adjustedGoal : dailyGoal
+                MotivationalMessageView(progress: waterIntake / goal)
 
-                WaterProgressView(progress: waterIntake / dailyGoal)
+                WaterProgressView(progress: waterIntake / goal)
                     .frame(width: 200, height: 200)
                     .padding()
                 
-                Text("\(Int(waterIntake)) / \(Int(dailyGoal)) ml")
+                Text("\(Int(waterIntake)) / \(Int(goal)) ml")
                     .font(.headline)
                     .padding()
                 Spacer()
@@ -79,9 +81,9 @@ struct HomeView: View {
             .onAppear {
                 premiumManager.checkSubscriptionStatus()
                 checkAndResetDailyIntake()
-                NotificationManager.shared.requestNotificationPermission()
-                reminderManager.scheduleAppRefresh()
-                healthKitManager.requestAuthorization { _ in }
+//                NotificationManager.shared.requestNotificationPermission()
+//                NotificationManager.shared.scheduleDailyNotifications(wakeUpTime: wakeUpTime, bedTime: bedTime, interval: reminderInterval)
+                isPremiumUser()
                 syncWithAppGroup()
             }
             .onReceive(adViewModel.$isAdReady) { isReady in
@@ -118,6 +120,7 @@ struct HomeView: View {
         if lastResetDate != today {
             waterIntake = 0
             lastResetDate = today
+            adjustedGoal = 0
         }
     }
 
@@ -125,9 +128,24 @@ struct HomeView: View {
         if let sharedDefaults = UserDefaults(suiteName: "group.com.kleysontavares.bebaagua") {
             sharedDefaults.set(waterIntake, forKey: "waterIntake")
             sharedDefaults.set(dailyGoal, forKey: "dailyGoal")
+            sharedDefaults.set(adjustedGoal, forKey: "adjustedGoal")
             sharedDefaults.synchronize()
         }
         WidgetCenter.shared.reloadAllTimelines()
+    }
+
+    func isPremiumUser() {
+        if premiumManager.isPremiumUser {
+            healthKitManager.requestAuthorization { _ in }
+            Task {
+                let locationManager = LocationManager()
+                if let city = await locationManager.getCityName() {
+                    await weatherManager.adjustedGoalStorage(city: city)
+                } else {
+                    return
+                }
+            }
+        }
     }
 }
 

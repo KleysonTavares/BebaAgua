@@ -480,7 +480,7 @@
         },
         "es-419" : {
           "stringUnit" : {
-            "state" : "needs_review",
+            "state" : "translated",
             "value" : "Error al guardar en la aplicación de salud:"
           }
         },
