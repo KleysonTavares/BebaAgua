@@ -17,15 +17,14 @@ struct HomeView: View {
     @AppStorage("adjustedGoal") var adjustedGoal: Double = 2000
     @AppStorage("wakeUpTime") var wakeUpTime: String = "06:00"
     @AppStorage("bedTime") var bedTime: String = "22:00"
-    @AppStorage("reminderInterval") var reminderInterval: Double = 60
+    @AppStorage("reminderInterval") var reminderInterval: Double = 120
     @AppStorage("showingAuthAlert") var showingAuthAlert: Bool = false
     @StateObject private var healthKitManager = HealthKitManager()
     @StateObject private var premiumManager = PremiumManager()
     @StateObject private var adViewModel = AdInterstitialViewModel()
     @StateObject private var weatherManager = WeatherManager()
-
     @State private var adShown = false
-    @State var dailyGoalAdjust = 0.0
+    private let reminderManager = ReminderManager.shared
 
     var body: some View {
             VStack {
@@ -82,8 +81,8 @@ struct HomeView: View {
             .onAppear {
                 premiumManager.checkSubscriptionStatus()
                 checkAndResetDailyIntake()
-                NotificationManager.shared.requestNotificationPermission()
-                NotificationManager.shared.scheduleDailyNotifications(wakeUpTime: wakeUpTime, bedTime: bedTime, interval: reminderInterval)
+//                NotificationManager.shared.requestNotificationPermission()
+//                NotificationManager.shared.scheduleDailyNotifications(wakeUpTime: wakeUpTime, bedTime: bedTime, interval: reminderInterval)
                 isPremiumUser()
                 syncWithAppGroup()
             }
@@ -107,6 +106,7 @@ struct HomeView: View {
             waterIntake += amount
             syncWithAppGroup()
             SoundManager.shared.playSound(named: "drink")
+            PersistenceController.shared.saveToCoreData(amount: amount)
         }
             healthKitManager.saveWaterConsumption(amount: amount)
     }
