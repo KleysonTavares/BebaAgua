@@ -108,7 +108,12 @@ struct HomeView: View {
             syncWithAppGroup()
             SoundManager.shared.playSound(named: "drink")
         }
-            healthKitManager.saveWaterConsumption(amount: amount)
+        healthKitManager.saveWaterConsumption(amount: amount)
+        NotificationManager.shared.rescheduleNotificationsAfterWaterIntake(
+            wakeUpTime: wakeUpTime,
+            bedTime: bedTime,
+            interval: reminderInterval
+        )
     }
 
     func checkAndResetDailyIntake() {
