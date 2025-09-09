@@ -109,7 +109,7 @@ struct HomeView: View {
             SoundManager.shared.playSound(named: "drink")
         }
         healthKitManager.saveWaterConsumption(amount: amount)
-        NotificationManager.shared.rescheduleNotificationsAfterWaterIntake(
+        NotificationManager.shared.scheduleDailyNotifications(
             wakeUpTime: wakeUpTime,
             bedTime: bedTime,
             interval: reminderInterval

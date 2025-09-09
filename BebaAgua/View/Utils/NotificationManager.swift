@@ -72,56 +72,6 @@ class NotificationManager {
             }
         }
     }
-    
-    // MARK: - Reagendamento após Adicionar Água
-    func rescheduleNotificationsAfterWaterIntake(wakeUpTime: String, bedTime: String, interval: Double) {
-        removeAllWaterReminders()
-        
-        guard let bedTimeDate = convertTimeStringToDate(bedTime) else {
-            return
-        }
-        
-        let calendar = Calendar.current
-        let now = Date()
-        
-        var endDate = calendar.date(bySettingHour: calendar.component(.hour, from: bedTimeDate),
-                                   minute: calendar.component(.minute, from: bedTimeDate),
-                                   second: 0,
-                                   of: now) ?? now
-        
-        if endDate < now {
-            endDate = calendar.date(byAdding: .day, value: 1, to: endDate) ?? endDate
-        }
-        
-        let minutesUntilBedTime = calendar.dateComponents([.minute], from: now, to: endDate).minute ?? 0
-        let numberOfNotifications = max(1, Int(Double(minutesUntilBedTime) / interval))
-        
-        for i in 0..<numberOfNotifications {
-            let minutesToAdd = Int(interval * Double(i + 1))
-            if let triggerDate = calendar.date(byAdding: .minute, value: minutesToAdd, to: now),
-               triggerDate <= endDate {
-
-                let trigger = UNCalendarNotificationTrigger(
-                    dateMatching: calendar.dateComponents([.year, .month, .day, .hour, .minute], from: triggerDate),
-                    repeats: false
-                )
-                
-                let content = createNotificationContent()
-                
-                let request = UNNotificationRequest(
-                    identifier: "waterReminder_reset_\(i)",
-                    content: content,
-                    trigger: trigger
-                )
-                
-                UNUserNotificationCenter.current().add(request) { error in
-                    if let error = error {
-                        print("❌ Erro ao reagendar notificação \(i): \(error)")
-                    }
-                }
-            }
-        }
-    }
 
     func removeAllWaterReminders() {
         UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
