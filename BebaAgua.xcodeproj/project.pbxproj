@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		DF4608F32E594E630062C62F /* Secrets.xcconfig in Resources */ = {isa = PBXBuildFile; fileRef = DF4608F22E594E630062C62F /* Secrets.xcconfig */; };
 		DFC1FAAD2E31AA7A0083A70C /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = DFC1FAAC2E31AA7A0083A70C /* GoogleMobileAds */; };
 		DFC1FBD22E32BFF20083A70C /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFC1FBD12E32BFF20083A70C /* WidgetKit.framework */; };
 		DFC1FBD42E32BFF20083A70C /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFC1FBD32E32BFF20083A70C /* SwiftUI.framework */; };
@@ -53,6 +54,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		DF4608F22E594E630062C62F /* Secrets.xcconfig */ = {isa = PBXFileReference; lastKnownFileType = text.xcconfig; path = Secrets.xcconfig; sourceTree = "<group>"; };
 		DF74CD682D99DCA8001CABD2 /* BebaAgua.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BebaAgua.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF74CD782D99DCAA001CABD2 /* BebaAguaTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BebaAguaTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		DF74CD822D99DCAA001CABD2 /* BebaAguaUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BebaAguaUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -147,6 +149,7 @@
 		DF74CD5F2D99DCA8001CABD2 = {
 			isa = PBXGroup;
 			children = (
+				DF4608F22E594E630062C62F /* Secrets.xcconfig */,
 				DFD408FA2E48ED2700B9A3EF /* Secrets.xcconfig */,
 				DFC1FBEB2E32C6CD0083A70C /* WaterWidgetExtension.entitlements */,
 				DF74CD6A2D99DCA8001CABD2 /* BebaAgua */,
@@ -332,6 +335,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF4608F32E594E630062C62F /* Secrets.xcconfig in Resources */,
 				DFD408FB2E48ED2700B9A3EF /* Secrets.xcconfig in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
