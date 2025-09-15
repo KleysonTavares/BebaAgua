@@ -20,7 +20,6 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
         let center = UNUserNotificationCenter.current()
         center.requestAuthorization(options: [.alert, .sound]) { granted, error in
             if let error = error {
-                print("\(LocalizedStringKey("errorNotificationPermission")) \(error)")
                 completion?(false)
                 return
             }
@@ -34,7 +33,6 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
 
         guard let wakeUpDate = convertTimeStringToDate(wakeUpTime),
               let bedTimeDate = convertTimeStringToDate(bedTime) else {
-            print("Horários inválidos")
             return
         }
 
@@ -45,29 +43,58 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
                                           minute: calendar.component(.minute, from: wakeUpDate),
                                           second: 0,
                                           of: now) ?? now
-
         if startDate < now {
             startDate = calendar.date(byAdding: .day, value: 1, to: startDate) ?? startDate
         }
 
+        let totalMinutes = calendar.dateComponents([.minute], from: wakeUpDate, to: bedTimeDate).minute ?? 0
+        let numberOfNotifications = max(1, Int(Double(totalMinutes) / interval))
+
+        for i in 0..<numberOfNotifications {
+            let minutesToAdd = Int(interval * Double(i))
+            if let triggerDate = calendar.date(byAdding: .minute, value: minutesToAdd, to: startDate) {
+                
+                if isWithinNotificationPeriod(wakeUpTime: wakeUpTime, bedTime: bedTime, for: triggerDate) {
+                    let trigger = UNCalendarNotificationTrigger(
+                        dateMatching: calendar.dateComponents([.hour, .minute], from: triggerDate),
+                        repeats: true
+                    )
+                    let content = createNotificationContent()
+                    let request = UNNotificationRequest(
+                        identifier: "waterReminder_\(i)",
+                        content: content,
+                        trigger: trigger
+                    )
+                    
+                    UNUserNotificationCenter.current().add(request) { error in
+                        if let error = error {
+                            print("❌ Erro ao agendar notificação \(i): \(error)")
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    func removeAllWaterReminders() {
+        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+    }
+
+    private func createNotificationContent() -> UNMutableNotificationContent {
         let motivationalMessagesKeys = [
             "notificationBody1",
-            "notificationBody2",
+            "notificationBody2", 
             "notificationBody3",
             "notificationBody4",
             "notificationBody5",
             "notificationBody6",
             "notificationBody7"
         ]
-
-        let notificationTitle = NSLocalizedString("notificationTitle", comment: "")
-        let notificationBody = NSLocalizedString(motivationalMessagesKeys.randomElement() ?? "notificationBody", comment: "")
-
         let content = UNMutableNotificationContent()
-        content.title = notificationTitle
-        content.body = notificationBody
+        content.title = NSLocalizedString("notificationTitle", comment: "")
+        content.body = NSLocalizedString(motivationalMessagesKeys.randomElement() ?? "notificationBody", comment: "")
         content.sound = UNNotificationSound(named: UNNotificationSoundName("water.caf"))
-        
+
         let totalMinutes = calendar.dateComponents([.minute], from: wakeUpDate, to: bedTimeDate).minute ?? 0
         let numberOfNotifications = Int(Double(totalMinutes) / interval)
 
@@ -94,13 +121,9 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
                 }
             }
         }
+        return content
     }
-    
-    func removeAllWaterReminders() {
-        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-    }
-    
-    // MARK: - Funções Auxiliares
+
     private func convertTimeStringToDate(_ timeString: String) -> Date? {
         let formatter = DateFormatter()
         formatter.dateFormat = "HH:mm"
