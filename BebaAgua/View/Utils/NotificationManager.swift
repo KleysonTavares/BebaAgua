@@ -7,12 +7,14 @@
 
 import UserNotifications
 import SwiftUI
+import WidgetKit
 
-class NotificationManager {
+class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
     static let shared = NotificationManager()
-    
-    private init() {}
-    
+    private let suiteName = "group.com.kleysontavares.bebaagua"
+
+    private override init() {}
+
     // MARK: - Configuração Básica
     func requestNotificationPermission(completion: ((Bool) -> Void)? = nil) {
         let center = UNUserNotificationCenter.current()
@@ -25,26 +27,25 @@ class NotificationManager {
             completion?(granted)
         }
     }
-    
+
     // MARK: - Agendamento de Notificações
     func scheduleDailyNotifications(wakeUpTime: String, bedTime: String, interval: Double) {
         removeAllWaterReminders()
-        
+
         guard let wakeUpDate = convertTimeStringToDate(wakeUpTime),
               let bedTimeDate = convertTimeStringToDate(bedTime) else {
             print("Horários inválidos")
             return
         }
-        
+
         let calendar = Calendar.current
         let now = Date()
-        
-        // Calcular data de início (hoje no wakeUpTime ou amanhã se já passou)
+
         var startDate = calendar.date(bySettingHour: calendar.component(.hour, from: wakeUpDate),
-                                         minute: calendar.component(.minute, from: wakeUpDate),
-                                         second: 0,
-                                         of: now) ?? now
-        
+                                          minute: calendar.component(.minute, from: wakeUpDate),
+                                          second: 0,
+                                          of: now) ?? now
+
         if startDate < now {
             startDate = calendar.date(byAdding: .day, value: 1, to: startDate) ?? startDate
         }
@@ -59,7 +60,6 @@ class NotificationManager {
             "notificationBody7"
         ]
 
-        // Conteúdo da notificação
         let notificationTitle = NSLocalizedString("notificationTitle", comment: "")
         let notificationBody = NSLocalizedString(motivationalMessagesKeys.randomElement() ?? "notificationBody", comment: "")
 
@@ -68,7 +68,6 @@ class NotificationManager {
         content.body = notificationBody
         content.sound = UNNotificationSound(named: UNNotificationSoundName("water.caf"))
         
-        // Calcular notificações no período
         let totalMinutes = calendar.dateComponents([.minute], from: wakeUpDate, to: bedTimeDate).minute ?? 0
         let numberOfNotifications = Int(Double(totalMinutes) / interval)
 
@@ -128,6 +127,41 @@ class NotificationManager {
             return dateMinutes >= wakeUpMinutes && dateMinutes <= bedTimeMinutes
         } else {
             return dateMinutes >= wakeUpMinutes || dateMinutes <= bedTimeMinutes
+        }
+    }
+
+    func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse, withCompletionHandler completionHandler: @escaping () -> Void) {
+        if response.notification.request.identifier == "dailyReset" {
+            syncAndResetIfNeeded()
+        }
+        completionHandler()
+    }
+
+    func syncAndResetIfNeeded() {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MM-yyyy"
+        let today = dateFormatter.string(from: Date())
+        let appDefaults = UserDefaults.standard
+        let widgetDefaults = UserDefaults(suiteName: suiteName)
+        var needsReset = false
+        let appLastResetDate = appDefaults.string(forKey: "lastResetDate") ?? ""
+        let widgetLastResetDate = widgetDefaults?.string(forKey: "lastResetDate") ?? ""
+
+        if appLastResetDate != today || widgetLastResetDate != today {
+            needsReset = true
+        }
+
+        if needsReset {
+            appDefaults.set(0.0, forKey: "waterIntake")
+            appDefaults.set(0.0, forKey: "adjustedGoal")
+            appDefaults.set(today, forKey: "lastResetDate")
+
+            widgetDefaults?.set(0.0, forKey: "waterIntake")
+            widgetDefaults?.set(0.0, forKey: "adjustedGoal")
+            widgetDefaults?.set(today, forKey: "lastResetDate")
+            widgetDefaults?.synchronize()
+
+            WidgetCenter.shared.reloadAllTimelines()
         }
     }
 }
