@@ -36,6 +36,8 @@ struct WaterEntry: TimelineEntry {
             sharedDefaults.set(0.0, forKey: "adjustedGoal")
             sharedDefaults.set(today, forKey: "lastResetDate")
             sharedDefaults.synchronize()
+
+            WidgetCenter.shared.reloadAllTimelines()
         }
     }
 }
@@ -55,7 +57,9 @@ struct WaterProvider: TimelineProvider {
         let entry = WaterEntry(date: currentDate)
         let calendar = Calendar.current
         let nextMidnight = calendar.date(byAdding: .day, value: 1, to: calendar.startOfDay(for: currentDate)) ?? currentDate
-        let timeline = Timeline(entries: [entry], policy: .after(nextMidnight))
+        let midnightEntry = WaterEntry(date: nextMidnight)
+
+        let timeline = Timeline(entries: [entry, midnightEntry], policy: .after(nextMidnight))
         completion(timeline)
     }
 }
