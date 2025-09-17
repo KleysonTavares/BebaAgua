@@ -17,9 +17,28 @@ struct WaterEntry: TimelineEntry {
     init(date: Date) {
         self.date = date
         let sharedDefaults = UserDefaults(suiteName: "group.com.kleysontavares.bebaagua")
+        WaterEntry.checkAndResetDailyIntake(sharedDefaults: sharedDefaults)
         self.waterIntake = sharedDefaults?.double(forKey: "waterIntake") ?? 0
         self.dailyGoal = sharedDefaults?.double(forKey: "dailyGoal") ?? 2000
         self.adjustedGoal = sharedDefaults?.double(forKey: "adjustedGoal") ?? 2000
+    }
+
+    private static func checkAndResetDailyIntake(sharedDefaults: UserDefaults?) {
+        guard let sharedDefaults = sharedDefaults else { return }
+
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "dd-MM-yyyy"
+        let today = dateFormatter.string(from: Date())
+        let lastResetDate = sharedDefaults.string(forKey: "lastResetDate") ?? ""
+
+        if lastResetDate != today {
+            sharedDefaults.set(0.0, forKey: "waterIntake")
+            sharedDefaults.set(0.0, forKey: "adjustedGoal")
+            sharedDefaults.set(today, forKey: "lastResetDate")
+            sharedDefaults.synchronize()
+
+            WidgetCenter.shared.reloadAllTimelines()
+        }
     }
 }
 
@@ -34,8 +53,13 @@ struct WaterProvider: TimelineProvider {
     }
 
     func getTimeline(in context: Context, completion: @escaping (Timeline<WaterEntry>) -> ()) {
-        let entry = WaterEntry(date: Date())
-        let timeline = Timeline(entries: [entry], policy: .after(Date().addingTimeInterval(15 * 60)))
+        let currentDate = Date()
+        let entry = WaterEntry(date: currentDate)
+        let calendar = Calendar.current
+        let nextMidnight = calendar.date(byAdding: .day, value: 1, to: calendar.startOfDay(for: currentDate)) ?? currentDate
+        let midnightEntry = WaterEntry(date: nextMidnight)
+
+        let timeline = Timeline(entries: [entry, midnightEntry], policy: .after(nextMidnight))
         completion(timeline)
     }
 }
@@ -50,7 +74,7 @@ struct WaterWidgetEntryView: View {
     }
     var progress: Double {
         guard goal > 0 else { return 0 }
-        return min(entry.waterIntake / goal, 9.0)
+        return min(entry.waterIntake / goal, 1.0)
     }
 
     var body: some View {

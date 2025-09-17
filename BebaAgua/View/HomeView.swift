@@ -28,80 +28,78 @@ struct HomeView: View {
     @State var dailyGoalAdjust = 0.0
 
     var body: some View {
-            VStack {
-                Spacer()
-                let goal = adjustedGoal > dailyGoal ? adjustedGoal : dailyGoal
-                MotivationalMessageView(progress: waterIntake / goal)
+        VStack {
+            Spacer()
+            let goal = adjustedGoal > dailyGoal ? adjustedGoal : dailyGoal
+            MotivationalMessageView(progress: waterIntake / goal)
 
-                WaterProgressView(progress: waterIntake / goal)
-                    .frame(width: 200, height: 200)
-                    .padding()
-                
-                Text("\(Int(waterIntake)) / \(Int(goal)) ml")
-                    .font(.headline)
-                    .padding()
-                Spacer()
-                
-                HStack(spacing: 20) {
-                    VStack(alignment: .center, spacing: 0) {     // Slider + Label
-                        Text(LocalizedStringKey("cupSize"))
-                            .font(.headline)
-                        
-                        Slider(value: $drinkAmount, in: 100...500, step: 50)
-                            .accentColor(.cyan)
-                            .onChange(of: drinkAmount) { _ in
-                                   SoundManager.shared.playSound(named: "water")
-                               }
+            WaterProgressView(progress: waterIntake / goal)
+                .frame(width: 200, height: 200)
+                .padding()
+            Text("\(Int(waterIntake)) / \(Int(goal)) ml")
+                .font(.headline)
+                .padding()
+            Spacer()
 
-                        Text("\(Int(drinkAmount)) ml")
-                            .foregroundColor(.cyan)
-                            .font(.subheadline)
-                    }
-                    .padding()
-                    .frame(width: 250, height: 80)
-                    .background(
-                        RoundedRectangle(cornerRadius: 16)
-                            .stroke(Color.blue.opacity(0.3), lineWidth: 1)
-                    )
-                    Button(action: {      // Button with image
-                        addWater(amount: drinkAmount)
-                    }) {
-                        Image("addWater")
-                            .resizable()
-                            .aspectRatio(contentMode: .fit)
-                            .frame(width: 70, height: 80)
-                            .cornerRadius(20)
-                    }
+            HStack(spacing: 20) {
+                VStack(alignment: .center, spacing: 0) {    // Slider + Label
+                    Text(LocalizedStringKey("cupSize"))
+                        .font(.headline)
+                    
+                    Slider(value: $drinkAmount, in: 100...500, step: 50)
+                        .accentColor(.cyan)
+                        .onChange(of: drinkAmount) { _ in
+                            SoundManager.shared.playSound(named: "water")
+                        }
+
+                    Text("\(Int(drinkAmount)) ml")
+                        .foregroundColor(.cyan)
+                        .font(.subheadline)
                 }
                 .padding()
-                Spacer()
+                .frame(width: 250, height: 80)
+                .background(
+                    RoundedRectangle(cornerRadius: 16)
+                        .stroke(Color.blue.opacity(0.3), lineWidth: 1)
+                )
+                Button(action: {      // Button with image
+                    addWater(amount: drinkAmount)
+                }) {
+                    Image("addWater")
+                        .resizable()
+                        .aspectRatio(contentMode: .fit)
+                        .frame(width: 70, height: 80)
+                        .cornerRadius(20)
+                }
             }
-            .alert(LocalizedStringKey("notice"), isPresented: $healthKitManager.showAlert) {
-                Button("OK", role: .cancel) { }
-            } message: { Text(healthKitManager.alertMessage) }
-            .onAppear {
-                premiumManager.checkSubscriptionStatus()
-                checkAndResetDailyIntake()
-                NotificationManager.shared.requestNotificationPermission()
-                NotificationManager.shared.scheduleDailyNotifications(wakeUpTime: wakeUpTime, bedTime: bedTime, interval: reminderInterval)
-                isPremiumUser()
-                syncWithAppGroup()
-            }
-            .onReceive(adViewModel.$isAdReady) { isReady in
-                if isReady && !premiumManager.isPremiumUser && !adShown {
-                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                        if let root = UIApplication.shared.connectedScenes
-                            .compactMap({ ($0 as? UIWindowScene)?.keyWindow })
-                            .first?.rootViewController {
-                            adViewModel.showAd(from: root)
-                            adShown = true
-                        }
+            .padding()
+            Spacer()
+        }
+        .alert(LocalizedStringKey("notice"), isPresented: $healthKitManager.showAlert) {
+            Button("OK", role: .cancel) { }
+        } message: { Text(healthKitManager.alertMessage) }
+        .onAppear {
+            premiumManager.checkSubscriptionStatus()
+            NotificationManager.shared.syncAndResetIfNeeded()
+            NotificationManager.shared.requestNotificationPermission()
+            NotificationManager.shared.scheduleDailyNotifications(wakeUpTime: wakeUpTime, bedTime: bedTime, interval: reminderInterval)
+            isPremiumUser()
+        }
+        .onReceive(adViewModel.$isAdReady) { isReady in
+            if isReady && !premiumManager.isPremiumUser && !adShown {
+                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+                    if let root = UIApplication.shared.connectedScenes
+                        .compactMap({ ($0 as? UIWindowScene)?.keyWindow })
+                        .first?.rootViewController {
+                        adViewModel.showAd(from: root)
+                        adShown = true
                     }
                 }
             }
-            .standardScreenStyle()
+        }
+        .standardScreenStyle()
     }
-    
+
     func addWater(amount: Double) {
         withAnimation {
             waterIntake += amount
@@ -109,24 +107,7 @@ struct HomeView: View {
             SoundManager.shared.playSound(named: "drink")
         }
         healthKitManager.saveWaterConsumption(amount: amount)
-        NotificationManager.shared.scheduleDailyNotifications(
-            wakeUpTime: wakeUpTime,
-            bedTime: bedTime,
-            interval: reminderInterval
-        )
-    }
-
-    func checkAndResetDailyIntake() {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd-MM-yyyy"
-
-        let today = dateFormatter.string(from: Date())
-
-        if lastResetDate != today {
-            waterIntake = 0
-            lastResetDate = today
-            adjustedGoal = 0
-        }
+        NotificationManager.shared.scheduleDailyNotifications(wakeUpTime: wakeUpTime, bedTime: bedTime, interval: reminderInterval)
     }
 
     func syncWithAppGroup() {
@@ -134,6 +115,7 @@ struct HomeView: View {
             sharedDefaults.set(waterIntake, forKey: "waterIntake")
             sharedDefaults.set(dailyGoal, forKey: "dailyGoal")
             sharedDefaults.set(adjustedGoal, forKey: "adjustedGoal")
+            sharedDefaults.set(lastResetDate, forKey: "lastResetDate")
             sharedDefaults.synchronize()
         }
         WidgetCenter.shared.reloadAllTimelines()
