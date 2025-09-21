@@ -23,10 +23,12 @@ struct WaterTrackerApp: App {
             if completedOnboarding {
                 MainTabView()
                     .environment(\.managedObjectContext, coreDataManager.persistentContainer.viewContext)
+                    .environmentObject(coreDataManager) // Adicione esta linha
             } else {
                 NavigationStack {
                     WelcomeView()
                         .environment(\.managedObjectContext, coreDataManager.persistentContainer.viewContext)
+                        .environmentObject(coreDataManager) // Adicione esta linha
                 }
             }
         }

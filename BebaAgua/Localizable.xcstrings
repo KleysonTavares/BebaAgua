@@ -81,7 +81,7 @@
         }
       }
     },
-    "Água (ml)" : {
+    "Água (%)" : {
 
     },
     "attention" : {
@@ -177,9 +177,6 @@
       }
     },
     "Conclusão semanal" : {
-
-    },
-    "Consumo de Água" : {
 
     },
     "cupSize" : {
@@ -770,9 +767,6 @@
           }
         }
       }
-    },
-    "Meta (ml)" : {
-
     },
     "motivationalMessage1" : {
       "extractionState" : "manual",

@@ -9,6 +9,12 @@ import SwiftUI
 import Charts
 import CoreData
 
+struct ChartData: Identifiable {
+    let id = UUID()
+    let date: Date
+    let progress: Double
+}
+
 struct HistoryView: View {
     @Environment(\.managedObjectContext) var viewContext
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \DailyIntake.date, ascending: true)]) var dailyIntakeHistory: FetchedResults<DailyIntake>
@@ -21,6 +27,13 @@ struct HistoryView: View {
         case year = "Ano"
     }
 
+    private var chartData: [ChartData] {
+        dailyIntakeHistory.map { intake in
+            let progress = (intake.waterConsumed / dailyGoal) * 100
+            return ChartData(date: intake.date ?? Date(), progress: progress)
+        }
+    }
+    
     private var currentMonthAndYear: String {
         let formatter = DateFormatter()
         formatter.dateFormat = "MMMM yyyy"
@@ -69,16 +82,12 @@ struct HistoryView: View {
             Text(currentMonthAndYear)
                 .font(.headline)
             
-            Chart {
-                ForEach(dailyIntakeHistory.wrappedValue, id: \.self) { intake in
-                    let progress = (intake.waterConsumed / dailyGoal) * 100
-                    
-                    BarMark(
-                        x: .value("Dia", intake.date ?? Date(), unit: .day),
-                        y: .value("Água (%)", progress)
-                    )
-                    .foregroundStyle(progress >= 100 ? .blue.gradient : .gray.gradient)
-                }
+            Chart(chartData) { data in
+                BarMark(
+                    x: .value("Dia", data.date, unit: .day),
+                    y: .value("Água (%)", data.progress)
+                )
+                .foregroundStyle(data.progress >= 100 ? .blue : .gray)
             }
             .frame(height: 200)
             .chartYAxis {
@@ -169,12 +178,13 @@ struct HistoryView: View {
             
             completions.append((day: weekdayString(for: day), didMeetGoal: didMeetGoal))
         }
-        return completions.sorted(by: { $0.day < $1.day })
+        return completions.reversed()
     }
     
     private func weekdayString(for weekday: Int) -> String {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "pt_BR")
+        guard weekday >= 1, weekday <= formatter.weekdaySymbols.count else { return "" }
         return formatter.weekdaySymbols[weekday - 1].prefix(3).capitalized
     }
     

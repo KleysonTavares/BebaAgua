@@ -11,6 +11,7 @@ import WidgetKit
 
 struct HomeView: View {
     @Environment(\.managedObjectContext) var viewContext
+    @EnvironmentObject var coreDataManager: CoreDataManager // Adicione esta linha
 
     @AppStorage("lastResetDate") var lastResetDate: String = ""
     @AppStorage("waterIntake") var waterIntake: Double = 0.0
@@ -105,18 +106,10 @@ struct HomeView: View {
     func addWater(amount: Double) {
         withAnimation {
             waterIntake += amount
-            
+
             // Salva o consumo no Core Data
-            let newIntake = DailyIntake(context: viewContext)
-            newIntake.date = Date()
-            newIntake.waterConsumed = amount
-            
-            do {
-                try viewContext.save()
-            } catch {
-                print("Failed to save to Core Data: \(error.localizedDescription)")
-            }
-            
+            coreDataManager.saveDailyIntake(date: Date(), waterConsumed: amount)
+
             syncWithAppGroup()
             SoundManager.shared.playSound(named: "drink")
         }
