@@ -26,6 +26,9 @@
     "%lld ml" : {
 
     },
+    "%lld ml / dia" : {
+
+    },
     "%lld%%" : {
 
     },
@@ -77,6 +80,9 @@
           }
         }
       }
+    },
+    "Água (ml)" : {
+
     },
     "attention" : {
       "extractionState" : "manual",
@@ -170,6 +176,12 @@
         }
       }
     },
+    "Conclusão semanal" : {
+
+    },
+    "Consumo de Água" : {
+
+    },
     "cupSize" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -261,6 +273,9 @@
           }
         }
       }
+    },
+    "Dia" : {
+
     },
     "editProfile" : {
       "extractionState" : "manual",
@@ -584,6 +599,12 @@
         }
       }
     },
+    "Histórico" : {
+
+    },
+    "history" : {
+
+    },
     "kg" : {
       "localizations" : {
         "en" : {
@@ -628,6 +649,12 @@
           }
         }
       }
+    },
+    "Média mensal" : {
+
+    },
+    "Média semanal" : {
+
     },
     "messageAllowed" : {
       "extractionState" : "manual",
@@ -743,6 +770,9 @@
           }
         }
       }
+    },
+    "Meta (ml)" : {
+
     },
     "motivationalMessage1" : {
       "extractionState" : "manual",
@@ -1180,6 +1210,9 @@
         }
       }
     },
+    "Período" : {
+
+    },
     "permissionCombined" : {
       "extractionState" : "manual",
       "localizations" : {
@@ -1271,6 +1304,9 @@
           }
         }
       }
+    },
+    "Relatório de consumo de água" : {
+
     },
     "save" : {
       "extractionState" : "manual",
