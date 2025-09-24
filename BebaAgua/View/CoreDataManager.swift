@@ -19,8 +19,7 @@ class CoreDataManager: ObservableObject {
             }
         }
     }
-    
-    // Salva um registro de consumo de água
+
     func saveDailyIntake(date: Date, waterConsumed: Double) {
         let fetchRequest: NSFetchRequest<DailyIntake> = DailyIntake.fetchRequest()
         let calendar = Calendar.current
@@ -44,11 +43,8 @@ class CoreDataManager: ObservableObject {
         }
     }
     
-    // Busca registros de consumo de água
     func fetchDailyIntake(for period: String) -> [DailyIntake] {
         let fetchRequest: NSFetchRequest<DailyIntake> = DailyIntake.fetchRequest()
-        
-        // Retorna todos os dados para simplificar, mas você pode usar o `period` para filtrar
         fetchRequest.sortDescriptors = [NSSortDescriptor(keyPath: \DailyIntake.date, ascending: true)]
         
         do {
