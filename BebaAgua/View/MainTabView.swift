@@ -17,7 +17,7 @@ struct MainTabView: View {
 
             HistoryView()
                 .tabItem {
-                    Label(LocalizedStringKey("history"), systemImage: "chart.bar.fill")
+                    Label(LocalizedStringKey("history"), systemImage: "calendar")
                 }
 
             SettingsView()
