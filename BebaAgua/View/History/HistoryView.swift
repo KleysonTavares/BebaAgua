@@ -9,37 +9,27 @@ import SwiftUI
 import Charts
 import CoreData
 
-struct ChartData: Identifiable {
+struct ChartDataPoint: Identifiable {
     let id = UUID()
     let date: Date
-    let progress: Double
+    let value: Double
 }
 
 struct HistoryView: View {
     @Environment(\.managedObjectContext) var viewContext
     @FetchRequest(sortDescriptors: [NSSortDescriptor(keyPath: \DailyIntake.date, ascending: true)]) var dailyIntakeHistory: FetchedResults<DailyIntake>
     
-    @State private var selectedPeriod: Period = .month
+    @State private var currentDate: Date = .now
+    @State private var selectedPeriod: Period = .week
     @AppStorage("dailyGoal") var dailyGoal: Double = 2000
     
     enum Period: String, CaseIterable {
+        case week = "Semana"
         case month = "Mês"
         case year = "Ano"
     }
 
-    private var chartData: [ChartData] {
-        dailyIntakeHistory.map { intake in
-            let progress = (intake.waterConsumed / dailyGoal) * 100
-            return ChartData(date: intake.date ?? Date(), progress: progress)
-        }
-    }
-    
-    private var currentMonthAndYear: String {
-        let formatter = DateFormatter()
-        formatter.dateFormat = "MMMM yyyy"
-        formatter.locale = Locale(identifier: "pt_BR")
-        return formatter.string(from: Date()).capitalized
-    }
+    // MARK: - Body
 
     var body: some View {
         ZStack {
@@ -47,10 +37,12 @@ struct HistoryView: View {
                 .ignoresSafeArea()
             
             VStack {
-                Text("Histórico")
-                    .font(.title)
+                Text("Minhas estatísticas")
+                    .font(.largeTitle)
                     .fontWeight(.bold)
-                    .padding(.top, 40)
+                    .padding(.top)
+
+                dateSelector
                 
                 Picker("Período", selection: $selectedPeriod) {
                     ForEach(Period.allCases, id: \.self) { period in
@@ -58,15 +50,16 @@ struct HistoryView: View {
                     }
                 }
                 .pickerStyle(SegmentedPickerStyle())
-                .padding(.horizontal)
+                .padding()
                 
-                Spacer()
-                
-                chartSection
-                
-                Spacer()
-                
-                weeklyCompletion
+                switch selectedPeriod {
+                case .week:
+                    WeeklyChartView(history: dailyIntakeHistory, date: currentDate, dailyGoal: dailyGoal)
+                case .month:
+                    MonthlyChartView(history: dailyIntakeHistory, date: currentDate, dailyGoal: dailyGoal)
+                case .year:
+                    YearlyChartView(history: dailyIntakeHistory, date: currentDate, dailyGoal: dailyGoal)
+                }
                 
                 Spacer()
                 
@@ -77,72 +70,36 @@ struct HistoryView: View {
         }
     }
     
-    var chartSection: some View {
-        VStack(alignment: .leading) {
-            Text(currentMonthAndYear)
-                .font(.headline)
+    // MARK: - Subviews
+
+    private var dateSelector: some View {
+        HStack {
+            Button(action: {
+                changeDate(by: -1)
+            }) {
+                Image(systemName: "chevron.left")
+            }
             
-            Chart(chartData) { data in
-                BarMark(
-                    x: .value("Dia", data.date, unit: .day),
-                    y: .value("Água (%)", data.progress)
-                )
-                .foregroundStyle(data.progress >= 100 ? .blue : .gray)
-            }
-            .frame(height: 200)
-            .chartYAxis {
-                AxisMarks(values: [0, 25, 50, 75, 100]) { value in
-                    AxisGridLine(stroke: StrokeStyle(lineWidth: 1))
-                    AxisTick()
-                    AxisValueLabel("\(Int(value.as(Double.self) ?? 0))%")
-                }
-            }
-            .chartXAxis {
-                AxisMarks(values: .automatic) { value in
-                    AxisGridLine(stroke: StrokeStyle(lineWidth: 1))
-                    AxisTick()
-                    AxisValueLabel(format: .dateTime.day(.defaultDigits))
-                }
+            Text(dateSelectorTitle)
+                .font(.headline)
+                .fontWeight(.semibold)
+            
+            Button(action: {
+                changeDate(by: 1)
+            }) {
+                Image(systemName: "chevron.right")
             }
         }
         .padding()
-        .background(Color(.secondarySystemBackground))
-        .cornerRadius(10)
-        .padding(.horizontal)
     }
-    
-    var weeklyCompletion: some View {
-        VStack(alignment: .leading) {
-            Text("Conclusão semanal")
-                .font(.headline)
-            
-            HStack(spacing: 16) {
-                ForEach(weeklyCompletionData(), id: \.day) { data in
-                    VStack {
-                        Circle()
-                            .fill(data.didMeetGoal ? Color.blue : Color.gray)
-                            .frame(width: 40, height: 40)
-                        Text(data.day)
-                            .font(.caption)
-                    }
-                }
-            }
-        }
-        .padding()
-        .background(Color(.secondarySystemBackground))
-        .cornerRadius(10)
-        .padding(.horizontal)
-    }
-    
+
     var reportSection: some View {
         VStack(alignment: .leading, spacing: 10) {
             Text("Relatório de consumo de água")
                 .font(.headline)
             
             HStack {
-                Circle()
-                    .fill(.green)
-                    .frame(width: 10, height: 10)
+                Circle().fill(.green).frame(width: 10, height: 10)
                 Text("Média semanal")
                 Spacer()
                 Text("\(Int(weeklyAverage())) ml / dia")
@@ -150,9 +107,7 @@ struct HistoryView: View {
             }
             
             HStack {
-                Circle()
-                    .fill(.blue)
-                    .frame(width: 10, height: 10)
+                Circle().fill(.blue).frame(width: 10, height: 10)
                 Text("Média mensal")
                 Spacer()
                 Text("\(Int(monthlyAverage())) ml / dia")
@@ -165,40 +120,48 @@ struct HistoryView: View {
         .padding(.horizontal)
     }
 
-    private func weeklyCompletionData() -> [(day: String, didMeetGoal: Bool)] {
-        let calendar = Calendar.current
-        let today = Date()
-        var completions: [(day: String, didMeetGoal: Bool)] = []
-        
-        for i in 0..<7 {
-            let date = calendar.date(byAdding: .day, value: -i, to: today)!
-            let day = calendar.component(.weekday, from: date)
-            let dailyIntake = dailyIntakeHistory.first(where: { calendar.isDate($0.date ?? Date(), inSameDayAs: date) })
-            let didMeetGoal = (dailyIntake?.waterConsumed ?? 0.0) >= dailyGoal
-            
-            completions.append((day: weekdayString(for: day), didMeetGoal: didMeetGoal))
-        }
-        return completions.reversed()
-    }
-    
-    private func weekdayString(for weekday: Int) -> String {
+    // MARK: - Helper Properties & Functions
+
+    private var dateSelectorTitle: String {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "pt_BR")
-        guard weekday >= 1, weekday <= formatter.weekdaySymbols.count else { return "" }
-        return formatter.weekdaySymbols[weekday - 1].prefix(3).capitalized
+        switch selectedPeriod {
+        case .week:
+            let week = Calendar.current.dateInterval(of: .weekOfYear, for: currentDate)!
+            formatter.dateFormat = "d 'de' MMM"
+            return "\(formatter.string(from: week.start)) - \(formatter.string(from: week.end.addingTimeInterval(-1)))"
+        case .month:
+            formatter.dateFormat = "MMMM 'de' yyyy"
+            return formatter.string(from: currentDate).capitalized
+        case .year:
+            formatter.dateFormat = "yyyy"
+            return formatter.string(from: currentDate)
+        }
+    }
+
+    private func changeDate(by value: Int) {
+        let calendar = Calendar.current
+        switch selectedPeriod {
+        case .week:
+            currentDate = calendar.date(byAdding: .weekOfYear, value: value, to: currentDate) ?? currentDate
+        case .month:
+            currentDate = calendar.date(byAdding: .month, value: value, to: currentDate) ?? currentDate
+        case .year:
+            currentDate = calendar.date(byAdding: .year, value: value, to: currentDate) ?? currentDate
+        }
     }
     
     private func weeklyAverage() -> Double {
-        let lastWeek = dailyIntakeHistory.filter { $0.date ?? Date() >= Calendar.current.date(byAdding: .day, value: -7, to: Date())! }
+        let weekAgo = Calendar.current.date(byAdding: .day, value: -7, to: Date())!
+        let lastWeek = dailyIntakeHistory.filter { $0.date ?? Date() >= weekAgo }
         guard !lastWeek.isEmpty else { return 0 }
-        let total = lastWeek.reduce(0) { $0 + ($1.waterConsumed) }
-        return total / Double(lastWeek.count)
+        return lastWeek.reduce(0) { $0 + $1.waterConsumed } / Double(lastWeek.count)
     }
     
     private func monthlyAverage() -> Double {
-        let lastMonth = dailyIntakeHistory.filter { $0.date ?? Date() >= Calendar.current.date(byAdding: .month, value: -1, to: Date())! }
+        let monthAgo = Calendar.current.date(byAdding: .month, value: -1, to: Date())!
+        let lastMonth = dailyIntakeHistory.filter { $0.date ?? Date() >= monthAgo }
         guard !lastMonth.isEmpty else { return 0 }
-        let total = lastMonth.reduce(0) { $0 + ($1.waterConsumed) }
-        return total / Double(lastMonth.count)
+        return lastMonth.reduce(0) { $0 + $1.waterConsumed } / Double(lastMonth.count)
     }
 }
