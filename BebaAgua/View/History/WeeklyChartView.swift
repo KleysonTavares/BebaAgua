@@ -32,8 +32,8 @@ struct WeeklyChartView: View {
     var body: some View {
         Chart(data) { point in
             LineMark(
-                x: .value("Dia", point.date, unit: .weekday),
-                y: .value("Progresso", point.value)
+                x: .value(LocalizedStringKey("day"), point.date, unit: .weekday),
+                y: .value(LocalizedStringKey("progress"), point.value)
             )
             .interpolationMethod(.monotone)
             .foregroundStyle(
@@ -45,15 +45,15 @@ struct WeeklyChartView: View {
             )
             
             PointMark( // linha
-                x: .value("Dia", point.date, unit: .weekday),
-                y: .value("Progresso", point.value)
+                x: .value(LocalizedStringKey("day"), point.date, unit: .weekday),
+                y: .value(LocalizedStringKey("progress"), point.value)
             )
             .foregroundStyle(Color.white)
             .symbolSize(CGSize(width: 8, height: 8))
             
             PointMark(  // Circulo
-                x: .value("Dia", point.date, unit: .weekday),
-                y: .value("Progresso", point.value)
+                x: .value(LocalizedStringKey("day"), point.date, unit: .weekday),
+                y: .value(LocalizedStringKey("progress"), point.value)
             )
             .foregroundStyle(Color.blue)
             .symbolSize(CGSize(width: 6, height: 6))

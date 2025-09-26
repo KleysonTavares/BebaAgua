@@ -40,15 +40,15 @@ struct YearlyChartView: View {
     
     var body: some View {
         Chart(data) { point in
-            LineMark(x: .value("Mês", point.date, unit: .month), y: .value("Progresso", point.value))
+            LineMark(x: .value(LocalizedStringKey("month"), point.date, unit: .month), y: .value("progress", point.value))
                 .interpolationMethod(.monotone)
                 .foregroundStyle(LinearGradient(gradient: Gradient(colors: [Color.blue.opacity(0.6), Color.cyan.opacity(0.8)]), startPoint: .top, endPoint: .bottom))
             
-            PointMark(x: .value("Mês", point.date, unit: .month), y: .value("Progresso", point.value))
+            PointMark(x: .value(LocalizedStringKey("month"), point.date, unit: .month), y: .value("progress", point.value))
                 .foregroundStyle(Color.white)
                 .symbolSize(CGSize(width: 8, height: 8))
 
-            PointMark(x: .value("Mês", point.date, unit: .month), y: .value("Progresso", point.value))
+            PointMark(x: .value(LocalizedStringKey("month"), point.date, unit: .month), y: .value("progress", point.value))
                 .foregroundStyle(Color.blue)
                 .symbolSize(CGSize(width: 6, height: 6))
         }

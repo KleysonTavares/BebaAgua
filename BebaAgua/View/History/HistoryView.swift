@@ -24,9 +24,9 @@ struct HistoryView: View {
     @AppStorage("dailyGoal") var dailyGoal: Double = 2000
     
     enum Period: String, CaseIterable {
-        case week = "Semana"
-        case month = "Mês"
-        case year = "Ano"
+        case week = "week"
+        case month = "month"
+        case year = "year"
     }
 
     // MARK: - Body
@@ -37,16 +37,11 @@ struct HistoryView: View {
                 .ignoresSafeArea()
             
             VStack {
-                Text("Minhas estatísticas")
-                    .font(.largeTitle)
-                    .fontWeight(.bold)
-                    .padding(.top)
-
                 dateSelector
                 
-                Picker("Período", selection: $selectedPeriod) {
+                Picker("period", selection: $selectedPeriod) {
                     ForEach(Period.allCases, id: \.self) { period in
-                        Text(period.rawValue).tag(period)
+                        Text(LocalizedStringKey(period.rawValue)).tag(period)
                     }
                 }
                 .pickerStyle(SegmentedPickerStyle())
@@ -92,25 +87,28 @@ struct HistoryView: View {
         }
         .padding()
     }
-
+   
+    let day = LocalizedStringKey("day")
     var reportSection: some View {
         VStack(alignment: .leading, spacing: 10) {
-            Text("Relatório de consumo de água")
-                .font(.headline)
-            
+
+            let weeklyAverage = weeklyAverage()
+            let percentWeek = Int((weeklyAverage/dailyGoal) * 100)
             HStack {
                 Circle().fill(.green).frame(width: 10, height: 10)
-                Text("Média semanal")
+                Text(LocalizedStringKey("weeklyAverage"))
                 Spacer()
-                Text("\(Int(weeklyAverage())) ml / dia")
+                Text("\(Int(weeklyAverage)) ml - \(percentWeek)%")
                     .foregroundColor(.secondary)
             }
-            
+
+            let monthlyAverage = monthlyAverage()
+            let percentMonthly = Int((monthlyAverage/dailyGoal) * 100)
             HStack {
                 Circle().fill(.blue).frame(width: 10, height: 10)
-                Text("Média mensal")
+                Text(LocalizedStringKey("monthlyAverage"))
                 Spacer()
-                Text("\(Int(monthlyAverage())) ml / dia")
+                Text("\(Int(monthlyAverage)) ml - \(percentMonthly)%")
                     .foregroundColor(.secondary)
             }
         }
