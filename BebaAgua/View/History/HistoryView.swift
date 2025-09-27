@@ -111,6 +111,16 @@ struct HistoryView: View {
                 Text("\(Int(monthlyAverage)) ml - \(percentMonthly)%")
                     .foregroundColor(.secondary)
             }
+
+            HStack {
+                Circle().fill(.red).frame(width: 10, height: 10)
+                Text(LocalizedStringKey("drinkingFrequency"))
+                Spacer()
+                Text("\(dailyFrequencyAverage()) - ")
+                    .foregroundColor(.secondary)
+                + Text(LocalizedStringKey("times"))
+                    .foregroundColor(.secondary)
+            }
         }
         .padding()
         .background(Color(.secondarySystemBackground))
@@ -162,4 +172,12 @@ struct HistoryView: View {
         guard !lastMonth.isEmpty else { return 0 }
         return lastMonth.reduce(0) { $0 + $1.waterConsumed } / Double(lastMonth.count)
     }
+
+    private func dailyFrequencyAverage() -> Int {
+        let monthAgo = Calendar.current.date(byAdding: .month, value: -1, to: Date())!
+        let lastMonthData = dailyIntakeHistory.filter { $0.date ?? Date() >= monthAgo }
+        guard !lastMonthData.isEmpty else { return 0 }
+        let totalDrinks = lastMonthData.reduce(0) { $0 + $1.drinkCount }
+        return Int(totalDrinks)
+        }
 }
