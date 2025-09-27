@@ -34,9 +34,12 @@ class CoreDataManager: ObservableObject {
             } else {
                 dailyIntake = DailyIntake(context: persistentContainer.viewContext)
                 dailyIntake.date = today
+                dailyIntake.waterConsumed = 0
+                dailyIntake.drinkCount = 0
             }
             
             dailyIntake.waterConsumed += waterConsumed
+            dailyIntake.drinkCount += 1
             try persistentContainer.viewContext.save()
         } catch {
             print("Falha ao salvar registro diário: \(error.localizedDescription)")
