@@ -10,6 +10,9 @@
     "%lld" : {
 
     },
+    "%lld - " : {
+
+    },
     "%lld / %lld ml" : {
       "localizations" : {
         "en" : {
@@ -32,16 +35,6 @@
           "stringUnit" : {
             "state" : "new",
             "value" : "%1$lld ml - %2$lld%%"
-          }
-        }
-      }
-    },
-    "%lld ml / %lld%%" : {
-      "localizations" : {
-        "en" : {
-          "stringUnit" : {
-            "state" : "new",
-            "value" : "%1$lld ml / %2$lld%%"
           }
         }
       }
@@ -300,6 +293,29 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "DESENVOLVEDOR"
+          }
+        }
+      }
+    },
+    "drinkingFrequency" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Drinking frequency"
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Frecuencia Diaria"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "Frequência Diária"
           }
         }
       }
@@ -1489,6 +1505,29 @@
           "stringUnit" : {
             "state" : "translated",
             "value" : "Compartilhar app"
+          }
+        }
+      }
+    },
+    "times" : {
+      "extractionState" : "manual",
+      "localizations" : {
+        "en" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "times"
+          }
+        },
+        "es-419" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "veces"
+          }
+        },
+        "pt-BR" : {
+          "stringUnit" : {
+            "state" : "translated",
+            "value" : "vezes"
           }
         }
       }
