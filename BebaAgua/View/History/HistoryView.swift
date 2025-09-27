@@ -136,10 +136,10 @@ struct HistoryView: View {
         switch selectedPeriod {
         case .week:
             let week = Calendar.current.dateInterval(of: .weekOfYear, for: currentDate)!
-            formatter.dateFormat = "d 'de' MMM"
+            formatter.dateFormat = "d MMM"
             return "\(formatter.string(from: week.start)) - \(formatter.string(from: week.end.addingTimeInterval(-1)))"
         case .month:
-            formatter.dateFormat = "MMMM 'de' yyyy"
+            formatter.dateFormat = "MMMM yyyy"
             return formatter.string(from: currentDate).capitalized
         case .year:
             formatter.dateFormat = "yyyy"
