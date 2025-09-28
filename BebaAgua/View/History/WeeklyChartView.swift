@@ -58,6 +58,7 @@ struct WeeklyChartView: View {
             .foregroundStyle(Color.blue)
             .symbolSize(CGSize(width: 6, height: 6))
         }
+        .chartYScale(domain: 0...100)
         .chartYAxis {
             AxisMarks(values: [0, 20, 40, 60, 80, 100]) { value in
                 AxisGridLine(stroke: StrokeStyle(lineWidth: 1, dash: [3, 3]))
