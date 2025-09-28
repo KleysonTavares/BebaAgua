@@ -10,6 +10,9 @@ import UserNotifications
 import WidgetKit
 
 struct HomeView: View {
+    @Environment(\.managedObjectContext) var viewContext
+    @EnvironmentObject var coreDataManager: CoreDataManager
+
     @AppStorage("lastResetDate") var lastResetDate: String = ""
     @AppStorage("waterIntake") var waterIntake: Double = 0.0
     @AppStorage("drinkAmount") var drinkAmount: Double = 200
@@ -103,6 +106,7 @@ struct HomeView: View {
     func addWater(amount: Double) {
         withAnimation {
             waterIntake += amount
+            coreDataManager.saveDailyIntake(date: Date(), waterConsumed: amount)
             syncWithAppGroup()
             SoundManager.shared.playSound(named: "drink")
         }
@@ -135,9 +139,3 @@ struct HomeView: View {
         }
     }
 }
-
-//struct ContentView_Previews: PreviewProvider {
-//    static var previews: some View {
-//        HomeView()
-//    }
-//}

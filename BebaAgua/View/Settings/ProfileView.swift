@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct ProfileView: View {
-    @Environment(\.dismiss) var dismiss  // Adiciona isso no início da View
+    @Environment(\.dismiss) var dismiss
 
     @AppStorage("gender") var gender: Gender = .male
     @AppStorage("age") var age: Int = 18
@@ -137,9 +137,3 @@ struct ProfileView: View {
         )
     }
 }
-
-    struct OnboardingView_Previews: PreviewProvider {
-        static var previews: some View {
-            ProfileView()
-        }
-    }

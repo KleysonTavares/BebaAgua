@@ -15,6 +15,11 @@ struct MainTabView: View {
                     Label(LocalizedStringKey("daily"), systemImage: "drop")
                 }
 
+            HistoryView()
+                .tabItem {
+                    Label(LocalizedStringKey("history"), systemImage: "calendar")
+                }
+
             SettingsView()
                 .tabItem {
                     Label(LocalizedStringKey("settings"), systemImage: "gearshape")
