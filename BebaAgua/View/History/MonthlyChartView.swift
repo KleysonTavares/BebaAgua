@@ -26,7 +26,8 @@ struct MonthlyChartView: View {
             let day = calendar.date(byAdding: .day, value: i, to: monthInterval.start)!
             let intake = history.first { calendar.isDate($0.date ?? .now, inSameDayAs: day) }
             let progress = ((intake?.waterConsumed ?? 0) / dailyGoal) * 100
-            points.append(ChartDataPoint(date: day, value: max(0, progress)))
+            let cappedProgress = min(progress, 100)
+            points.append(ChartDataPoint(date: day, value: max(0, cappedProgress)))
         }
         self.data = points
         

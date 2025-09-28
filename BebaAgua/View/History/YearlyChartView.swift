@@ -25,7 +25,8 @@ struct YearlyChartView: View {
             let monthData = history.filter { $0.date ?? .now >= monthInterval.start && $0.date ?? .now < monthInterval.end }
             let totalProgress = monthData.reduce(0) { $0 + (($1.waterConsumed / dailyGoal) * 100) }
             let avgProgress = monthData.isEmpty ? 0 : totalProgress / Double(monthData.count)
-            points.append(ChartDataPoint(date: monthDate, value: max(0, avgProgress)))
+            let cappedProgress = min(avgProgress, 100)
+            points.append(ChartDataPoint(date: monthDate, value: max(0, cappedProgress)))
         }
         self.data = points
         
