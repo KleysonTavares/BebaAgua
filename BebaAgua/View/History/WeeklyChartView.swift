@@ -32,7 +32,7 @@ struct WeeklyChartView: View {
 
     var body: some View {
         Chart(data) { point in
-            LineMark(
+            BarMark(
                 x: .value(LocalizedStringKey("day"), point.date, unit: .weekday),
                 y: .value(LocalizedStringKey("progress"), point.value)
             )
@@ -44,20 +44,6 @@ struct WeeklyChartView: View {
                     endPoint: .bottom
                 )
             )
-            
-            PointMark( // linha
-                x: .value(LocalizedStringKey("day"), point.date, unit: .weekday),
-                y: .value(LocalizedStringKey("progress"), point.value)
-            )
-            .foregroundStyle(Color.white)
-            .symbolSize(CGSize(width: 8, height: 8))
-            
-            PointMark(  // Circulo
-                x: .value(LocalizedStringKey("day"), point.date, unit: .weekday),
-                y: .value(LocalizedStringKey("progress"), point.value)
-            )
-            .foregroundStyle(Color.blue)
-            .symbolSize(CGSize(width: 6, height: 6))
         }
         .chartYScale(domain: 0...100)
         .chartYAxis {

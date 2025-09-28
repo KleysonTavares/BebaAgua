@@ -44,17 +44,18 @@ struct MonthlyChartView: View {
     
     var body: some View {
         Chart(data) { point in
-            LineMark(x: .value(LocalizedStringKey("day"), point.date, unit: .day), y: .value(LocalizedStringKey("progress"), point.value))
-                .interpolationMethod(.monotone)
-                .foregroundStyle(LinearGradient(gradient: Gradient(colors: [Color.blue.opacity(0.6), Color.cyan.opacity(0.8)]), startPoint: .top, endPoint: .bottom))
-            
-            PointMark(x: .value(LocalizedStringKey("day"), point.date, unit: .day), y: .value(LocalizedStringKey("progress"), point.value))
-                .foregroundStyle(Color.white)
-                .symbolSize(CGSize(width: 8, height: 8))
-            
-            PointMark(x: .value(LocalizedStringKey("day"), point.date, unit: .day), y: .value(LocalizedStringKey("progress"), point.value))
-                .foregroundStyle(Color.blue)
-                .symbolSize(CGSize(width: 6, height: 6))
+            BarMark(
+                x: .value(LocalizedStringKey("day"), point.date, unit: .day),
+                y: .value(LocalizedStringKey("progress"), point.value)
+            )
+            .interpolationMethod(.monotone)
+            .foregroundStyle(
+                LinearGradient(
+                    gradient: Gradient(colors: [Color.blue.opacity(0.6), Color.cyan.opacity(0.8)]),
+                    startPoint: .top,
+                    endPoint: .bottom
+                )
+            )
         }
         .chartYScale(domain: 0...100)
         .chartYAxis {
