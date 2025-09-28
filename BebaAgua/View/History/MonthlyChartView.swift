@@ -65,7 +65,13 @@ struct MonthlyChartView: View {
         .chartXAxis {
             AxisMarks(values: monthLabels) { value in
                 AxisGridLine(stroke: StrokeStyle(lineWidth: 1, dash: [3, 3]))
-                AxisValueLabel(format: .dateTime.day(), centered: false)
+                AxisValueLabel {
+                    if let date = value.as(Date.self) {
+                        Text(date, format: .dateTime.day())
+                            .font(.system(.caption, design: .monospaced))
+                            .frame(width: 20, alignment: .leading)
+                    }
+                }
             }
         }
         .padding()

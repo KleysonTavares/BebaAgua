@@ -61,7 +61,12 @@ struct YearlyChartView: View {
         }
         .chartXAxis {
             AxisMarks(values: yearLabels) { value in
-                AxisValueLabel(format: .dateTime.month(.narrow), centered: true)
+                AxisValueLabel {
+                    if let date = value.as(Date.self) {
+                        Text(date, format: .dateTime.month(.abbreviated))
+                            .frame(width: 20, alignment: .leading)
+                    }
+                }
             }
         }
         .padding()
