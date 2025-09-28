@@ -179,7 +179,7 @@ struct HistoryView: View {
         let monthAgo = Calendar.current.date(byAdding: .month, value: -1, to: Date())!
         let lastMonthData = dailyIntakeHistory.filter { $0.date ?? Date() >= monthAgo }
         guard !lastMonthData.isEmpty else { return 0 }
-        let totalDrinks = lastMonthData.reduce(0) { $0 + $1.drinkCount }
+        let totalDrinks = lastMonthData.reduce(0) { $0 + Int($1.drinkCount) } / lastMonthData.count
         return Int(totalDrinks)
         }
 }
