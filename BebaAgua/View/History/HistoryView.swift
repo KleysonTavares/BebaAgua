@@ -46,6 +46,7 @@ struct HistoryView: View {
                 }
                 .pickerStyle(SegmentedPickerStyle())
                 .padding()
+                .background(RoundedRectangle(cornerRadius: 20).fill(Color.blue))
                 
                 switch selectedPeriod {
                 case .week:
@@ -62,6 +63,7 @@ struct HistoryView: View {
                 
                 Spacer()
             }
+            .padding()
         }
     }
     
