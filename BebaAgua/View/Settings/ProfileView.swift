@@ -92,7 +92,7 @@ struct ProfileView: View {
                 
                 Spacer()
                 
-                Button(LocalizedStringKey("save")) {
+                Button(action: {
                     UserDefaults.standard.set(gender.rawValue, forKey: "gender")
                     UserDefaults.standard.set(age, forKey: "age")
                     UserDefaults.standard.set(weight, forKey: "weight")
@@ -100,8 +100,10 @@ struct ProfileView: View {
                     UserDefaults.standard.set(reminderInterval, forKey: "reminderInterval")
                     NotificationManager.shared.scheduleDailyNotifications(wakeUpTime: wakeUpTime, bedTime: bedTime, interval: reminderInterval)
                     dismiss()
+                }) {
+                    Text(LocalizedStringKey("save"))
+                        .customButton()
                 }
-                .customButton()
                 Spacer()
             }
             .ignoresSafeArea(.keyboard, edges: .bottom)

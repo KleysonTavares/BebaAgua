@@ -17,6 +17,7 @@ struct SettingsView: View {
     @AppStorage("age") var age: Int = 18
     @AppStorage("weight") var weight: Int = 70
     @AppStorage("dailyGoal") var goal: Int = 2000
+    @AppStorage("reminderInterval") var reminderInterval: Double = 60
     
     var body: some View {
         NavigationView {
@@ -39,6 +40,7 @@ struct SettingsView: View {
                     settingsRow(icon: "calendar", iconColor: .green, title: "age", value: "\(age)")
                     settingsRow(icon: "scalemass", iconColor: .red, title: "weight", value: "\(weight) kg")
                     settingsRow(icon: "target", iconColor: .purple, title: "goal", value: "\(goal) ml")
+                    settingsRow(icon: "clock", iconColor: .blue, title: "reminderInterval", value: "\(Int(reminderInterval)) min")
                 }
                 .padding(.vertical, 8)
             }
