@@ -23,7 +23,7 @@ struct MotivationalMessageView: View {
             let currentMessage = messages.first { $0.range.contains(progress) }
             Text(LocalizedStringKey(currentMessage?.message ?? "motivationalMessageDefault"))
                 .font(.title)
-                .foregroundColor(.primary)
+                .foregroundColor(.gray)
                 .multilineTextAlignment(.center)
                 .padding(.horizontal)
                 .id("message-\(progress)")

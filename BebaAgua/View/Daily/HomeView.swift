@@ -39,6 +39,7 @@ struct HomeView: View {
             WaterProgressView(progress: waterIntake / goal)
                 .frame(width: 200, height: 200)
                 .padding()
+                .animation(.easeInOut(duration: 0.5), value: waterIntake)
             Text("\(Int(waterIntake)) / \(Int(goal)) ml")
                 .font(.headline)
                 .padding()
@@ -48,6 +49,7 @@ struct HomeView: View {
                 VStack(alignment: .center, spacing: 0) {    // Slider + Label
                     Text(LocalizedStringKey("cupSize"))
                         .font(.headline)
+                        .foregroundColor(.gray)
                     
                     Slider(value: $drinkAmount, in: 100...500, step: 50)
                         .accentColor(.cyan)
