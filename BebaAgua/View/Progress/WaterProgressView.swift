@@ -14,6 +14,10 @@ struct WaterProgressView: View {
     // Efeitos
     @StateObject private var waveEffect = WaveEffect()
     @StateObject private var causticsEffect = CausticsEffect()
+    
+    var currentColor: Color {
+            progress >= 1.0 ? Color(red: 0.2, green: 0.78, blue: 0.35) : .blue
+        }
 
     var body: some View {
         ZStack {
@@ -21,7 +25,7 @@ struct WaterProgressView: View {
             Circle()
                 .fill(
                     RadialGradient(
-                        gradient: Gradient(colors: [color.opacity(0.4), color.opacity(0.2)]),
+                        gradient: Gradient(colors: [currentColor.opacity(0.4), currentColor.opacity(0.2)]),
                         center: .center,
                         startRadius: 0,
                         endRadius: 100
