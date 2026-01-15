@@ -7,7 +7,6 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		DFC1FAAD2E31AA7A0083A70C /* GoogleMobileAds in Frameworks */ = {isa = PBXBuildFile; productRef = DFC1FAAC2E31AA7A0083A70C /* GoogleMobileAds */; };
 		DFC1FBD22E32BFF20083A70C /* WidgetKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFC1FBD12E32BFF20083A70C /* WidgetKit.framework */; };
 		DFC1FBD42E32BFF20083A70C /* SwiftUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = DFC1FBD32E32BFF20083A70C /* SwiftUI.framework */; };
 		DFC1FBE52E32BFF40083A70C /* WaterWidgetExtension.appex in Embed Foundation Extensions */ = {isa = PBXBuildFile; fileRef = DFC1FBCF2E32BFF20083A70C /* WaterWidgetExtension.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
@@ -114,7 +113,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DFC1FAAD2E31AA7A0083A70C /* GoogleMobileAds in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -200,7 +198,6 @@
 			);
 			name = BebaAgua;
 			packageProductDependencies = (
-				DFC1FAAC2E31AA7A0083A70C /* GoogleMobileAds */,
 			);
 			productName = BebaAgua;
 			productReference = DF74CD682D99DCA8001CABD2 /* BebaAgua.app */;
@@ -312,7 +309,6 @@
 			mainGroup = DF74CD5F2D99DCA8001CABD2;
 			minimizedProjectReferenceProxies = 1;
 			packageReferences = (
-				DFC1FAAB2E31AA790083A70C /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = DF74CD692D99DCA8001CABD2 /* Products */;
@@ -787,25 +783,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		DFC1FAAB2E31AA790083A70C /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/googleads/swift-package-manager-google-mobile-ads";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 12.7.0;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		DFC1FAAC2E31AA7A0083A70C /* GoogleMobileAds */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = DFC1FAAB2E31AA790083A70C /* XCRemoteSwiftPackageReference "swift-package-manager-google-mobile-ads" */;
-			productName = GoogleMobileAds;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = DF74CD602D99DCA8001CABD2 /* Project object */;
 }

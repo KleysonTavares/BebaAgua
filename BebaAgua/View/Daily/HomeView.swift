@@ -24,10 +24,8 @@ struct HomeView: View {
     @AppStorage("showingAuthAlert") var showingAuthAlert: Bool = false
     @StateObject private var healthKitManager = HealthKitManager()
     @StateObject private var premiumManager = PremiumManager()
-    @StateObject private var adViewModel = AdInterstitialViewModel()
     @StateObject private var weatherManager = WeatherManager()
 
-    @State private var adShown = false
     @State var dailyGoalAdjust = 0.0
 
     var body: some View {
@@ -84,23 +82,10 @@ struct HomeView: View {
             Button("OK", role: .cancel) { }
         } message: { Text(healthKitManager.alertMessage) }
         .onAppear {
-            premiumManager.checkSubscriptionStatus()
             NotificationManager.shared.syncAndResetIfNeeded()
             NotificationManager.shared.requestNotificationPermission()
             NotificationManager.shared.scheduleDailyNotifications(wakeUpTime: wakeUpTime, bedTime: bedTime, interval: reminderInterval)
             isPremiumUser()
-        }
-        .onReceive(adViewModel.$isAdReady) { isReady in
-            if isReady && !premiumManager.isPremiumUser && !adShown {
-                DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-                    if let root = UIApplication.shared.connectedScenes
-                        .compactMap({ ($0 as? UIWindowScene)?.keyWindow })
-                        .first?.rootViewController {
-                        adViewModel.showAd(from: root)
-                        adShown = true
-                    }
-                }
-            }
         }
         .standardScreenStyle()
     }
