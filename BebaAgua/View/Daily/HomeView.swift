@@ -85,20 +85,22 @@ struct HomeView: View {
             NotificationManager.shared.syncAndResetIfNeeded()
             NotificationManager.shared.requestNotificationPermission()
             NotificationManager.shared.scheduleDailyNotifications(wakeUpTime: wakeUpTime, bedTime: bedTime, interval: reminderInterval)
+            SoundManager.shared.prepare(sounds: ["drink", "water"])
             isPremiumUser()
         }
         .standardScreenStyle()
     }
 
     func addWater(amount: Double) {
-        withAnimation {
-            waterIntake += amount
+        withAnimation { waterIntake += amount }
+
+        DispatchQueue.global(qos: .userInitiated).async {
             coreDataManager.saveDailyIntake(date: Date(), waterConsumed: amount)
+            healthKitManager.saveWaterConsumption(amount: amount)
             syncWithAppGroup()
-            SoundManager.shared.playSound(named: "drink")
+            NotificationManager.shared.scheduleDailyNotifications(wakeUpTime: wakeUpTime, bedTime: bedTime, interval: reminderInterval)
         }
-        healthKitManager.saveWaterConsumption(amount: amount)
-        NotificationManager.shared.scheduleDailyNotifications(wakeUpTime: wakeUpTime, bedTime: bedTime, interval: reminderInterval)
+            SoundManager.shared.playSound(named: "drink")
     }
 
     func syncWithAppGroup() {
