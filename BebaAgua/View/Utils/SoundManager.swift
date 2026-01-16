@@ -9,23 +9,38 @@ import AVFoundation
 
 class SoundManager {
     static let shared = SoundManager()
-    private var player: AVAudioPlayer?
-
+    private var players: [String: AVAudioPlayer] = [:]
     private init() {}
 
-    func playSound(named name: String, withExtension ext: String = "mp3", volume: Float = 1.0) {
-        guard let url = Bundle.main.url(forResource: name, withExtension: ext) else {
-            print("Som \(name).\(ext) não encontrado.")
-            return
+    func prepare(sounds: [String]) {
+        for sound in sounds {
+            if let url = Bundle.main.url(forResource: sound, withExtension: "mp3") ??
+                Bundle.main.url(forResource: sound, withExtension: "caf") {
+                do {
+                    let player = try AVAudioPlayer(contentsOf: url)
+                    player.prepareToPlay()
+                    players[sound] = player
+                } catch {
+                    print("Erro ao pré-carregar som \(sound): \(error)")
+                }
+            }
         }
+    }
 
-        do {
-            player = try AVAudioPlayer(contentsOf: url)
-            player?.volume = 0.2
-            player?.prepareToPlay()
-            player?.play()
-        } catch {
-            print("Erro ao tocar som: \(error.localizedDescription)")
+    func playSound(named name: String) {
+        if let player = players[name] {
+            if player.isPlaying { player.stop() }
+            player.currentTime = 0
+            player.play()
+        } else {
+            if let url = Bundle.main.url(forResource: name, withExtension: "mp3") ??
+                Bundle.main.url(forResource: name, withExtension: "caf") {
+                try? AVAudioSession.sharedInstance().setCategory(.ambient, mode: .default)
+                try? AVAudioSession.sharedInstance().setActive(true)
+                let player = try? AVAudioPlayer(contentsOf: url)
+                player?.volume = 0.2
+                player?.play()
+            }
         }
     }
 }
