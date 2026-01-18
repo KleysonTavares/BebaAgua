@@ -78,7 +78,7 @@ struct WakeUpSelectionView: View {
        }
     
     func saveWakeUpTime() {
-        UserDefaults.standard.set(formattedTime, forKey: "wakeUpTime")
+        UserDefaults.shared.set(formattedTime, forKey: UserDefaults.Keys.gender)
     }
     
     func progressStep(icon: String, text: String, isSelected: Bool) -> some View {

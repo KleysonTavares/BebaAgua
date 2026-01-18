@@ -104,13 +104,11 @@ struct HomeView: View {
     }
 
     func syncWithAppGroup() {
-        if let sharedDefaults = UserDefaults(suiteName: "group.com.kleysontavares.bebaagua") {
-            sharedDefaults.set(waterIntake, forKey: "waterIntake")
-            sharedDefaults.set(dailyGoal, forKey: "dailyGoal")
-            sharedDefaults.set(adjustedGoal, forKey: "adjustedGoal")
-            sharedDefaults.set(lastResetDate, forKey: "lastResetDate")
-            sharedDefaults.synchronize()
-        }
+        UserDefaults.shared.set(adjustedGoal, forKey: UserDefaults.Keys.adjustedGoal)
+        UserDefaults.shared.set(dailyGoal, forKey: UserDefaults.Keys.dailyGoal)
+        UserDefaults.shared.set(lastResetDate, forKey: UserDefaults.Keys.lastResetDate)
+        UserDefaults.shared.set(waterIntake, forKey: UserDefaults.Keys.waterIntake)
+        UserDefaults.shared.synchronize()
         WidgetCenter.shared.reloadAllTimelines()
     }
 

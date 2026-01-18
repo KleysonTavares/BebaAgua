@@ -75,7 +75,7 @@ struct WeightSelectionView: View {
         }
     
     func saveWeight() {
-        UserDefaults.standard.set(weight, forKey: "weight")
+        UserDefaults.shared.set(weight, forKey: UserDefaults.Keys.weight)
     }
     
     func progressStep(icon: String, text: String, isSelected: Bool) -> some View {
