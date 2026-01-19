@@ -70,9 +70,9 @@ struct GenderSelectionView: View {
         }
     
     func saveGender() {
-        UserDefaults.standard.set(selectedGender.rawValue, forKey: "gender")
+        UserDefaults.shared.set(selectedGender.rawValue, forKey: UserDefaults.Keys.gender)
     }
-    
+
     // Componente para os passos do topo
     func progressStep(icon: String, text: String, isSelected: Bool) -> some View {
         VStack {

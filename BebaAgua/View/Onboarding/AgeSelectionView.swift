@@ -76,7 +76,7 @@ struct AgeSelectionView: View {
     }
     
     func saveAge() {
-        UserDefaults.standard.set(age, forKey: "age")
+        UserDefaults.shared.set(age, forKey: UserDefaults.Keys.age)
     }
     
     func progressStep(icon: String, text: String, isSelected: Bool) -> some View {

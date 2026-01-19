@@ -93,11 +93,7 @@ struct ProfileView: View {
                 Spacer()
                 
                 Button(action: {
-                    UserDefaults.standard.set(gender.rawValue, forKey: "gender")
-                    UserDefaults.standard.set(age, forKey: "age")
-                    UserDefaults.standard.set(weight, forKey: "weight")
-                    UserDefaults.standard.set(dailyGoal, forKey: "dailyGoal")
-                    UserDefaults.standard.set(reminderInterval, forKey: "reminderInterval")
+                    saveProfile()
                     NotificationManager.shared.scheduleDailyNotifications(wakeUpTime: wakeUpTime, bedTime: bedTime, interval: reminderInterval)
                     dismiss()
                 }) {
@@ -107,7 +103,7 @@ struct ProfileView: View {
                 Spacer()
             }
             .ignoresSafeArea(.keyboard, edges: .bottom)
-            .onAppear { // atualiza ao abrir a tela
+            .onAppear {
                 dailyGoal = WaterCalculator.calculateDailyGoal(age: age, weight: weight)
                 configureSegmentedPicker()
             }
@@ -127,6 +123,14 @@ struct ProfileView: View {
         .standardScreenStyle()
     }
     
+    func saveProfile() {
+        UserDefaults.shared.set(gender.rawValue, forKey: UserDefaults.Keys.gender)
+        UserDefaults.shared.set(age, forKey: UserDefaults.Keys.age)
+        UserDefaults.shared.set(weight, forKey: UserDefaults.Keys.weight)
+        UserDefaults.shared.set(dailyGoal, forKey: UserDefaults.Keys.dailyGoal)
+        UserDefaults.shared.set(reminderInterval, forKey: UserDefaults.Keys.reminderInterval)
+    }
+
     func configureSegmentedPicker() {
         UISegmentedControl.appearance().selectedSegmentTintColor = .white
         UISegmentedControl.appearance().setTitleTextAttributes(

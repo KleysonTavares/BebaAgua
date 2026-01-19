@@ -132,26 +132,12 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
         let dateFormatter = DateFormatter()
         dateFormatter.dateFormat = "dd-MM-yyyy"
         let today = dateFormatter.string(from: Date())
-        let appDefaults = UserDefaults.standard
-        let widgetDefaults = UserDefaults(suiteName: suiteName)
-        var needsReset = false
-        let appLastResetDate = appDefaults.string(forKey: "lastResetDate") ?? ""
-        let widgetLastResetDate = widgetDefaults?.string(forKey: "lastResetDate") ?? ""
+        let appLastResetDate = UserDefaults.shared.string(forKey: UserDefaults.Keys.lastResetDate)
 
-        if appLastResetDate != today || widgetLastResetDate != today {
-            needsReset = true
-        }
-
-        if needsReset {
-            appDefaults.set(0.0, forKey: "waterIntake")
-            appDefaults.set(0.0, forKey: "adjustedGoal")
-            appDefaults.set(today, forKey: "lastResetDate")
-
-            widgetDefaults?.set(0.0, forKey: "waterIntake")
-            widgetDefaults?.set(0.0, forKey: "adjustedGoal")
-            widgetDefaults?.set(today, forKey: "lastResetDate")
-            widgetDefaults?.synchronize()
-
+        if appLastResetDate != today {
+            UserDefaults.shared.set(0.0, forKey: UserDefaults.Keys.waterIntake)
+            UserDefaults.shared.set(0.0, forKey: UserDefaults.Keys.adjustedGoal)
+            UserDefaults.shared.set(today, forKey: UserDefaults.Keys.lastResetDate)
             WidgetCenter.shared.reloadAllTimelines()
         }
     }

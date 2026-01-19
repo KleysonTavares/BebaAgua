@@ -75,10 +75,10 @@ struct BedTimeSelectionView: View {
        }
     
     func saveBedTime() {
-        UserDefaults.standard.set(formattedTime, forKey: "bedTime")
-        UserDefaults.standard.set(WaterCalculator.calculateDailyGoal(age: age, weight: weight), forKey: "dailyGoal")
-        UserDefaults.standard.set(60, forKey: "reminderInterval")
-        UserDefaults.standard.set(true, forKey: "completedOnboarding")
+        UserDefaults.shared.set(formattedTime, forKey: UserDefaults.Keys.bedTime)
+        UserDefaults.shared.set(WaterCalculator.calculateDailyGoal(age: age, weight: weight), forKey: UserDefaults.Keys.dailyGoal)
+        UserDefaults.shared.set(60, forKey: UserDefaults.Keys.reminderInterval)
+        UserDefaults.shared.set(true, forKey: UserDefaults.Keys.completedOnboarding)
     }
     
     func progressStep(icon: String, text: String, isSelected: Bool) -> some View {

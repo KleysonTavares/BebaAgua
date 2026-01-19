@@ -16,29 +16,9 @@ struct WaterEntry: TimelineEntry {
 
     init(date: Date) {
         self.date = date
-        let sharedDefaults = UserDefaults(suiteName: "group.com.kleysontavares.bebaagua")
-        WaterEntry.checkAndResetDailyIntake(sharedDefaults: sharedDefaults)
-        self.waterIntake = sharedDefaults?.double(forKey: "waterIntake") ?? 0
-        self.dailyGoal = sharedDefaults?.double(forKey: "dailyGoal") ?? 2000
-        self.adjustedGoal = sharedDefaults?.double(forKey: "adjustedGoal") ?? 2000
-    }
-
-    private static func checkAndResetDailyIntake(sharedDefaults: UserDefaults?) {
-        guard let sharedDefaults = sharedDefaults else { return }
-
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "dd-MM-yyyy"
-        let today = dateFormatter.string(from: Date())
-        let lastResetDate = sharedDefaults.string(forKey: "lastResetDate") ?? ""
-
-        if lastResetDate != today {
-            sharedDefaults.set(0.0, forKey: "waterIntake")
-            sharedDefaults.set(0.0, forKey: "adjustedGoal")
-            sharedDefaults.set(today, forKey: "lastResetDate")
-            sharedDefaults.synchronize()
-
-            WidgetCenter.shared.reloadAllTimelines()
-        }
+        self.waterIntake = UserDefaults.shared.double(forKey: UserDefaults.Keys.waterIntake)
+        self.dailyGoal = UserDefaults.shared.double(forKey: UserDefaults.Keys.dailyGoal)
+        self.adjustedGoal = UserDefaults.shared.double(forKey: UserDefaults.Keys.adjustedGoal)
     }
 }
 

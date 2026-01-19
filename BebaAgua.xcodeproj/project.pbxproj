@@ -70,6 +70,13 @@
 			);
 			target = DF74CD672D99DCA8001CABD2 /* BebaAgua */;
 		};
+		DF63D98B2F1D94DF00AF7473 /* Exceptions for "BebaAgua" folder in "WaterWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				View/Utils/ExtensionUserDefaults.swift,
+			);
+			target = DFC1FBCE2E32BFF20083A70C /* WaterWidgetExtension */;
+		};
 		DFA09CA82E32EBCE006A00FE /* Exceptions for "WaterWidget" folder in "WaterWidgetExtension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -84,6 +91,7 @@
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				DF4242D62DF90D5600015E36 /* Exceptions for "BebaAgua" folder in "BebaAgua" target */,
+				DF63D98B2F1D94DF00AF7473 /* Exceptions for "BebaAgua" folder in "WaterWidgetExtension" target */,
 			);
 			path = BebaAgua;
 			sourceTree = "<group>";
@@ -545,6 +553,7 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "permitir que BebaAgua salve consumo de água no Health";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "permitir que BebaAgua atualize consumo de água no Health";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Usamos sua localização para ajustar sua meta de hidratação com base no clima.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
@@ -580,6 +589,7 @@
 				INFOPLIST_KEY_LSApplicationCategoryType = "public.app-category.healthcare-fitness";
 				INFOPLIST_KEY_NSHealthClinicalHealthRecordsShareUsageDescription = "permitir que BebaAgua salve consumo de água no Health";
 				INFOPLIST_KEY_NSHealthUpdateUsageDescription = "permitir que BebaAgua atualize consumo de água no Health";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Usamos sua localização para ajustar sua meta de hidratação com base no clima.";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen.storyboard;
