@@ -13,20 +13,24 @@ struct HomeView: View {
     @Environment(\.managedObjectContext) var viewContext
     @EnvironmentObject var coreDataManager: CoreDataManager
 
-    @AppStorage("lastResetDate") var lastResetDate: String = ""
-    @AppStorage("waterIntake") var waterIntake: Double = 0.0
-    @AppStorage("drinkAmount") var drinkAmount: Double = 200
-    @AppStorage("dailyGoal") var dailyGoal: Double = 2000
-    @AppStorage("adjustedGoal") var adjustedGoal: Double = 2000
-    @AppStorage("wakeUpTime") var wakeUpTime: String = "06:00"
-    @AppStorage("bedTime") var bedTime: String = "22:00"
-    @AppStorage("reminderInterval") var reminderInterval: Double = 60
-    @AppStorage("showingAuthAlert") var showingAuthAlert: Bool = false
+    @AppStorage("lastResetDate", store: UserDefaults.shared) var lastResetDate: String = ""
+    @AppStorage("waterIntake", store: UserDefaults.shared) var waterIntake: Double = 0.0
+    @AppStorage("drinkAmount", store: UserDefaults.shared) var drinkAmount: Double = 200
+    @AppStorage("dailyGoal", store: UserDefaults.shared) var dailyGoal: Double = 2000
+    @AppStorage("adjustedGoal", store: UserDefaults.shared) var adjustedGoal: Double = 2000
+    @AppStorage("wakeUpTime", store: UserDefaults.shared) var wakeUpTime: String = "06:00"
+    @AppStorage("bedTime", store: UserDefaults.shared) var bedTime: String = "22:00"
+    @AppStorage("reminderInterval", store: UserDefaults.shared) var reminderInterval: Double = 60
+    @AppStorage("showingAuthAlert", store: UserDefaults.shared) var showingAuthAlert: Bool = false
     @StateObject private var healthKitManager = HealthKitManager()
     @StateObject private var premiumManager = PremiumManager()
     @StateObject private var weatherManager = WeatherManager()
 
     @State var dailyGoalAdjust = 0.0
+
+    init() {
+        NotificationManager.shared.syncAndResetIfNeeded()
+    }
 
     var body: some View {
         VStack {
@@ -82,7 +86,6 @@ struct HomeView: View {
             Button("OK", role: .cancel) { }
         } message: { Text(healthKitManager.alertMessage) }
         .onAppear {
-            NotificationManager.shared.syncAndResetIfNeeded()
             NotificationManager.shared.requestNotificationPermission()
             NotificationManager.shared.scheduleDailyNotifications(wakeUpTime: wakeUpTime, bedTime: bedTime, interval: reminderInterval)
             SoundManager.shared.prepare(sounds: ["drink", "water"])
@@ -97,19 +100,10 @@ struct HomeView: View {
         DispatchQueue.global(qos: .userInitiated).async {
             coreDataManager.saveDailyIntake(date: Date(), waterConsumed: amount)
             healthKitManager.saveWaterConsumption(amount: amount)
-            syncWithAppGroup()
+            WidgetCenter.shared.reloadAllTimelines()
             NotificationManager.shared.scheduleDailyNotifications(wakeUpTime: wakeUpTime, bedTime: bedTime, interval: reminderInterval)
         }
             SoundManager.shared.playSound(named: "drink")
-    }
-
-    func syncWithAppGroup() {
-        UserDefaults.shared.set(adjustedGoal, forKey: UserDefaults.Keys.adjustedGoal)
-        UserDefaults.shared.set(dailyGoal, forKey: UserDefaults.Keys.dailyGoal)
-        UserDefaults.shared.set(lastResetDate, forKey: UserDefaults.Keys.lastResetDate)
-        UserDefaults.shared.set(waterIntake, forKey: UserDefaults.Keys.waterIntake)
-        UserDefaults.shared.synchronize()
-        WidgetCenter.shared.reloadAllTimelines()
     }
 
     func isPremiumUser() {

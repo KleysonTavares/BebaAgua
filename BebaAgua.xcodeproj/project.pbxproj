@@ -70,6 +70,13 @@
 			);
 			target = DF74CD672D99DCA8001CABD2 /* BebaAgua */;
 		};
+		DF63D98B2F1D94DF00AF7473 /* Exceptions for "BebaAgua" folder in "WaterWidgetExtension" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				View/Utils/ExtensionUserDefaults.swift,
+			);
+			target = DFC1FBCE2E32BFF20083A70C /* WaterWidgetExtension */;
+		};
 		DFA09CA82E32EBCE006A00FE /* Exceptions for "WaterWidget" folder in "WaterWidgetExtension" target */ = {
 			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
 			membershipExceptions = (
@@ -84,6 +91,7 @@
 			isa = PBXFileSystemSynchronizedRootGroup;
 			exceptions = (
 				DF4242D62DF90D5600015E36 /* Exceptions for "BebaAgua" folder in "BebaAgua" target */,
+				DF63D98B2F1D94DF00AF7473 /* Exceptions for "BebaAgua" folder in "WaterWidgetExtension" target */,
 			);
 			path = BebaAgua;
 			sourceTree = "<group>";

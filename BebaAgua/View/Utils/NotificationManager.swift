@@ -138,7 +138,6 @@ class NotificationManager: NSObject, UNUserNotificationCenterDelegate {
             UserDefaults.shared.set(0.0, forKey: UserDefaults.Keys.waterIntake)
             UserDefaults.shared.set(0.0, forKey: UserDefaults.Keys.adjustedGoal)
             UserDefaults.shared.set(today, forKey: UserDefaults.Keys.lastResetDate)
-            UserDefaults.shared.synchronize()
             WidgetCenter.shared.reloadAllTimelines()
         }
     }
