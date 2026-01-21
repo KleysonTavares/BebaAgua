@@ -13,11 +13,11 @@ struct SettingsView: View {
     @State private var showMailError = false
     @State private var isShareSheetPresented = false
 
-    @AppStorage("gender") var gender: String = "Male"
-    @AppStorage("age") var age: Int = 18
-    @AppStorage("weight") var weight: Int = 70
-    @AppStorage("dailyGoal") var goal: Int = 2000
-    @AppStorage("reminderInterval") var reminderInterval: Double = 60
+    @AppStorage("gender", store: UserDefaults.shared) var gender: String = "Male"
+    @AppStorage("age", store: UserDefaults.shared) var age: Int = 18
+    @AppStorage("weight", store: UserDefaults.shared) var weight: Int = 70
+    @AppStorage("dailyGoal", store: UserDefaults.shared) var goal: Int = 2000
+    @AppStorage("reminderInterval", store: UserDefaults.shared) var reminderInterval: Double = 60
     
     var body: some View {
         NavigationView {
