@@ -50,6 +50,9 @@
             ReferencedContainer = "container:BebaAgua.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
+      <StoreKitConfigurationFileReference
+         identifier = "../../BebaAgua/View/Settings/BebaAgua.storekit">
+      </StoreKitConfigurationFileReference>
    </LaunchAction>
    <ProfileAction
       buildConfiguration = "Release"
