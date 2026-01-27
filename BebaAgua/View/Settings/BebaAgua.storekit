@@ -1,0 +1,93 @@
+{
+  "identifier" : "BebaAguaConfiguration",
+  "non_renewing_subscriptions" : [
+
+  ],
+  "products" : [
+    {
+      "displayPrice" : "149.90",
+      "familyShareable" : true,
+      "internalID" : "LIFETIME_001",
+      "localizations" : [
+        {
+          "description" : "Acesso vitalício a todos os recursos.",
+          "displayName" : "Compre para sempre",
+          "locale" : "pt_BR"
+        }
+      ],
+      "productID" : "com.bebaagua.lifetime",
+      "referenceName" : "Lifetime Access",
+      "type" : "NonConsumable"
+    }
+  ],
+  "settings" : {
+    "_applicationInternalID" : "6447222453",
+    "_developerTeamID" : "865Y6XU54X",
+    "_lastUsedSyncScreen" : "2"
+  },
+  "subscriptionGroups" : [
+    {
+      "id" : "PREMIUM_SUBS_GROUP",
+      "localizations" : [
+
+      ],
+      "name" : "Premium Access",
+      "subscriptions" : [
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "9.90",
+          "familyShareable" : true,
+          "groupNumber" : 1,
+          "internalID" : "MONTHLY_001",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "Assinatura mensal recorrente.",
+              "displayName" : "Mensal",
+              "locale" : "pt_BR"
+            }
+          ],
+          "productID" : "com.bebaagua.monthly",
+          "recurringSubscriptionPeriod" : "P1M",
+          "referenceName" : "Monthly Subscription",
+          "subscriptionGroupID" : "PREMIUM_SUBS_GROUP",
+          "type" : "RecurringSubscription"
+        },
+        {
+          "adHocOffers" : [
+
+          ],
+          "codeOffers" : [
+
+          ],
+          "displayPrice" : "79.90",
+          "familyShareable" : true,
+          "groupNumber" : 2,
+          "internalID" : "ANNUAL_001",
+          "introductoryOffer" : null,
+          "localizations" : [
+            {
+              "description" : "Assinatura anual com desconto.",
+              "displayName" : "12 Meses",
+              "locale" : "pt_BR"
+            }
+          ],
+          "productID" : "com.bebaagua.annual",
+          "recurringSubscriptionPeriod" : "P1Y",
+          "referenceName" : "Annual Subscription",
+          "subscriptionGroupID" : "PREMIUM_SUBS_GROUP",
+          "type" : "RecurringSubscription"
+        }
+      ]
+    }
+  ],
+  "version" : {
+    "major" : 3,
+    "minor" : 0
+  }
+}
