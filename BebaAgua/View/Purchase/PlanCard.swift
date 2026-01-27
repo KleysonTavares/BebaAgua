@@ -30,7 +30,7 @@ struct PlanCard: View {
                     .background(isSelected ? Color.cyan.opacity(0.05) : Color.clear)
             )
         }
-        .buttonStyle(PlainButtonStyle())
+        .contentShape(Rectangle())
     }
 }
 
