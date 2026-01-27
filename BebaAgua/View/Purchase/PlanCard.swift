@@ -24,13 +24,14 @@ struct PlanCard: View {
                 Text(plan.price).font(.title3.bold()).foregroundColor(.cyan)
             }
             .padding()
+            .contentShape(Rectangle())
             .background(
                 RoundedRectangle(cornerRadius: 15)
                     .stroke(isSelected ? Color.cyan : Color.gray.opacity(0.2), lineWidth: 2)
                     .background(isSelected ? Color.cyan.opacity(0.05) : Color.clear)
             )
         }
-        .contentShape(Rectangle())
+        .buttonStyle(PlainButtonStyle())
     }
 }
 
