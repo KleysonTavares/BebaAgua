@@ -12,6 +12,8 @@ struct SettingsView: View {
     @State private var showMailView = false
     @State private var showMailError = false
     @State private var isShareSheetPresented = false
+    @State private var showingPurchaseView = false
+    @StateObject private var premiumManager = PremiumManager()
 
     @AppStorage("gender") var gender: String = "Male"
     @AppStorage("age") var age: Int = 18
@@ -23,6 +25,9 @@ struct SettingsView: View {
         NavigationView {
             ZStack {
                 List {
+                    if !premiumManager.isPremiumUser {
+                        purchaseSection
+                    }
                     profileSection
                     advanceSection
                     developerSection
@@ -32,6 +37,47 @@ struct SettingsView: View {
         }
     }
 
+    var purchaseSection: some View {
+        Section {
+            Button(action: {
+                showingPurchaseView = true
+            }) {
+                HStack(spacing: 15) {
+                    Image(systemName: "crown.fill")
+                        .font(.title2)
+                        .foregroundColor(.white)
+                        .frame(width: 50, height: 50)
+                        .background(
+                            LinearGradient(gradient: Gradient(colors: [.yellow, .orange]), startPoint: .topLeading, endPoint: .bottomTrailing)
+                        )
+                        .clipShape(Circle())
+                    
+                    VStack(alignment: .leading, spacing: 4) {
+                        Text("Seja PRO")
+                            .font(.headline)
+                            .foregroundColor(.primary)
+                        
+                        Text("Desbloqueie os recursos exclusivos")
+                            .font(.subheadline)
+                            .foregroundColor(.primary)
+                    }
+                    Spacer()
+                    Image(systemName: "chevron.right")
+                        .font(.footnote.bold())
+                        .foregroundColor(.gray)
+                }
+                .padding(.vertical, 8)
+                .transition(.move(edge: .top).combined(with: .opacity))
+            }
+        }
+        .listRowBackground(Color.blue.opacity(0.6))
+        .animation(.default, value: premiumManager.isPremiumUser)
+        .sheet(isPresented: $showingPurchaseView) {
+            PurchaseView()
+        }
+    }
+
+    
     var profileSection: some View {
         Section(header: sectionHeader("profile")) {
             NavigationLink(destination: ProfileView()) {
