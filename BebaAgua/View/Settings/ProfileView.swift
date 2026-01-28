@@ -10,13 +10,21 @@ import SwiftUI
 struct ProfileView: View {
     @Environment(\.dismiss) var dismiss
 
-    @AppStorage("gender") var gender: Gender = .male
-    @AppStorage("age") var age: Int = 18
-    @AppStorage("weight") var weight: Int = 70
-    @AppStorage("dailyGoal") var dailyGoal: Double = 2000
-    @AppStorage("reminderInterval") var reminderInterval: Double = 60
-    @AppStorage("wakeUpTime") var wakeUpTime: String = "06:00"
-    @AppStorage("bedTime") var bedTime: String = "22:00"
+    @AppStorage("gender", store: UserDefaults.shared) var gender: Gender = .male
+    @AppStorage("age", store: UserDefaults.shared) var age: Int = 18
+    @AppStorage("weight", store: UserDefaults.shared) var weight: Int = 70
+    @AppStorage("dailyGoal", store: UserDefaults.shared) var dailyGoal: Double = 2000
+    @AppStorage("reminderInterval", store: UserDefaults.shared) var reminderInterval: Double = 60
+    @AppStorage("wakeUpTime", store: UserDefaults.shared) var wakeUpTime: String = "06:00"
+    @AppStorage("bedTime", store: UserDefaults.shared) var bedTime: String = "22:00"
+    
+    @State private var tempGender: Gender = .male
+    @State private var tempAge: Int = 18
+    @State private var tempWeight: Int = 70
+    @State private var tempDailyGoal: Double = 2000
+    @State private var tempReminderInterval: Double = 60
+    @State private var tempWakeUpDate: Date = Date()
+    @State private var tempBedTimeDate: Date = Date()
 
     let numberFormatter: NumberFormatter = {
         let formatter = NumberFormatter()
@@ -24,14 +32,20 @@ struct ProfileView: View {
         formatter.numberStyle = .none
         return formatter
     }()
-    
+
+    let timeFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "HH:mm"
+        return formatter
+    }()
+
     var body: some View {
         NavigationView {
             VStack {
                 ScrollView {
                     VStack(spacing: 20) {
                         Section(header: Text(LocalizedStringKey("gender")).font(.headline)) {
-                            Picker(LocalizedStringKey("gender"), selection: $gender) {
+                            Picker(LocalizedStringKey("gender"), selection: $tempGender) {
                                 Text(LocalizedStringKey("male")).tag(Gender.male)
                                 Text(LocalizedStringKey("female")).tag(Gender.female)
                             }
@@ -40,54 +54,85 @@ struct ProfileView: View {
                             .background(RoundedRectangle(cornerRadius: 20).fill(Color.blue))
                         }
                         Divider().colorInvert()
-                        
+                        Spacer()
+
                         HStack(spacing: 80) {
                             VStack {
                                 Text(LocalizedStringKey("age"))
                                     .font(.headline)
-                                
-                                Picker(LocalizedStringKey("age"), selection: $age) {
+
+                                Picker(LocalizedStringKey("age"), selection: $tempAge) {
                                     ForEach(1...100, id: \.self) { year in
                                         Text("\(numberFormatter.string(from: NSNumber(value: year)) ?? "\(year)")").tag(year)
                                     }
                                 }
                                 .pickerStyle(WheelPickerStyle())
                                 .frame(width: 120, height: 120)
-                                .onChange(of: age) { _ in
-                                    dailyGoal = WaterCalculator.calculateDailyGoal(age: age, weight: weight)
+                                .onChange(of: tempAge) { _ in
+                                    tempDailyGoal = WaterCalculator.calculateDailyGoal(age: tempAge, weight: tempWeight)
                                 } // Atualiza a meta diária
                             }
-                            
+
                             VStack {
                                 Text(LocalizedStringKey("weightKg"))
                                     .font(.headline)
                                 
-                                Picker(LocalizedStringKey("weight"), selection: $weight) {
+                                Picker(LocalizedStringKey("weight"), selection: $tempWeight) {
                                     ForEach(1...200, id: \.self) { value in
-                                        Text("\(Int(value))").tag(Double(value))
+                                        Text("\(Int(value))").tag(Int(value))
                                     }
                                 }
                                 .pickerStyle(WheelPickerStyle())
                                 .frame(width: 120, height: 120)
-                                .onChange(of: weight) { _ in
-                                    dailyGoal = WaterCalculator.calculateDailyGoal(age: age, weight: weight)
+                                .onChange(of: tempWeight) { _ in
+                                    tempDailyGoal = WaterCalculator.calculateDailyGoal(age: tempAge, weight: tempWeight)
                                 } // Atualiza a meta diária
                             }
                         }
                         Divider().colorInvert()
-                        
+                        Spacer()
+
                         Section(header: Text(LocalizedStringKey("dailyGoal")).font(.headline)) {
-                            Slider(value: $dailyGoal, in: 500...5000, step: 100)
-                            Text("\(Int(dailyGoal)) ml")
+                            Slider(value: $tempDailyGoal, in: 500...5000, step: 100)
+                            Text("\(Int(tempDailyGoal)) ml")
                         }
                         Divider().colorInvert()
-                        
+                        Spacer()
+
                         Section(header: Text(LocalizedStringKey("notificationInterval")).font(.headline)) {
-                            Slider(value: $reminderInterval, in: 15...180, step: 15)
-                            Text("\(Int(reminderInterval)) min")
+                            Slider(value: $tempReminderInterval, in: 15...180, step: 15)
+                            Text("\(Int(tempReminderInterval)) min")
+                        }
+                        Divider().colorInvert()
+                        Spacer()
+
+                        HStack(spacing: 40) {
+                            VStack {
+                                Text(LocalizedStringKey("wakeUpTime"))
+                                    .font(.headline)
+
+                                DatePicker("", selection: $tempWakeUpDate, displayedComponents: .hourAndMinute)
+                                    .datePickerStyle(WheelDatePickerStyle())
+                                    .frame(width: 160, height: 100)
+                                    .labelsHidden()
+                                    .clipped()
+                            }
+                            .padding()
+
+                            VStack {
+                                Text(LocalizedStringKey("bedTime"))
+                                    .font(.headline)
+
+                                DatePicker("", selection: $tempBedTimeDate, displayedComponents: .hourAndMinute)
+                                    .datePickerStyle(WheelDatePickerStyle())
+                                    .frame(width: 160, height: 100)
+                                    .labelsHidden()
+                                    .clipped()
+                            }
                         }
                     }
                     .padding()
+                    Divider().colorInvert()
                 }
                 
                 Spacer()
@@ -104,7 +149,7 @@ struct ProfileView: View {
             }
             .ignoresSafeArea(.keyboard, edges: .bottom)
             .onAppear {
-                dailyGoal = WaterCalculator.calculateDailyGoal(age: age, weight: weight)
+                setupInitialValues()
                 configureSegmentedPicker()
             }
             .standardScreenStyle()
@@ -124,11 +169,23 @@ struct ProfileView: View {
     }
     
     func saveProfile() {
-        UserDefaults.shared.set(gender.rawValue, forKey: UserDefaults.Keys.gender)
-        UserDefaults.shared.set(age, forKey: UserDefaults.Keys.age)
-        UserDefaults.shared.set(weight, forKey: UserDefaults.Keys.weight)
-        UserDefaults.shared.set(dailyGoal, forKey: UserDefaults.Keys.dailyGoal)
-        UserDefaults.shared.set(reminderInterval, forKey: UserDefaults.Keys.reminderInterval)
+        gender = tempGender
+        age = tempAge
+        weight = tempWeight
+        dailyGoal = tempDailyGoal
+        reminderInterval = tempReminderInterval
+        wakeUpTime = timeFormatter.string(from: tempWakeUpDate)
+        bedTime = timeFormatter.string(from: tempBedTimeDate)
+    }
+
+    func setupInitialValues() {
+        tempGender = gender
+        tempAge = age
+        tempWeight = weight
+        tempDailyGoal = dailyGoal
+        tempReminderInterval = reminderInterval
+        tempWakeUpDate = timeFormatter.date(from: wakeUpTime) ?? Date()
+        tempBedTimeDate = timeFormatter.date(from: bedTime) ?? Date()
     }
 
     func configureSegmentedPicker() {
