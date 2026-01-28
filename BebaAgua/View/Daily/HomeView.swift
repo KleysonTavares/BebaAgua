@@ -23,8 +23,8 @@ struct HomeView: View {
     @AppStorage("reminderInterval", store: UserDefaults.shared) var reminderInterval: Double = 60
     @AppStorage("showingAuthAlert", store: UserDefaults.shared) var showingAuthAlert: Bool = false
     @StateObject private var healthKitManager = HealthKitManager()
-    @StateObject private var premiumManager = PremiumManager()
     @StateObject private var weatherManager = WeatherManager()
+    @ObservedObject private var premiumManager = PremiumManager.shared
 
     @State var dailyGoalAdjust = 0.0
 

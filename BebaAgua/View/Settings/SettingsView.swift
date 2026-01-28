@@ -13,7 +13,7 @@ struct SettingsView: View {
     @State private var showMailError = false
     @State private var isShareSheetPresented = false
     @State private var showingPurchaseView = false
-    @StateObject private var premiumManager = PremiumManager()
+    @ObservedObject private var premiumManager = PremiumManager.shared
 
     @AppStorage("gender") var gender: String = "Male"
     @AppStorage("age") var age: Int = 18

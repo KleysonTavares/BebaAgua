@@ -9,8 +9,7 @@ import SwiftUI
 import StoreKit
 
 struct PurchaseView: View {
-    @StateObject private var premiumManager = PremiumManager()
-    @State private var selectedProductId: String = "com.bebaagua.annual"
+    @ObservedObject private var premiumManager = PremiumManager.shared
     @State private var showAlert = false
     @State private var showSuccess = false
     @Environment(\.dismiss) var dismiss
@@ -71,17 +70,24 @@ struct PurchaseView: View {
 
     private var planCardList: some View {
         VStack(spacing: 12) {
-            PlanCard(plan: .monthly, isSelected: selectedProductId == PurchasePlan.monthly.productId) {
-                selectedProductId = PurchasePlan.monthly.productId
+            PlanCard(plan: .monthly, isSelected: premiumManager.selectedProductId == PurchasePlan.monthly.productId) {
+                withAnimation {
+                                premiumManager.selectedProductId = PurchasePlan.monthly.productId
+                            }
             }
-            PlanCard(plan: .annual, isSelected: selectedProductId == PurchasePlan.annual.productId) {
-                selectedProductId = PurchasePlan.annual.productId
+            PlanCard(plan: .annual, isSelected: premiumManager.selectedProductId == PurchasePlan.annual.productId) {
+                withAnimation {
+                                premiumManager.selectedProductId = PurchasePlan.annual.productId
+                            }
             }
-            PlanCard(plan: .lifetime, isSelected: selectedProductId == PurchasePlan.lifetime.productId) {
-                selectedProductId = PurchasePlan.lifetime.productId
+            PlanCard(plan: .lifetime, isSelected: premiumManager.selectedProductId == PurchasePlan.lifetime.productId) {
+                withAnimation {
+                                premiumManager.selectedProductId = PurchasePlan.lifetime.productId
+                            }
             }
         }
         .padding(.horizontal)
+        .disabled(premiumManager.isPurchasing)
     }
 
     private var purchaseButton: some View {
@@ -89,7 +95,7 @@ struct PurchaseView: View {
             purchaseSelectedProduct()
         }) {
             ZStack {
-                Text(selectedProductId == "com.bebaagua.lifetime" ? "COMPRAR AGORA" : "ASSINAR AGORA")
+                Text(premiumManager.selectedProductId == PurchasePlan.lifetime.productId ? "COMPRAR AGORA" : "ASSINAR AGORA")
                     .opacity(premiumManager.isPurchasing ? 0 : 1)
                 if premiumManager.isPurchasing {
                     ProgressView().tint(.white)
@@ -123,7 +129,8 @@ struct PurchaseView: View {
     }
 
     private func purchaseSelectedProduct() {
-        if let product = premiumManager.products.first(where: { $0.id == selectedProductId }) {
+        let currentSelection = premiumManager.selectedProductId
+        if let product = premiumManager.products.first(where: { $0.id == currentSelection }) {
             Task {
                 await premiumManager.purchase(product)
                 if premiumManager.isPremiumUser {

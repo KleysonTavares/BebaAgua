@@ -9,6 +9,9 @@ import StoreKit
 
 @MainActor
 class PremiumManager: ObservableObject {
+    static let shared = PremiumManager()
+
+    @Published var selectedProductId: String = PurchasePlan.annual.productId
     @Published var isPremiumUser = false
     @Published var products: [Product] = []
     @Published var errorMessage: String?
@@ -22,7 +25,7 @@ class PremiumManager: ObservableObject {
 
     private var transactionListener: Task<Void, Error>?
 
-    init() {
+    private init() {
         transactionListener = Task.detached {
             for await result in Transaction.updates {
                 await self.handleTransactionResult(result)
@@ -38,7 +41,11 @@ class PremiumManager: ObservableObject {
     func fetchProducts() async {
         do {
             let storeProducts = try await Product.products(for: productIds)
-            self.products = storeProducts.sorted(by: { $0.price < $1.price })
+            let sortedProducts = storeProducts.sorted(by: { $0.price < $1.price })
+            self.products = sortedProducts
+            if selectedProductId.isEmpty {
+                selectedProductId = PurchasePlan.annual.productId
+            }
         } catch {
             handleStoreError(error)
         }
@@ -107,17 +114,12 @@ class PremiumManager: ObservableObject {
     private func handleTransactionResult(_ result: VerificationResult<Transaction>) async {
         switch result {
         case .verified(let transaction):
-            await MainActor.run {
-                self.isPremiumUser = true
-                self.isPurchasing = false
-            }
+            self.isPremiumUser = true
+            self.isPurchasing = false
             await transaction.finish()
 
         case .unverified(_, let error):
-            print("Transação não verificada: \(error.localizedDescription)")
-            await MainActor.run {
-                self.isPurchasing = false
-            }
+            self.isPurchasing = false
         }
     }
 }
