@@ -15,32 +15,49 @@ struct PurchaseView: View {
     @Environment(\.dismiss) var dismiss
 
     let benefits = [
-        "Acesso ao HealthKit",
-        "Integração com o Clima da Cidade",
-        "Sem Anúncios",
-        "Widgets Exclusivos",
-        "Notificações Avançadas com IA"
+        "purchaseBenefits1",
+        "purchaseBenefits2",
+        "purchaseBenefits3",
+        "purchaseBenefits4",
+        "purchaseBenefits5"
     ]
 
     var body: some View {
-        ZStack {
-            VStack(spacing: 40) {
-                headerView
-                benefitsList
-                planCardList
-                purchaseButton
-            }
-            .blur(radius: showSuccess ? 10 : 0)
-            .disabled(showSuccess)
-            if showSuccess {
-                successOverlay
+        NavigationView {
+            ZStack {
+                VStack(spacing: 40) {
+                    headerView
+                    benefitsList
+                    planCardList
+                    purchaseButton
+                }
+                .blur(radius: showSuccess ? 10 : 0)
+                .disabled(showSuccess)
+                if showSuccess {
+                    successOverlay
+                }
             }
         }
         .standardScreenStyle()
-        .alert("Aviso", isPresented: $showAlert, actions: {
+        .toolbar {
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button(action: {
+                    dismiss()
+                }) {
+                    Image(systemName: "xmark.circle.fill")
+                        .font(.title2)
+                        .foregroundColor(.cyan)
+                }
+            }
+        }
+        .alert(LocalizedStringKey("purchaseAlertTitle"), isPresented: $showAlert, actions: {
             Button("OK", role: .cancel) { premiumManager.errorMessage = nil }
         }, message: {
-            Text(premiumManager.errorMessage ?? "Erro desconhecido")
+            if let message = premiumManager.errorMessage {
+                Text(verbatim: message)
+            } else {
+                Text(LocalizedStringKey("alertUnknownError"))
+            }
         })
         .onChange(of: premiumManager.errorMessage) {
             if premiumManager.errorMessage != nil { showAlert = true }
@@ -49,8 +66,8 @@ struct PurchaseView: View {
 
     private var headerView: some View {
         VStack(spacing: 10) {
-            Text("Mantenha-se hidratado com todos os recursos")
-                .font(.largeTitle.bold())
+            Text(LocalizedStringKey("purchaseTitle"))
+                .font(.title.bold())
                 .multilineTextAlignment(.center)
         }.padding(.top, 40)
     }
@@ -61,7 +78,7 @@ struct PurchaseView: View {
                 HStack(spacing: 15) {
                     Image(systemName: "checkmark.circle.fill")
                         .foregroundColor(.cyan)
-                    Text(benefit)
+                    Text(LocalizedStringKey(benefit))
                 }
             }
         }
@@ -95,7 +112,7 @@ struct PurchaseView: View {
             purchaseSelectedProduct()
         }) {
             ZStack {
-                Text(premiumManager.selectedProductId == PurchasePlan.lifetime.productId ? "COMPRAR AGORA" : "ASSINAR AGORA")
+                Text(premiumManager.selectedProductId == PurchasePlan.lifetime.productId ? LocalizedStringKey("purchaseBuyNow") : LocalizedStringKey("purchaseSubscribeNow"))
                     .opacity(premiumManager.isPurchasing ? 0 : 1)
                 if premiumManager.isPurchasing {
                     ProgressView().tint(.white)
@@ -116,10 +133,10 @@ struct PurchaseView: View {
                 .foregroundColor(.green)
                 .scaleEffect(showSuccess ? 1.0 : 0.5)
                 .animation(.interpolatingSpring(stiffness: 100, damping: 10), value: showSuccess)
-            Text("Assinatura Confirmada!")
+            Text(LocalizedStringKey("purchaseSuccessTitle"))
                 .font(.title2.bold())
                 .foregroundColor(.primary)
-            Text("Agora você é um usuário Premium.")
+            Text(LocalizedStringKey("purchaseSuccessSubtitle"))
                 .font(.subheadline)
                 .foregroundColor(.secondary)
         }

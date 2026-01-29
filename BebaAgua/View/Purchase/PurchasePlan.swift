@@ -5,30 +5,32 @@
 //  Created by Kleyson Tavares on 24/01/26.
 //
 
+import SwiftUI
+
 enum PurchasePlan: String, CaseIterable {
     case monthly, annual, lifetime
 
-    var title: String {
+    var title: LocalizedStringKey {
         switch self {
-        case .monthly: return "7 dias grátis, depois"
-        case .annual: return "12 Meses"
-        case .lifetime: return "Compre para sempre"
+        case .monthly: return LocalizedStringKey("purchaseMonthlyTitle")
+        case .annual: return LocalizedStringKey("purchaseAnnualTitle")
+        case .lifetime: return LocalizedStringKey("purchaseLifetimeTitle")
         }
     }
 
-    var subtitle: String {
+    var subtitle: LocalizedStringKey {
         switch self {
-        case .monthly: return "Cobrado mensalmente"
-        case .annual: return "Economize 30%"
-        case .lifetime: return "Pagamento único"
+        case .monthly: return LocalizedStringKey("purchaseMonthlySubtitle")
+        case .annual: return LocalizedStringKey("purchaseAnnualSubtitle")
+        case .lifetime: return LocalizedStringKey("purchaseLifetimeSubtitle")
         }
     }
 
-    var price: String {
+    var price: LocalizedStringKey {
         switch self {
-        case .monthly: return "R$ 9,90"
-        case .annual: return "R$ 79,90"
-        case .lifetime: return "R$ 149,90"
+        case .monthly: return LocalizedStringKey("purchaseMonthlyPrice")
+        case .annual: return LocalizedStringKey("purchaseAnnualPrice")
+        case .lifetime: return LocalizedStringKey("purchaseLifetimePrice")
         }
     }
 

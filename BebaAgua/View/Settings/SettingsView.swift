@@ -39,42 +39,38 @@ struct SettingsView: View {
 
     var purchaseSection: some View {
         Section {
-            Button(action: {
-                showingPurchaseView = true
-            }) {
-                HStack(spacing: 15) {
-                    Image(systemName: "crown.fill")
-                        .font(.title2)
-                        .foregroundColor(.white)
-                        .frame(width: 50, height: 50)
-                        .background(
-                            LinearGradient(gradient: Gradient(colors: [.yellow, .orange]), startPoint: .topLeading, endPoint: .bottomTrailing)
-                        )
-                        .clipShape(Circle())
-                    
-                    VStack(alignment: .leading, spacing: 4) {
-                        Text("Seja PRO")
-                            .font(.headline)
-                            .foregroundColor(.primary)
-                        
-                        Text("Desbloqueie os recursos exclusivos")
-                            .font(.subheadline)
-                            .foregroundColor(.primary)
+            NavigationLink(destination: PurchaseView()) {
+                Button(action: {
+                    showingPurchaseView = true
+                }) {
+                    HStack(spacing: 15) {
+                        Image(systemName: "crown.fill")
+                            .font(.title2)
+                            .foregroundColor(.white)
+                            .frame(width: 50, height: 50)
+                            .background(
+                                LinearGradient(gradient: Gradient(colors: [.yellow, .orange]), startPoint: .topLeading, endPoint: .bottomTrailing)
+                            )
+                            .clipShape(Circle())
+
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text(LocalizedStringKey("settingsTitle"))
+                                .font(.headline)
+                                .foregroundColor(.white)
+
+                            Text(LocalizedStringKey("settingsSubtitle"))
+                                .font(.subheadline)
+                                .foregroundColor(.white)
+                        }
+                        Spacer()
                     }
-                    Spacer()
-                    Image(systemName: "chevron.right")
-                        .font(.footnote.bold())
-                        .foregroundColor(.gray)
+                    .padding(.vertical, 8)
+                    .transition(.move(edge: .top).combined(with: .opacity))
                 }
-                .padding(.vertical, 8)
-                .transition(.move(edge: .top).combined(with: .opacity))
             }
         }
-        .listRowBackground(Color.blue.opacity(0.6))
+        .listRowBackground(Color.blue.opacity(0.8))
         .animation(.default, value: premiumManager.isPremiumUser)
-        .sheet(isPresented: $showingPurchaseView) {
-            PurchaseView()
-        }
     }
 
     
