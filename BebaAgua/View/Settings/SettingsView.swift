@@ -12,6 +12,8 @@ struct SettingsView: View {
     @State private var showMailView = false
     @State private var showMailError = false
     @State private var isShareSheetPresented = false
+    @State private var showingPurchaseView = false
+    @ObservedObject private var premiumManager = PremiumManager.shared
 
     @AppStorage("gender") var gender: String = "Male"
     @AppStorage("age") var age: Int = 18
@@ -23,6 +25,9 @@ struct SettingsView: View {
         NavigationView {
             ZStack {
                 List {
+                    if !premiumManager.isPremiumUser {
+                        purchaseSection
+                    }
                     profileSection
                     advanceSection
                     developerSection
@@ -32,6 +37,43 @@ struct SettingsView: View {
         }
     }
 
+    var purchaseSection: some View {
+        Section {
+            NavigationLink(destination: PurchaseView()) {
+                Button(action: {
+                    showingPurchaseView = true
+                }) {
+                    HStack(spacing: 15) {
+                        Image(systemName: "crown.fill")
+                            .font(.title2)
+                            .foregroundColor(.white)
+                            .frame(width: 50, height: 50)
+                            .background(
+                                LinearGradient(gradient: Gradient(colors: [.yellow, .orange]), startPoint: .topLeading, endPoint: .bottomTrailing)
+                            )
+                            .clipShape(Circle())
+
+                        VStack(alignment: .leading, spacing: 4) {
+                            Text(LocalizedStringKey("settingsTitle"))
+                                .font(.headline)
+                                .foregroundColor(.white)
+
+                            Text(LocalizedStringKey("settingsSubtitle"))
+                                .font(.subheadline)
+                                .foregroundColor(.white)
+                        }
+                        Spacer()
+                    }
+                    .padding(.vertical, 8)
+                    .transition(.move(edge: .top).combined(with: .opacity))
+                }
+            }
+        }
+        .listRowBackground(Color.blue.opacity(0.8))
+        .animation(.default, value: premiumManager.isPremiumUser)
+    }
+
+    
     var profileSection: some View {
         Section(header: sectionHeader("profile")) {
             NavigationLink(destination: ProfileView()) {
